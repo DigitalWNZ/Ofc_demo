@@ -69,28 +69,74 @@ export default function ContextDetail({ context, onClose }: ContextDetailProps) 
               {parsed.system && (
                 <div className="context-kv-row">
                   <span className="context-kv-key">System</span>
-                  <span className="context-kv-value">{parsed.system}</span>
+                  <span className="context-kv-value">{String(parsed.system)}</span>
                 </div>
               )}
               {parsed.fully_qualified_name && (
                 <div className="context-kv-row">
                   <span className="context-kv-key">Fully Qualified Name</span>
                   <span className="context-kv-value mono">
-                    {parsed.fully_qualified_name}
+                    {String(parsed.fully_qualified_name)}
                   </span>
                 </div>
               )}
               {parsed.parent && (
                 <div className="context-kv-row">
                   <span className="context-kv-key">Parent</span>
-                  <span className="context-kv-value mono">{parsed.parent}</span>
+                  <span className="context-kv-value mono">{String(parsed.parent)}</span>
                 </div>
               )}
               {parsed.description && (
                 <div className="context-kv-row">
                   <span className="context-kv-key">Description</span>
-                  <span className="context-kv-value">{parsed.description}</span>
+                  <span className="context-kv-value">{String(parsed.description)}</span>
                 </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Metadata Badges Section */}
+        {parsed && (parsed.owner || parsed.grain || parsed.database || parsed.schema || parsed.primary_keys || parsed.partitions || parsed.timestamp_column) && (
+          <div className="context-section">
+            <h3 className="context-section-title">Metadata</h3>
+            <div className="context-badges">
+              {parsed.owner && (
+                <span className="context-badge">
+                  <span className="context-badge-label">Owner:</span> {String(parsed.owner)}
+                </span>
+              )}
+              {parsed.grain && (
+                <span className="context-badge">
+                  <span className="context-badge-label">Grain:</span> {String(parsed.grain)}
+                </span>
+              )}
+              {parsed.database && (
+                <span className="context-badge">
+                  <span className="context-badge-label">Database:</span> {String(parsed.database)}
+                </span>
+              )}
+              {parsed.schema && (
+                <span className="context-badge">
+                  <span className="context-badge-label">Schema:</span> {String(parsed.schema)}
+                </span>
+              )}
+              {parsed.primary_keys && (
+                <span className="context-badge">
+                  <span className="context-badge-label">Primary Keys:</span>{' '}
+                  {Array.isArray(parsed.primary_keys) ? (parsed.primary_keys as string[]).join(', ') : String(parsed.primary_keys)}
+                </span>
+              )}
+              {parsed.partitions && (
+                <span className="context-badge">
+                  <span className="context-badge-label">Partitions:</span>{' '}
+                  {Array.isArray(parsed.partitions) ? (parsed.partitions as string[]).join(', ') : String(parsed.partitions)}
+                </span>
+              )}
+              {parsed.timestamp_column && (
+                <span className="context-badge">
+                  <span className="context-badge-label">Timestamp:</span> {String(parsed.timestamp_column)}
+                </span>
               )}
             </div>
           </div>

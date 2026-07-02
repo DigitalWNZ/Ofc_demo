@@ -1,774 +1,1503 @@
-# getapps — Data Layer (table, column nodes)
+# Flood-It! Gaming Analytics — Data Catalog (table, column nodes)
 
-# --- Tables ---
+# ============================================================
+# TABLES
+# ============================================================
 
-- id: table.dwd_iap_order
+# --- Raw / DWD Layer ---
+
+- id: table.events
   type: table
-  name: IAP 订单明细表
-  table_name: dwd_iap_order
-  description: IAP 联运订单明细表，每笔订单一行。pay_type!=1 排除测试订单
+  name: GA4 Event Log
+  table_name: events
+  description: The core event-level table exported from Google Analytics for Firebase, containing all tracked player interactions in the Flood-It! puzzle game. Sourced from firebase-public-project.analytics_153293282.events_*. Each row represents one discrete event such as a screen view, level start, ad impression, or purchase. This is the single source of truth for all downstream engagement and monetization metrics.
   grain: event
+  timestamp_column: event_timestamp
+  primary_keys:
+  - event_timestamp
+  - user_pseudo_id
+  - event_name
+  partitions:
+  - event_date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.user_properties
+  type: table
+  name: Player Properties Snapshot
+  table_name: user_properties
+  description: Player properties snapshot table extracted from the GA4 user_properties repeated field. Stores the latest set of player attributes such as first_open_time, engagement level, and custom user properties. Used for player segmentation, cohort construction, and enriching event-level analysis with stable user traits.
+  grain: snapshot
+  timestamp_column: snapshot_date
+  primary_keys:
+  - user_pseudo_id
+  - property_name
+  partitions:
+  - snapshot_date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.crashlytics_reports
+  type: table
+  name: Crashlytics Reports
+  table_name: crashlytics_reports
+  description: Firebase Crashlytics crash and error reports. Records application crashes, non-fatal errors, and ANR (Application Not Responding) events with stack traces and device context. Used for stability monitoring, crash-free user rate tracking, and prioritizing bug fixes that impact player experience and retention.
+  grain: event
+  timestamp_column: event_date
+  primary_keys:
+  - report_id
+  partitions:
+  - event_date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+# --- DWS Aggregation Layer ---
+
+- id: table.dws_daily_active_users
+  type: table
+  name: Daily Active Users
+  table_name: dws_daily_active_users
+  description: Daily active user metrics aggregation. Pre-computed DAU, WAU, and MAU broken down by platform, country, and user type. The primary source for player engagement KPIs and executive dashboards. Enables fast time-series analysis of player base growth without scanning the raw event log.
+  grain: daily_dimension
   timestamp_column: date
   primary_keys:
-  - order_id
+  - date
+  - platform
+  - country
   partitions:
   - date
-  database: iceberg_alsgprc_hadoop
-  owner: wenchao
-  schema: getapps
-- id: table.dwd_user_event_log
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.dws_revenue_daily
   type: table
-  name: 用户事件日志表
-  table_name: dwd_user_event_log
-  description: GetApps 核心埋点明细表，记录所有 action_type 事件，用户标识为 gaid。所有 GA 
-    口径指标的数据源。支持渠道归因和场景分析。
-  grain: event
+  name: Daily Revenue
+  table_name: dws_revenue_daily
+  description: Daily revenue aggregation across all monetization channels. Combines in-app purchase (IAP) revenue, advertising revenue, and subscription revenue into a unified daily view. Includes derived metrics such as ARPU (average revenue per user), ARPPU (average revenue per paying user), and paying user conversion rate. The single source for all revenue reporting.
+  grain: daily_dimension
   timestamp_column: date
   primary_keys:
-  - gaid
   - date
-  - action_type
-  database: iceberg_alsgprc_hadoop
+  - platform
+  - country
   partitions:
   - date
-  owner: wenchao
-  schema: getapps
-- id: column.dwd_iap_order.order_id
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.dws_level_funnel
+  type: table
+  name: Level Completion Funnel
+  table_name: dws_level_funnel
+  description: Level completion funnel metrics tracking player progression through game levels. Captures starts, completions, failures, time spent, and retry patterns for each level. Essential for game design optimization, difficulty curve balancing, and identifying levels that cause excessive player drop-off.
+  grain: daily_level
+  timestamp_column: date
+  primary_keys:
+  - date
+  - level_number
+  partitions:
+  - date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.dws_session_stats
+  type: table
+  name: Session Statistics
+  table_name: dws_session_stats
+  description: Player session statistics aggregated daily by platform and country. Includes session counts, duration distributions, depth metrics, and engagement patterns. Used for understanding play behavior, identifying engagement trends, and benchmarking session quality across player segments.
+  grain: daily_dimension
+  timestamp_column: date
+  primary_keys:
+  - date
+  - platform
+  - country
+  partitions:
+  - date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.dws_retention_cohort
+  type: table
+  name: Retention Cohort Analysis
+  table_name: dws_retention_cohort
+  description: Player retention cohort analysis with pre-computed retention rates by install cohort. Tracks D1 through D30 retention broken down by platform and country. The key table for measuring long-term player engagement, game stickiness, and the impact of game updates on player loyalty.
+  grain: cohort_day
+  timestamp_column: cohort_date
+  primary_keys:
+  - cohort_date
+  - platform
+  - country
+  partitions:
+  - cohort_date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.dws_acquisition_channel
+  type: table
+  name: Acquisition Channel Performance
+  table_name: dws_acquisition_channel
+  description: User acquisition channel performance metrics aggregated daily. Tracks installs, costs, revenue, and ROI by acquisition source, medium, and campaign. Used for marketing ROI analysis, budget allocation optimization, and identifying the most cost-effective channels for player acquisition.
+  grain: daily_channel
+  timestamp_column: date
+  primary_keys:
+  - date
+  - source
+  - medium
+  partitions:
+  - date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+# --- DIM Dimension Layer ---
+
+- id: table.dim_events
+  type: table
+  name: Event Dimension
+  table_name: dim_events
+  description: Event name dimension table providing business context for raw event data. Maps event names to categories, human-readable descriptions, and metadata flags. Distinguishes auto-collected events from custom events, and identifies which events are marked as conversions for attribution and funnel analysis.
+  grain: snapshot
+  timestamp_column: null
+  primary_keys:
+  - event_name
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.dim_countries
+  type: table
+  name: Country Dimension
+  table_name: dim_countries
+  description: Country and region dimension table providing geographic reference data for player segmentation and regional analysis. Includes hierarchical geography (country, sub-continent, continent), local currency codes, and market tier classifications used for revenue normalization and regional strategy.
+  grain: snapshot
+  timestamp_column: null
+  primary_keys:
+  - country_code
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.dim_devices
+  type: table
+  name: Device Dimension
+  table_name: dim_devices
+  description: Device dimension table containing reference data for device models, brands, and operating systems. Used for device-level performance analysis, compatibility testing prioritization, and understanding the hardware landscape of the player base to guide optimization efforts.
+  grain: snapshot
+  timestamp_column: null
+  primary_keys:
+  - device_model
+  - operating_system
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.dim_items
+  type: table
+  name: In-Game Item Catalog
+  table_name: dim_items
+  description: Master data for all virtual goods, currency packs, and purchasable items in the game. Contains pricing, categorization, rarity, and consumability attributes. Links to revenue and purchase event analysis, enabling monetization teams to evaluate item performance and optimize the in-game economy.
+  grain: snapshot
+  timestamp_column: null
+  primary_keys:
+  - item_id
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+# --- ADS Application Layer ---
+
+- id: table.ads_player_ltv
+  type: table
+  name: Player Lifetime Value
+  table_name: ads_player_ltv
+  description: ML-generated player lifetime value predictions combining historical spending behavior with engagement signals. Provides per-player LTV estimates, confidence scores, percentile rankings, and segment assignments. Used for player valuation, high-value player identification, and marketing targeting to maximize return on acquisition spend.
+  grain: player_snapshot
+  timestamp_column: prediction_date
+  primary_keys:
+  - user_pseudo_id
+  - prediction_date
+  partitions:
+  - prediction_date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.ads_churn_prediction
+  type: table
+  name: Churn Risk Prediction
+  table_name: ads_churn_prediction
+  description: ML model output scoring each player's likelihood of churning within the next 7 days. Includes risk tiers, engagement scores, win-back likelihood, and recommended retention actions. Enables proactive retention interventions such as push notifications, bonus rewards, or personalized offers targeted at at-risk players.
+  grain: player_snapshot
+  timestamp_column: prediction_date
+  primary_keys:
+  - user_pseudo_id
+  - prediction_date
+  partitions:
+  - prediction_date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.ads_ab_test_results
+  type: table
+  name: A/B Test Results
+  table_name: ads_ab_test_results
+  description: Aggregated outcomes of Firebase A/B Testing and Remote Config experiments. Contains statistical significance metrics including p-values, sample sizes, conversion rates, and revenue impact per variant. The authoritative source for data-driven game design decisions, feature rollout evaluations, and monetization experiments.
+  grain: experiment_variant
+  timestamp_column: start_date
+  primary_keys:
+  - experiment_id
+  - variant
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+- id: table.ads_player_segmentation
+  type: table
+  name: Player Behavioral Segments
+  table_name: ads_player_segmentation
+  description: ML-driven player segmentation combining engagement patterns, monetization behavior, and progression signals into actionable player clusters. Assigns each player a behavioral segment, monetization tier, and engagement level. Used for targeted communications, personalized in-game experiences, and LiveOps campaign planning.
+  grain: player_snapshot
+  timestamp_column: segment_date
+  primary_keys:
+  - user_pseudo_id
+  - segment_date
+  partitions:
+  - segment_date
+  database: bigquery
+  owner: analytics_team
+  schema: floodit_analytics
+
+# ============================================================
+# COLUMNS
+# ============================================================
+
+# --- events columns ---
+
+- id: column.events.event_date
   type: column
-  name: order_id
-  table: table.dwd_iap_order
+  name: event_date
+  table: table.events
   data_type: STRING
-  description: 订单唯一ID
-  entity: entity.order
+  description: The date on which the event was logged, formatted as YYYYMMDD. Used as the partition key for efficient date-range queries.
 
-- id: column.dwd_iap_order.user_id
+- id: column.events.event_timestamp
+  type: column
+  name: event_timestamp
+  table: table.events
+  data_type: BIGINT
+  description: Unix timestamp in microseconds when the event was logged on the client device. Primary ordering key for event sequencing.
+
+- id: column.events.event_name
+  type: column
+  name: event_name
+  table: table.events
+  data_type: STRING
+  description: The name of the event (e.g., level_start, level_end, ad_impression, in_app_purchase). Joins to dim_events for category and description lookups.
+  entity: entity.event
+
+- id: column.events.event_value_in_usd
+  type: column
+  name: event_value_in_usd
+  table: table.events
+  data_type: DOUBLE
+  description: The monetary value associated with the event, converted to US dollars. Populated for purchase and ad revenue events; null for non-monetization events.
+
+- id: column.events.user_pseudo_id
+  type: column
+  name: user_pseudo_id
+  table: table.events
+  data_type: STRING
+  description: The pseudonymous identifier for the player, generated by the Firebase SDK. The primary player key used across all analytics tables.
+  entity: entity.player
+
+- id: column.events.user_id
   type: column
   name: user_id
-  table: table.dwd_iap_order
+  table: table.events
   data_type: STRING
-  description: 用户唯一ID
-  entity: entity.user
+  description: The developer-assigned user ID, set via the setUserId API. May be null if the player has not signed in or the app does not set this property.
 
-- id: column.dwd_iap_order.pay_status
+- id: column.events.platform
   type: column
-  name: pay_status
-  table: table.dwd_iap_order
-  data_type: INT
-  description: 支付状态，0=拉起收银台 1=点击支付 2=支付成功 3=关单 5=已发起退款 6=退款成功
-
-- id: column.dwd_iap_order.pay_type
-  type: column
-  name: pay_type
-  table: table.dwd_iap_order
-  data_type: INT
-  description: 支付类型，1=测试订单需排除
-
-- id: column.dwd_iap_order.pay_mid
-  type: column
-  name: pay_mid
-  table: table.dwd_iap_order
+  name: platform
+  table: table.events
   data_type: STRING
-  description: 支付商户ID，H398305=Aptoide订单
+  description: The platform on which the event was recorded (e.g., ANDROID, IOS, WEB). Used for platform-level segmentation and performance comparison.
 
-- id: column.dwd_iap_order.pay_usd
+- id: column.events.device_category
   type: column
-  name: pay_usd
-  table: table.dwd_iap_order
+  name: device_category
+  table: table.events
+  data_type: STRING
+  description: The category of the device (e.g., mobile, tablet, desktop). Useful for understanding player behavior differences across form factors.
+
+- id: column.events.device_mobile_brand
+  type: column
+  name: device_mobile_brand
+  table: table.events
+  data_type: STRING
+  description: The brand of the mobile device (e.g., Samsung, Google, Apple). Used for device-level performance analysis and hardware compatibility tracking.
+
+- id: column.events.device_operating_system
+  type: column
+  name: device_operating_system
+  table: table.events
+  data_type: STRING
+  description: The operating system of the device (e.g., Android, iOS). Combined with os_version for detailed platform compatibility analysis.
+
+- id: column.events.geo_country
+  type: column
+  name: geo_country
+  table: table.events
+  data_type: STRING
+  description: The country where the event was recorded, derived from the player's IP address. Joins to dim_countries for regional hierarchy and tier classification.
+
+- id: column.events.geo_city
+  type: column
+  name: geo_city
+  table: table.events
+  data_type: STRING
+  description: The city where the event was recorded, derived from the player's IP address. Provides sub-country geographic granularity for localized analysis.
+
+- id: column.events.app_version
+  type: column
+  name: app_version
+  table: table.events
+  data_type: STRING
+  description: The version of the application at the time the event was logged. Critical for tracking feature adoption, crash rates, and performance regressions across releases.
+
+- id: column.events.traffic_source
+  type: column
+  name: traffic_source
+  table: table.events
+  data_type: STRING
+  description: The traffic source that originally acquired the player (e.g., google, facebook, organic). Used for first-touch attribution and acquisition channel analysis.
+
+- id: column.events.traffic_medium
+  type: column
+  name: traffic_medium
+  table: table.events
+  data_type: STRING
+  description: The medium of the traffic source (e.g., cpc, organic, referral). Combined with traffic_source for complete acquisition channel attribution.
+
+# --- user_properties columns ---
+
+- id: column.user_properties.user_pseudo_id
+  type: column
+  name: user_pseudo_id
+  table: table.user_properties
+  data_type: STRING
+  description: The pseudonymous player identifier linking properties back to the events table and all downstream analytics.
+  entity: entity.player
+
+- id: column.user_properties.property_name
+  type: column
+  name: property_name
+  table: table.user_properties
+  data_type: STRING
+  description: The name of the user property (e.g., first_open_time, engagement_level, player_tier). Defines what attribute is being stored.
+
+- id: column.user_properties.string_value
+  type: column
+  name: string_value
+  table: table.user_properties
+  data_type: STRING
+  description: The string value of the user property, when the property is text-typed. Mutually exclusive with int_value and double_value for a given property.
+
+- id: column.user_properties.int_value
+  type: column
+  name: int_value
+  table: table.user_properties
+  data_type: BIGINT
+  description: The integer value of the user property, when the property is integer-typed. Used for numeric properties like total sessions or level reached.
+
+- id: column.user_properties.double_value
+  type: column
+  name: double_value
+  table: table.user_properties
   data_type: DOUBLE
-  description: 订单美元金额
+  description: The floating-point value of the user property, when the property is decimal-typed. Used for properties like lifetime revenue or engagement score.
 
-- id: column.dwd_iap_order.income_usd
+- id: column.user_properties.set_timestamp
   type: column
-  name: income_usd
-  table: table.dwd_iap_order
-  data_type: DOUBLE
-  description: 美元收入（扣税后）
+  name: set_timestamp
+  table: table.user_properties
+  data_type: BIGINT
+  description: Unix timestamp in microseconds when this property value was last set. Used to determine the recency of player attribute data.
 
-- id: column.dwd_iap_order.region
+- id: column.user_properties.snapshot_date
   type: column
-  name: region
-  table: table.dwd_iap_order
+  name: snapshot_date
+  table: table.user_properties
   data_type: STRING
-  description: 国家/地区
+  description: The date of the snapshot in YYYYMMDD format. Partition key enabling point-in-time lookups of player properties.
 
-- id: column.dwd_iap_order.package_name
-  type: column
-  name: package_name
-  table: table.dwd_iap_order
-  data_type: STRING
-  description: 应用包名
+# --- crashlytics_reports columns ---
 
-- id: column.dwd_iap_order.currency
+- id: column.crashlytics_reports.report_id
   type: column
-  name: currency
-  table: table.dwd_iap_order
+  name: report_id
+  table: table.crashlytics_reports
   data_type: STRING
-  description: 币种
+  description: Unique identifier for the crash or error report. Primary key for deduplication and individual report lookup.
 
-- id: column.dwd_iap_order.date
+- id: column.crashlytics_reports.event_date
+  type: column
+  name: event_date
+  table: table.crashlytics_reports
+  data_type: STRING
+  description: The date the crash or error occurred, formatted as YYYYMMDD. Partition key for time-based crash trend analysis.
+
+- id: column.crashlytics_reports.event_type
+  type: column
+  name: event_type
+  table: table.crashlytics_reports
+  data_type: STRING
+  description: The type of stability event — crash (fatal application termination), non_fatal (handled exception), or anr (Application Not Responding timeout).
+
+- id: column.crashlytics_reports.user_pseudo_id
+  type: column
+  name: user_pseudo_id
+  table: table.crashlytics_reports
+  data_type: STRING
+  description: The pseudonymous player identifier, linking crash reports to player profiles and engagement data for impact assessment.
+  entity: entity.player
+
+- id: column.crashlytics_reports.app_version
+  type: column
+  name: app_version
+  table: table.crashlytics_reports
+  data_type: STRING
+  description: The application version that produced the crash. Essential for identifying version-specific regressions and prioritizing hotfixes.
+
+- id: column.crashlytics_reports.os_version
+  type: column
+  name: os_version
+  table: table.crashlytics_reports
+  data_type: STRING
+  description: The operating system version on the affected device. Helps identify OS-specific crashes and compatibility issues.
+
+- id: column.crashlytics_reports.device_model
+  type: column
+  name: device_model
+  table: table.crashlytics_reports
+  data_type: STRING
+  description: The model of the device that experienced the crash. Used to detect device-specific hardware or driver issues.
+
+- id: column.crashlytics_reports.issue_id
+  type: column
+  name: issue_id
+  table: table.crashlytics_reports
+  data_type: STRING
+  description: The Crashlytics issue group identifier. Groups individual crash reports by root cause for aggregate impact analysis.
+
+- id: column.crashlytics_reports.issue_title
+  type: column
+  name: issue_title
+  table: table.crashlytics_reports
+  data_type: STRING
+  description: Human-readable title of the crash issue, typically the exception class and top-of-stack method. Used for quick triage and prioritization.
+
+- id: column.crashlytics_reports.blame_frame
+  type: column
+  name: blame_frame
+  table: table.crashlytics_reports
+  data_type: STRING
+  description: The stack frame identified by Crashlytics as the most likely root cause of the crash. Accelerates debugging by pointing engineers to the responsible code.
+
+# --- dws_daily_active_users columns ---
+
+- id: column.dws_daily_active_users.date
   type: column
   name: date
-  table: table.dwd_iap_order
-  data_type: int
-  description: 日期分区
-- id: table.dwd_iap_event
-  name: IAP 事件明细表
-  type: table
-  grain: event
-  database: iceberg_alsgprc_hadoop
-  partitions:
-  - date
-  table_name: dwd_iap_event
-  description: IAP 联运事件明细表，记录支付相关事件
-  primary_keys:
-  - order_id
-  - event_type
-  timestamp_column: date
-  owner: jtan
-  schema: getapps
-- id: table.dm_app_stats_global_d
-  name: MIUI 应用统计日表
-  type: table
-  grain: daily_package
-  database: iceberg_alsgprc_hadoop.appstore
-  partitions:
-  - date
-  table_name: dm_app_stats_global_d
-  description: MIUI 系统级应用使用统计表，MIUI 口径 DAU 数据源。按 package_name 聚合，无用户级明细
-  primary_keys:
-  - package_name
-  - date
-  timestamp_column: date
-- id: table.dim_getapps_union_app
-  name: 应用维度表
-  type: table
-  grain: snapshot
-  database: iceberg_alsgprc_hadoop
-  partitions:
-  - date
-  table_name: dim_getapps_union_app
-  description: GetApps 应用维度表，包含应用基础信息
-  primary_keys:
-  - package_name
-  timestamp_column: date
-  owner: wenchao
-  schema: getapps
-- id: table.dws_getapps_alldimension_di
-  name: GetApps 全维度汇总表
-  type: table
-  grain: daily_dimension
-  database: iceberg_alsgprc_hadoop
-  partitions:
-  - date
-  table_name: dws_getapps_alldimension_di
-  description: DWS 层全维度预聚合表，按 lo x channel_level1 x cur_page_type x date 
-    粒度聚合。字段为 PV 级预聚合，SUM 到更粗粒度会重复计数，不可直接用于精确 UV 计算
-  timestamp_column: date
-  schema: appstore
-  owner: wenchao
-- id: table.dws_channel_page_d
-  name: 渠道页面日表
-  type: table
-  grain: daily_channel_page
-  database: iceberg_alsgprc_hadoop
-  partitions:
-  - date
-  table_name: dws_channel_page_d
-  description: 渠道×页面维度的 DAU 快速查询表。直接 SUM UV 会因跨页面重复计数而偏高
-  timestamp_column: date
-  owner: wenchao
-  schema: appstore
-- id: table.dws_getapps_search_core_di
-  name: 搜索核心日表
-  type: table
-  grain: daily
-  database: iceberg_alsgprc_hadoop
-  partitions:
-  - date
-  table_name: dws_getapps_search_core_di
-  description: 搜索核心指标汇总表。粒度：lo × market_v × channel × 
-    date。包含搜索UV/PV、搜索结果页曝光、点击、安装等核心搜索漏斗指标
-  timestamp_column: date
-  owner: jimingjun
-  schema: getapps
-- id: table.dws_iap_order_di
-  name: IAP 订单汇总表
-  type: table
-  grain: daily_dimension
-  database: iceberg_alsgprc_hadoop
-  partitions:
-  - date
-  table_name: dws_iap_order_di
-  description: 联运支付 DWS 层汇总表，仅存在于新加坡（SG）集群。paid_price 字段在 appstore 库额外含 
-    payment_status=4 条件，与 DWD 层口径存在系统性偏差
-  timestamp_column: date
-  schema: appstore
-  owner: wenchao
-- id: table.dws_minicard_download_risk_d
-  name: Minicard 下载风险日表
-  type: table
-  grain: daily
-  database: iceberg_alsgprc_hadoop
-  partitions:
-  - date
-  table_name: dws_minicard_download_risk_d
-  description: Minicard 下载风险监控表
-  timestamp_column: date
-  owner: wenchao
-  schema: getapps
-- id: table.dws_c_core_data
-  name: C端核心数据表
-  type: table
-  grain: daily
-  database: iceberg_alsgprc_hadoop
-  partitions:
-  - date
-  table_name: dws_c_core_data
-  description: C端核心指标汇总表
-  timestamp_column: date
-  owner: wenchao
-  schema: appstore
-- id: table.dws_store_stat_weekly
-  name: 商店统计周表
-  type: table
-  grain: weekly
-  database: iceberg_alsgprc_hadoop
-  partitions:
-  - date
-  table_name: dws_store_stat_weekly
-  description: 商店核心指标周度汇总表
-  timestamp_column: date
-  owner: wenchao
-  schema: appstore
-- id: column.dwd_user_event_log.gaid
-  name: gaid
-  type: column
-  table: table.dwd_user_event_log
-  entity: entity.user
+  table: table.dws_daily_active_users
   data_type: STRING
-  description: 用户唯一标识（Google Advertising ID）
-- id: column.dwd_user_event_log.date
-  name: date
+  description: The reporting date in YYYYMMDD format. Partition key for efficient time-range queries on engagement metrics.
+
+- id: column.dws_daily_active_users.platform
   type: column
-  table: table.dwd_user_event_log
-  data_type: INT
-  description: 日期分区，格式 yyyyMMdd
-- id: column.dwd_user_event_log.action_type
-  name: action_type
-  type: column
-  table: table.dwd_user_event_log
+  name: platform
+  table: table.dws_daily_active_users
   data_type: STRING
-  description: 
-    事件类型：application_launch/item_click/item_exposure/download_install/search 等
-- id: column.dwd_user_event_log.package_name
-  name: package_name
+  description: The platform dimension (ANDROID, IOS, WEB). Enables platform-level engagement comparison and trend analysis.
+
+- id: column.dws_daily_active_users.country
   type: column
-  table: table.dwd_user_event_log
-  entity: entity.app
+  name: country
+  table: table.dws_daily_active_users
   data_type: STRING
-  description: 应用包名
-- id: column.dwd_user_event_log.first_page_type
-  name: first_page_type
+  description: The country dimension for geographic segmentation of active user metrics.
+
+- id: column.dws_daily_active_users.dau
   type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 首次页面类型，用于渠道归因和 DAU 口径过滤
-- id: column.dwd_user_event_log.cur_page_type
-  name: cur_page_type
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 当前页面类型，用于场景归因
-- id: column.dwd_user_event_log.pre_page_type
-  name: pre_page_type
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 上一页面类型，用于详情页回溯归因
-- id: column.dwd_user_event_log.cur_page_category
-  name: cur_page_category
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 当前页面分类，用于 minicard 卡片类型判断
-- id: column.dwd_user_event_log.install_status
-  name: install_status
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 安装状态：download_request/download_success/install_success/activate 等
-- id: column.dwd_user_event_log.install_type
-  name: install_type
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 安装类型：manual_install/auto_install
-- id: column.dwd_user_event_log.first_launch_day
-  name: first_launch_day
-  type: column
-  table: table.dwd_user_event_log
-  data_type: string
-  description: 商店首次启动日期，用于新增用户判断
-- id: column.dwd_user_event_log.from_page_type
-  name: from_page_type
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 来源页面类型（已内置详情页回溯逻辑）
-- id: column.dwd_user_event_log.channel_level1
-  name: channel_level1
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 一级渠道
-- id: column.dwd_user_event_log.channel_key
-  name: channel_key
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 渠道标识，ias/isa 用于 Indus 口径
-- id: column.dwd_user_event_log.rom_sku
-  name: rom_sku
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: ROM SKU，in=印度 Indus 版本
-- id: column.dwd_user_event_log.launch_ref
-  name: launch_ref
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 启动来源引用
-- id: column.dwd_user_event_log.launch_pkg
-  name: launch_pkg
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 启动来源包名
-- id: column.dwd_user_event_log.lo
-  name: lo
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 国家代码
-- id: column.dwd_user_event_log.model
-  name: model
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 设备型号
-- id: column.dwd_user_event_log.fail_reason
-  name: fail_reason
-  type: column
-  table: table.dwd_user_event_log
-  data_type: STRING
-  description: 失败原因码，3=用户取消 68=用户暂停
-- id: table.ads_getapps_app_retain_stay_d_v2
-  name: 应用保有率预计算表
-  type: table
-  grain: daily_app_country
-  schema: getapps
-  partitions:
-  - date
-  table_name: ads_getapps_app_retain_stay_d_v2
-  description: ADS 层应用保有率预计算表，基于 MIUIBI 安装事件体系（imeimd5 标识）。retain_stay_n 
-    为保有天数，retain_denominator 为基准日新增安装数，retain_numerator 为第 N 天保有数。已过滤日活 < 100 
-    或新增 < 1000 的包
-  timestamp_column: date
-  owner: zhangzhening
-  database: iceberg_alsgprc_hadoop
-- id: table.ads_getapps_app_act_retain_stay_d_v2
-  name: 应用活跃留存预计算表
-  type: table
-  grain: daily_app_country
-  schema: getapps
-  partitions:
-  - date
-  table_name: ads_getapps_app_act_retain_stay_d_v2
-  description: ADS 层应用活跃留存预计算表，retain_stay_n 枚举值为 2/7/30（不含 N=1 
-    次日留存），retain_denominator 为基准日活跃用户数，retain_numerator 为第 N 天留存用户数
-  timestamp_column: date
-  owner: zhangzhening
-  database: iceberg_alsgprc_hadoop
-- id: table.dim_appstore_app_country_snapshot_d
-  name: 应用国家维度快照表
-  type: table
-  layer: DIM
-  owner: wenchao
-  database: appstore
-  schedule: 每天 02:30
-  full_name: iceberg_alsgprc_hadoop.appstore.dim_appstore_app_country_snapshot_d
-  partition: date (YYYYMMDD)
-  description: 
-    GetApps(小米应用商店)应用维度快照表，按国家维度记录每个应用每天的完整属性信息。包含应用基础信息(名称/包名/开发者/版本)、上架状态(GA/GP)、分类标签、质量分级(S/A/B/C/D/E)、联运类型、版本一致性、高风险标记、系统应用类型等维度，以及当日首次启动用户数指标。
-  granularity: appid × country × date
-  key_metrics:
-  - day_first_launch
-  - total_day_first_launch
-  key_dimensions:
-  - country
-  - ga_status
-  - intlcategory_level1
-  - app_level
-  - payment_sdk
-  - system_app_type
-- id: table.dwd_appstore_active_info_di
-  name: dwd_appstore_active_info_di
-  type: table
-  grain: 一行 = 一次激活上报
-  schema: appstore
-  database: iceberg_alsgprc_hadoop
-  table_name: dwd_appstore_active_info_di
-  description: 服务器激活上报表，记录应用激活上报日志
-  owner: wenchao
-- id: table.dwd_appstore_updateinfo_di
-  name: dwd_appstore_updateinfo_di
-  type: table
-  grain: 一行 = 一次检查更新/下载请求
-  schema: appstore
-  database: iceberg_alsgprc_hadoop
-  table_name: dwd_appstore_updateinfo_di
-  description: 服务器检查更新和下载表，记录应用检查更新及下载接口日志
-  owner: wenchao
-- id: column.dws_getapps_alldimension_di.lo
-  name: lo
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: varchar
-  description: 国家代码
-- id: column.dws_getapps_alldimension_di.channel_level1
-  name: channel_level1
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: varchar
-  description: 一级渠道
-- id: column.dws_getapps_alldimension_di.cur_page_type
-  name: cur_page_type
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: varchar
-  description: 当前页面类型
-- id: column.dws_getapps_alldimension_di.package_name
-  name: package_name
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: varchar
-  description: 应用包名
-- id: column.dws_getapps_alldimension_di.date
-  name: date
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: integer
-  description: 日期分区
-- id: column.dws_getapps_alldimension_di.launch
-  name: launch
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: integer
-  description: 启动PV
-- id: column.dws_getapps_alldimension_di.page_exposure
-  name: page_exposure
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: integer
-  description: 页面曝光PV
-- id: column.dws_getapps_alldimension_di.item_exposure
-  name: item_exposure
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: integer
-  description: 内容曝光PV
-- id: column.dws_getapps_alldimension_di.item_click
-  name: item_click
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: integer
-  description: 内容点击PV
-- id: column.dws_getapps_alldimension_di.download_request
-  name: download_request
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: integer
-  description: 下载请求PV
-- id: column.dws_getapps_alldimension_di.download_success
-  name: download_success
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: integer
-  description: 下载成功PV
-- id: column.dws_getapps_alldimension_di.install_success
-  name: install_success
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: integer
-  description: 安装成功PV
-- id: column.dws_getapps_alldimension_di.activate
-  name: activate
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: integer
-  description: 激活PV
-- id: column.dws_getapps_alldimension_di.catalog
-  name: catalog
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: varchar
-  description: 集群标识
-- id: column.dws_getapps_alldimension_di.first_page_type
-  name: first_page_type
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: varchar
-  description: 首次页面类型
-- id: column.dws_getapps_alldimension_di.model
-  name: model
-  type: column
-  table: table.dws_getapps_alldimension_di
-  data_type: varchar
-  description: 设备型号
-- id: column.dws_c_core_data.date
-  name: date
-  type: column
-  table: table.dws_c_core_data
-  data_type: integer
-  description: 日期分区
-- id: column.dws_c_core_data.catalog
-  name: catalog
-  type: column
-  table: table.dws_c_core_data
-  data_type: varchar
-  description: 集群标识
-- id: column.dws_c_core_data.lo
-  name: lo
-  type: column
-  table: table.dws_c_core_data
-  data_type: varchar
-  description: 国家代码
-- id: column.dws_c_core_data.ga_dau
-  name: ga_dau
-  type: column
-  table: table.dws_c_core_data
-  data_type: bigint
-  description: GA口径DAU
-- id: column.dws_c_core_data.miui_dau
-  name: miui_dau
-  type: column
-  table: table.dws_c_core_data
-  data_type: bigint
-  description: MIUI口径DAU
-- id: column.dws_c_core_data.install_success_puv_ads
-  name: install_success_puv_ads
-  type: column
-  table: table.dws_c_core_data
-  data_type: bigint
-  description: 安装成功PUV(ADS口径)
-- id: column.dws_c_core_data.item_exp_pv
-  name: item_exp_pv
-  type: column
-  table: table.dws_c_core_data
-  data_type: bigint
-  description: 内容曝光PV
-- id: column.dws_c_core_data.item_click_pv
-  name: item_click_pv
-  type: column
-  table: table.dws_c_core_data
-  data_type: bigint
-  description: 内容点击PV
-- id: column.dws_c_core_data.download_request_pv
-  name: download_request_pv
-  type: column
-  table: table.dws_c_core_data
-  data_type: bigint
-  description: 下载请求PV
-- id: column.dws_c_core_data.install_success_pv
-  name: install_success_pv
-  type: column
-  table: table.dws_c_core_data
-  data_type: bigint
-  description: 安装成功PV
-- id: column.dws_c_core_data.retention_dau
-  name: retention_dau
-  type: column
-  table: table.dws_c_core_data
-  data_type: bigint
-  description: 次留DAU
-- id: column.dws_c_core_data.newuser_dau
-  name: newuser_dau
-  type: column
-  table: table.dws_c_core_data
-  data_type: bigint
-  description: 新增DAU
-- id: column.dws_iap_order_di.date
-  name: date
-  type: column
-  table: table.dws_iap_order_di
-  data_type: integer
-  description: 日期分区
-- id: column.dws_iap_order_di.region
-  name: region
-  type: column
-  table: table.dws_iap_order_di
-  data_type: varchar
-  description: 国家/地区
-- id: column.dws_iap_order_di.currency
-  name: currency
-  type: column
-  table: table.dws_iap_order_di
-  data_type: varchar
-  description: 币种
-- id: column.dws_iap_order_di.package_name
-  name: package_name
-  type: column
-  table: table.dws_iap_order_di
-  data_type: varchar
-  description: 应用包名
-- id: column.dws_iap_order_di.all_order
-  name: all_order
-  type: column
-  table: table.dws_iap_order_di
-  data_type: bigint
-  description: 拉起收银台订单数
-- id: column.dws_iap_order_di.click_order
-  name: click_order
-  type: column
-  table: table.dws_iap_order_di
-  data_type: bigint
-  description: 点击支付订单数
-- id: column.dws_iap_order_di.paid_order
-  name: paid_order
-  type: column
-  table: table.dws_iap_order_di
-  data_type: bigint
-  description: 支付成功订单数
-- id: column.dws_iap_order_di.all_user
-  name: all_user
-  type: column
-  table: table.dws_iap_order_di
-  data_type: bigint
-  description: 拉起收银台UV
-- id: column.dws_iap_order_di.paid_user
-  name: paid_user
-  type: column
-  table: table.dws_iap_order_di
-  data_type: bigint
-  description: 支付成功UV
-- id: column.dws_iap_order_di.paid_price
-  name: paid_price
-  type: column
-  table: table.dws_iap_order_di
-  data_type: double
-  description: 支付金额(appstore库额外含 payment_status=4)
-- id: column.dws_iap_order_di.income
-  name: income
-  type: column
-  table: table.dws_iap_order_di
-  data_type: double
-  description: 收入(扣税后)
-- id: column.dws_iap_order_di.catalog
-  name: catalog
-  type: column
-  table: table.dws_iap_order_di
-  data_type: varchar
-  description: 集群标识
-- id: column.dws_iap_order_di.appname
-  name: appname
-  type: column
-  table: table.dws_iap_order_di
-  data_type: varchar
-  description: 应用名称
-- id: column.dws_minicard_download_risk_d.date
-  name: date
-  type: column
-  table: table.dws_minicard_download_risk_d
-  data_type: integer
-  description: 日期分区
-- id: column.dws_minicard_download_risk_d.lo
-  name: lo
-  type: column
-  table: table.dws_minicard_download_risk_d
-  data_type: varchar
-  description: 国家代码
-- id: column.dws_minicard_download_risk_d.package_name
-  name: package_name
-  type: column
-  table: table.dws_minicard_download_risk_d
-  data_type: varchar
-  description: 应用包名
-- id: column.dws_minicard_download_risk_d.level
-  name: level
-  type: column
-  table: table.dws_minicard_download_risk_d
-  data_type: varchar
-  description: 风险等级
-- id: column.dws_minicard_download_risk_d.download_request_cnt
-  name: download_request_cnt
-  type: column
-  table: table.dws_minicard_download_risk_d
-  data_type: bigint
-  description: 下载请求次数
-- id: column.dws_minicard_download_risk_d.install_success_cnt
-  name: install_success_cnt
-  type: column
-  table: table.dws_minicard_download_risk_d
-  data_type: bigint
-  description: 安装成功次数
-- id: column.dws_getapps_search_core_di.date
-  name: date
-  type: column
-  table: table.dws_getapps_search_core_di
-  data_type: integer
-  description: 日期分区
-- id: column.dws_getapps_search_core_di.lo
-  name: lo
-  type: column
-  table: table.dws_getapps_search_core_di
-  data_type: varchar
-  description: 国家代码
-- id: column.dws_getapps_search_core_di.dau
   name: dau
+  table: table.dws_daily_active_users
+  data_type: BIGINT
+  description: Daily Active Users — the count of unique players who triggered at least one event on this date, platform, and country combination.
+
+- id: column.dws_daily_active_users.wau
   type: column
-  table: table.dws_getapps_search_core_di
-  data_type: bigint
-  description: DAU
-- id: column.dws_getapps_search_core_di.search_uv
-  name: search_uv
+  name: wau
+  table: table.dws_daily_active_users
+  data_type: BIGINT
+  description: Weekly Active Users — the count of unique players active in the trailing 7-day window ending on this date.
+
+- id: column.dws_daily_active_users.mau
   type: column
-  table: table.dws_getapps_search_core_di
-  data_type: bigint
-  description: 搜索UV
-- id: column.dws_getapps_search_core_di.search_pv
-  name: search_pv
+  name: mau
+  table: table.dws_daily_active_users
+  data_type: BIGINT
+  description: Monthly Active Users — the count of unique players active in the trailing 30-day window ending on this date.
+
+- id: column.dws_daily_active_users.new_users
   type: column
-  table: table.dws_getapps_search_core_di
-  data_type: bigint
-  description: 搜索PV
-- id: column.dws_getapps_search_core_di.channel_level1
-  name: channel_level1
+  name: new_users
+  table: table.dws_daily_active_users
+  data_type: BIGINT
+  description: The number of first-time players whose first_open event occurred on this date. A key growth and acquisition metric.
+
+- id: column.dws_daily_active_users.returning_users
   type: column
-  table: table.dws_getapps_search_core_di
-  data_type: varchar
-  description: 一级渠道
-- id: column.dws_channel_page_d.date
+  name: returning_users
+  table: table.dws_daily_active_users
+  data_type: BIGINT
+  description: The number of players who were active on this date and had a first_open event on a prior date. Measures the health of the returning player base.
+
+- id: column.dws_daily_active_users.avg_session_duration_sec
+  type: column
+  name: avg_session_duration_sec
+  table: table.dws_daily_active_users
+  data_type: DOUBLE
+  description: The average session duration in seconds across all sessions on this date. A proxy for engagement depth and content quality.
+
+- id: column.dws_daily_active_users.sessions_per_user
+  type: column
+  name: sessions_per_user
+  table: table.dws_daily_active_users
+  data_type: DOUBLE
+  description: The average number of sessions per active player on this date. Higher values indicate stronger daily engagement habits.
+
+# --- dws_revenue_daily columns ---
+
+- id: column.dws_revenue_daily.date
+  type: column
   name: date
+  table: table.dws_revenue_daily
+  data_type: STRING
+  description: The reporting date in YYYYMMDD format. Partition key for time-series revenue analysis.
+
+- id: column.dws_revenue_daily.platform
   type: column
-  table: table.dws_channel_page_d
-  data_type: integer
-  description: 日期分区
-- id: column.dws_channel_page_d.lo
-  name: lo
+  name: platform
+  table: table.dws_revenue_daily
+  data_type: STRING
+  description: The platform dimension (ANDROID, IOS, WEB) for platform-level revenue breakdown.
+
+- id: column.dws_revenue_daily.country
   type: column
-  table: table.dws_channel_page_d
-  data_type: varchar
-  description: 国家代码
-- id: column.dws_channel_page_d.channel
-  name: channel
+  name: country
+  table: table.dws_revenue_daily
+  data_type: STRING
+  description: The country dimension for geographic revenue segmentation and regional performance tracking.
+
+- id: column.dws_revenue_daily.iap_revenue_usd
   type: column
-  table: table.dws_channel_page_d
-  data_type: varchar
-  description: 渠道
-- id: column.dws_channel_page_d.cur_page_type
-  name: cur_page_type
+  name: iap_revenue_usd
+  table: table.dws_revenue_daily
+  data_type: DOUBLE
+  description: Total in-app purchase revenue in USD for this date, platform, and country. Includes all completed purchase transactions.
+
+- id: column.dws_revenue_daily.ad_revenue_usd
   type: column
-  table: table.dws_channel_page_d
-  data_type: varchar
-  description: 当前
+  name: ad_revenue_usd
+  table: table.dws_revenue_daily
+  data_type: DOUBLE
+  description: Total advertising revenue in USD, aggregated from rewarded video, interstitial, and banner ad impressions.
+
+- id: column.dws_revenue_daily.subscription_revenue_usd
+  type: column
+  name: subscription_revenue_usd
+  table: table.dws_revenue_daily
+  data_type: DOUBLE
+  description: Total subscription revenue in USD, including initial purchases and renewals.
+
+- id: column.dws_revenue_daily.total_revenue_usd
+  type: column
+  name: total_revenue_usd
+  table: table.dws_revenue_daily
+  data_type: DOUBLE
+  description: Sum of all revenue streams (IAP + ads + subscriptions) in USD. The headline revenue metric for executive reporting.
+
+- id: column.dws_revenue_daily.paying_users
+  type: column
+  name: paying_users
+  table: table.dws_revenue_daily
+  data_type: BIGINT
+  description: The number of unique players who made at least one purchase (IAP or subscription) on this date.
+
+- id: column.dws_revenue_daily.transactions
+  type: column
+  name: transactions
+  table: table.dws_revenue_daily
+  data_type: BIGINT
+  description: The total number of completed purchase transactions on this date. A single player may contribute multiple transactions.
+
+- id: column.dws_revenue_daily.arpu
+  type: column
+  name: arpu
+  table: table.dws_revenue_daily
+  data_type: DOUBLE
+  description: Average Revenue Per User — total_revenue_usd divided by DAU. Measures the average monetization yield across all active players.
+
+- id: column.dws_revenue_daily.arppu
+  type: column
+  name: arppu
+  table: table.dws_revenue_daily
+  data_type: DOUBLE
+  description: Average Revenue Per Paying User — total_revenue_usd divided by paying_users. Measures spending intensity among players who convert.
+
+- id: column.dws_revenue_daily.conversion_rate
+  type: column
+  name: conversion_rate
+  table: table.dws_revenue_daily
+  data_type: DOUBLE
+  description: The percentage of DAU who made at least one purchase. A key monetization health metric, typically expressed as a decimal (e.g., 0.03 = 3%).
+
+# --- dws_level_funnel columns ---
+
+- id: column.dws_level_funnel.date
+  type: column
+  name: date
+  table: table.dws_level_funnel
+  data_type: STRING
+  description: The reporting date in YYYYMMDD format. Partition key for tracking level performance trends over time.
+
+- id: column.dws_level_funnel.level_number
+  type: column
+  name: level_number
+  table: table.dws_level_funnel
+  data_type: INT
+  description: The numeric identifier of the game level. Links to game design data for difficulty and content analysis.
+  entity: entity.level
+
+- id: column.dws_level_funnel.level_name
+  type: column
+  name: level_name
+  table: table.dws_level_funnel
+  data_type: STRING
+  description: The human-readable name or label of the game level, as displayed to the player in the UI.
+
+- id: column.dws_level_funnel.starts
+  type: column
+  name: starts
+  table: table.dws_level_funnel
+  data_type: BIGINT
+  description: The total number of times this level was started (including retries) on this date. The top of the level completion funnel.
+
+- id: column.dws_level_funnel.completions
+  type: column
+  name: completions
+  table: table.dws_level_funnel
+  data_type: BIGINT
+  description: The total number of successful level completions on this date. Compared against starts to calculate the completion rate.
+
+- id: column.dws_level_funnel.failures
+  type: column
+  name: failures
+  table: table.dws_level_funnel
+  data_type: BIGINT
+  description: The total number of level failures (player ran out of moves or time) on this date. High failure rates may indicate difficulty balancing issues.
+
+- id: column.dws_level_funnel.completion_rate
+  type: column
+  name: completion_rate
+  table: table.dws_level_funnel
+  data_type: DOUBLE
+  description: The ratio of completions to starts, expressed as a decimal. The primary metric for evaluating level difficulty and player success.
+
+- id: column.dws_level_funnel.avg_duration_sec
+  type: column
+  name: avg_duration_sec
+  table: table.dws_level_funnel
+  data_type: DOUBLE
+  description: The average time in seconds players spent on a single attempt of this level. Indicates level complexity and engagement.
+
+- id: column.dws_level_funnel.avg_attempts
+  type: column
+  name: avg_attempts
+  table: table.dws_level_funnel
+  data_type: DOUBLE
+  description: The average number of attempts players needed before completing this level. High values suggest the level may be frustrating.
+
+- id: column.dws_level_funnel.unique_players
+  type: column
+  name: unique_players
+  table: table.dws_level_funnel
+  data_type: BIGINT
+  description: The number of distinct players who attempted this level on this date. Provides reach context for the funnel metrics.
+
+- id: column.dws_level_funnel.first_time_completion_rate
+  type: column
+  name: first_time_completion_rate
+  table: table.dws_level_funnel
+  data_type: DOUBLE
+  description: The percentage of players who completed this level on their first attempt. A more stringent measure of level accessibility than overall completion rate.
+
+# --- dws_session_stats columns ---
+
+- id: column.dws_session_stats.date
+  type: column
+  name: date
+  table: table.dws_session_stats
+  data_type: STRING
+  description: The reporting date in YYYYMMDD format. Partition key for session behavior trend analysis.
+
+- id: column.dws_session_stats.platform
+  type: column
+  name: platform
+  table: table.dws_session_stats
+  data_type: STRING
+  description: The platform dimension (ANDROID, IOS, WEB) for comparing session behavior across platforms.
+
+- id: column.dws_session_stats.country
+  type: column
+  name: country
+  table: table.dws_session_stats
+  data_type: STRING
+  description: The country dimension for geographic segmentation of session metrics.
+
+- id: column.dws_session_stats.total_sessions
+  type: column
+  name: total_sessions
+  table: table.dws_session_stats
+  data_type: BIGINT
+  description: The total number of sessions recorded on this date for this platform and country combination.
+
+- id: column.dws_session_stats.unique_users
+  type: column
+  name: unique_users
+  table: table.dws_session_stats
+  data_type: BIGINT
+  description: The number of distinct players who had at least one session on this date. Equivalent to DAU for this dimension slice.
+
+- id: column.dws_session_stats.avg_session_duration_sec
+  type: column
+  name: avg_session_duration_sec
+  table: table.dws_session_stats
+  data_type: DOUBLE
+  description: The mean session duration in seconds. May be skewed by long-tail sessions; use median for a more robust central tendency.
+
+- id: column.dws_session_stats.median_session_duration_sec
+  type: column
+  name: median_session_duration_sec
+  table: table.dws_session_stats
+  data_type: DOUBLE
+  description: The median session duration in seconds. More robust than the mean for understanding typical player session length.
+
+- id: column.dws_session_stats.avg_sessions_per_user
+  type: column
+  name: avg_sessions_per_user
+  table: table.dws_session_stats
+  data_type: DOUBLE
+  description: The average number of sessions per unique player. Higher values indicate stronger daily re-engagement patterns.
+
+- id: column.dws_session_stats.avg_events_per_session
+  type: column
+  name: avg_events_per_session
+  table: table.dws_session_stats
+  data_type: DOUBLE
+  description: The average number of events triggered per session. A proxy for session depth and interaction richness.
+
+- id: column.dws_session_stats.bounce_rate
+  type: column
+  name: bounce_rate
+  table: table.dws_session_stats
+  data_type: DOUBLE
+  description: The percentage of sessions with only a single event (or shorter than a minimum threshold). High bounce rates may indicate onboarding or technical issues.
+
+# --- dws_retention_cohort columns ---
+
+- id: column.dws_retention_cohort.cohort_date
+  type: column
+  name: cohort_date
+  table: table.dws_retention_cohort
+  data_type: STRING
+  description: The install (first_open) date defining the cohort, formatted as YYYYMMDD. Partition key for cohort-based retention lookups.
+
+- id: column.dws_retention_cohort.platform
+  type: column
+  name: platform
+  table: table.dws_retention_cohort
+  data_type: STRING
+  description: The platform dimension for comparing retention curves across Android, iOS, and Web.
+
+- id: column.dws_retention_cohort.country
+  type: column
+  name: country
+  table: table.dws_retention_cohort
+  data_type: STRING
+  description: The country dimension for geographic retention analysis and identifying regional engagement differences.
+
+- id: column.dws_retention_cohort.cohort_size
+  type: column
+  name: cohort_size
+  table: table.dws_retention_cohort
+  data_type: BIGINT
+  description: The number of new players in this cohort (i.e., players who first opened the app on cohort_date for this platform and country).
+
+- id: column.dws_retention_cohort.d1_retained
+  type: column
+  name: d1_retained
+  table: table.dws_retention_cohort
+  data_type: BIGINT
+  description: The number of cohort players who returned and were active on day 1 after install.
+
+- id: column.dws_retention_cohort.d3_retained
+  type: column
+  name: d3_retained
+  table: table.dws_retention_cohort
+  data_type: BIGINT
+  description: The number of cohort players who returned and were active on day 3 after install.
+
+- id: column.dws_retention_cohort.d7_retained
+  type: column
+  name: d7_retained
+  table: table.dws_retention_cohort
+  data_type: BIGINT
+  description: The number of cohort players who returned and were active on day 7 after install. A standard industry benchmark for early retention.
+
+- id: column.dws_retention_cohort.d14_retained
+  type: column
+  name: d14_retained
+  table: table.dws_retention_cohort
+  data_type: BIGINT
+  description: The number of cohort players who returned and were active on day 14 after install.
+
+- id: column.dws_retention_cohort.d30_retained
+  type: column
+  name: d30_retained
+  table: table.dws_retention_cohort
+  data_type: BIGINT
+  description: The number of cohort players who returned and were active on day 30 after install. The long-term retention benchmark.
+
+- id: column.dws_retention_cohort.d1_rate
+  type: column
+  name: d1_rate
+  table: table.dws_retention_cohort
+  data_type: DOUBLE
+  description: Day-1 retention rate — d1_retained divided by cohort_size. The most commonly watched early retention metric in the gaming industry.
+
+- id: column.dws_retention_cohort.d7_rate
+  type: column
+  name: d7_rate
+  table: table.dws_retention_cohort
+  data_type: DOUBLE
+  description: Day-7 retention rate — d7_retained divided by cohort_size. A key mid-term engagement indicator and industry benchmark.
+
+- id: column.dws_retention_cohort.d30_rate
+  type: column
+  name: d30_rate
+  table: table.dws_retention_cohort
+  data_type: DOUBLE
+  description: Day-30 retention rate — d30_retained divided by cohort_size. Measures long-term stickiness and is correlated with sustainable revenue.
+
+# --- dws_acquisition_channel columns ---
+
+- id: column.dws_acquisition_channel.date
+  type: column
+  name: date
+  table: table.dws_acquisition_channel
+  data_type: STRING
+  description: The reporting date in YYYYMMDD format. Partition key for tracking acquisition channel performance over time.
+
+- id: column.dws_acquisition_channel.source
+  type: column
+  name: source
+  table: table.dws_acquisition_channel
+  data_type: STRING
+  description: The acquisition source (e.g., google, facebook, apple_search_ads, organic). Identifies where the player was acquired from.
+
+- id: column.dws_acquisition_channel.medium
+  type: column
+  name: medium
+  table: table.dws_acquisition_channel
+  data_type: STRING
+  description: The acquisition medium (e.g., cpc, cpi, organic, referral). Combined with source for full channel attribution.
+
+- id: column.dws_acquisition_channel.campaign
+  type: column
+  name: campaign
+  table: table.dws_acquisition_channel
+  data_type: STRING
+  description: The specific marketing campaign name or identifier. Enables campaign-level ROI analysis and creative performance evaluation.
+
+- id: column.dws_acquisition_channel.installs
+  type: column
+  name: installs
+  table: table.dws_acquisition_channel
+  data_type: BIGINT
+  description: The number of new app installs attributed to this source, medium, and campaign on this date.
+
+- id: column.dws_acquisition_channel.cost_usd
+  type: column
+  name: cost_usd
+  table: table.dws_acquisition_channel
+  data_type: DOUBLE
+  description: The total marketing spend in USD for this acquisition channel on this date. Sourced from ad network cost data integrations.
+
+- id: column.dws_acquisition_channel.revenue_usd
+  type: column
+  name: revenue_usd
+  table: table.dws_acquisition_channel
+  data_type: DOUBLE
+  description: The total revenue in USD generated by players acquired through this channel on this date. Used for ROI calculation.
+
+- id: column.dws_acquisition_channel.roi
+  type: column
+  name: roi
+  table: table.dws_acquisition_channel
+  data_type: DOUBLE
+  description: Return on investment — (revenue_usd - cost_usd) / cost_usd. A negative value indicates the channel is not yet profitable.
+
+- id: column.dws_acquisition_channel.d1_retention_rate
+  type: column
+  name: d1_retention_rate
+  table: table.dws_acquisition_channel
+  data_type: DOUBLE
+  description: Day-1 retention rate for players acquired through this channel. Indicates acquisition quality beyond volume.
+
+- id: column.dws_acquisition_channel.d7_retention_rate
+  type: column
+  name: d7_retention_rate
+  table: table.dws_acquisition_channel
+  data_type: DOUBLE
+  description: Day-7 retention rate for players acquired through this channel. A stronger signal of player quality than D1 retention.
+
+- id: column.dws_acquisition_channel.cost_per_install
+  type: column
+  name: cost_per_install
+  table: table.dws_acquisition_channel
+  data_type: DOUBLE
+  description: Cost per install (CPI) — cost_usd divided by installs. The primary efficiency metric for user acquisition budget management.
+
+# --- dim_events columns ---
+
+- id: column.dim_events.event_name
+  type: column
+  name: event_name
+  table: table.dim_events
+  data_type: STRING
+  description: The canonical event name, serving as the primary key. Joins to events.event_name for enrichment.
+  entity: entity.event
+
+- id: column.dim_events.event_category
+  type: column
+  name: event_category
+  table: table.dim_events
+  data_type: STRING
+  description: The business category of the event (e.g., engagement, monetization, progression, social). Used for grouping events in reports.
+
+- id: column.dim_events.event_description
+  type: column
+  name: event_description
+  table: table.dim_events
+  data_type: STRING
+  description: A human-readable description of what the event represents and when it fires. Provides business context for analysts.
+
+- id: column.dim_events.is_auto_collected
+  type: column
+  name: is_auto_collected
+  table: table.dim_events
+  data_type: BOOLEAN
+  description: Flag indicating whether the event is automatically collected by the Firebase SDK (true) or custom-instrumented by the development team (false).
+
+- id: column.dim_events.is_conversion
+  type: column
+  name: is_conversion
+  table: table.dim_events
+  data_type: BOOLEAN
+  description: Flag indicating whether the event has been marked as a conversion in the Firebase console. Conversion events drive attribution and funnel reporting.
+
+- id: column.dim_events.event_group
+  type: column
+  name: event_group
+  table: table.dim_events
+  data_type: STRING
+  description: A higher-level grouping for events (e.g., core_loop, ftue, store, social). Enables aggregate analysis across related event types.
+
+# --- dim_countries columns ---
+
+- id: column.dim_countries.country_code
+  type: column
+  name: country_code
+  table: table.dim_countries
+  data_type: STRING
+  description: ISO 3166-1 alpha-2 country code (e.g., US, JP, BR). The primary key joining to event and aggregation tables.
+
+- id: column.dim_countries.country_name
+  type: column
+  name: country_name
+  table: table.dim_countries
+  data_type: STRING
+  description: The full English name of the country (e.g., United States, Japan, Brazil). Used for display in dashboards and reports.
+
+- id: column.dim_countries.region
+  type: column
+  name: region
+  table: table.dim_countries
+  data_type: STRING
+  description: The geographic region within the continent (e.g., Northern America, Southeast Asia, Western Europe). Enables regional rollup reporting.
+
+- id: column.dim_countries.sub_continent
+  type: column
+  name: sub_continent
+  table: table.dim_countries
+  data_type: STRING
+  description: The sub-continental grouping (e.g., Northern America, Eastern Asia, Southern Europe). A mid-level geographic hierarchy.
+
+- id: column.dim_countries.continent
+  type: column
+  name: continent
+  table: table.dim_countries
+  data_type: STRING
+  description: The continent name (e.g., Americas, Asia, Europe, Africa, Oceania). The top-level geographic hierarchy for global rollups.
+
+- id: column.dim_countries.currency_code
+  type: column
+  name: currency_code
+  table: table.dim_countries
+  data_type: STRING
+  description: The primary local currency code (e.g., USD, JPY, BRL). Used for revenue localization and currency conversion context.
+
+- id: column.dim_countries.tier
+  type: column
+  name: tier
+  table: table.dim_countries
+  data_type: STRING
+  description: Market tier classification (e.g., T1, T2, T3) based on purchasing power and ad market maturity. Drives regional monetization strategy and CPI benchmarks.
+
+# --- dim_devices columns ---
+
+- id: column.dim_devices.device_model
+  type: column
+  name: device_model
+  table: table.dim_devices
+  data_type: STRING
+  description: The specific device model identifier (e.g., Pixel 7, SM-G991B, iPhone 14). Part of the composite primary key.
+
+- id: column.dim_devices.device_brand
+  type: column
+  name: device_brand
+  table: table.dim_devices
+  data_type: STRING
+  description: The manufacturer or brand of the device (e.g., Google, Samsung, Apple). Used for brand-level performance segmentation.
+
+- id: column.dim_devices.device_category
+  type: column
+  name: device_category
+  table: table.dim_devices
+  data_type: STRING
+  description: The form factor category of the device (e.g., mobile, tablet, desktop). Influences UI/UX optimization priorities.
+
+- id: column.dim_devices.operating_system
+  type: column
+  name: operating_system
+  table: table.dim_devices
+  data_type: STRING
+  description: The operating system name (e.g., Android, iOS). Part of the composite primary key alongside device_model.
+
+- id: column.dim_devices.os_version
+  type: column
+  name: os_version
+  table: table.dim_devices
+  data_type: STRING
+  description: The OS version string (e.g., 14.0, 13). Used for minimum OS version support decisions and version-specific bug tracking.
+
+- id: column.dim_devices.screen_resolution
+  type: column
+  name: screen_resolution
+  table: table.dim_devices
+  data_type: STRING
+  description: The screen resolution of the device (e.g., 1080x2400, 2532x1170). Important for UI asset optimization and rendering performance analysis.
+
+- id: column.dim_devices.is_supported
+  type: column
+  name: is_supported
+  table: table.dim_devices
+  data_type: BOOLEAN
+  description: Flag indicating whether the device is officially supported by the current game version. Unsupported devices may experience degraded performance.
+
+# --- dim_items columns ---
+
+- id: column.dim_items.item_id
+  type: column
+  name: item_id
+  table: table.dim_items
+  data_type: STRING
+  description: The unique identifier for the in-game item or product SKU. Primary key linking to purchase events and revenue analysis.
+  entity: entity.item
+
+- id: column.dim_items.item_name
+  type: column
+  name: item_name
+  table: table.dim_items
+  data_type: STRING
+  description: The display name of the item as shown to players in the in-game store (e.g., "Gem Pack 500", "Premium Pass").
+
+- id: column.dim_items.item_category
+  type: column
+  name: item_category
+  table: table.dim_items
+  data_type: STRING
+  description: The category of the item (e.g., currency_pack, power_up, cosmetic, subscription). Used for category-level revenue analysis.
+
+- id: column.dim_items.item_type
+  type: column
+  name: item_type
+  table: table.dim_items
+  data_type: STRING
+  description: The type classification of the item (e.g., virtual_currency, booster, skin, bundle). A finer-grained classification than item_category.
+
+- id: column.dim_items.price_usd
+  type: column
+  name: price_usd
+  table: table.dim_items
+  data_type: DOUBLE
+  description: The base price of the item in US dollars. Used for revenue forecasting and price point optimization analysis.
+
+- id: column.dim_items.currency_type
+  type: column
+  name: currency_type
+  table: table.dim_items
+  data_type: STRING
+  description: The currency used to purchase this item (e.g., real_money, gems, coins). Distinguishes between hard-currency and soft-currency items.
+
+- id: column.dim_items.is_consumable
+  type: column
+  name: is_consumable
+  table: table.dim_items
+  data_type: BOOLEAN
+  description: Whether the item is consumed upon use (true) or permanently owned (false). Consumable items drive repeat purchases and recurring revenue.
+
+- id: column.dim_items.rarity
+  type: column
+  name: rarity
+  table: table.dim_items
+  data_type: STRING
+  description: The rarity tier of the item (e.g., common, rare, epic, legendary). Affects perceived value and influences pricing strategy.
+
+- id: column.dim_items.description
+  type: column
+  name: description
+  table: table.dim_items
+  data_type: STRING
+  description: A text description of the item's function or benefit, as displayed in the in-game item detail view.
+
+# --- ads_player_ltv columns ---
+
+- id: column.ads_player_ltv.user_pseudo_id
+  type: column
+  name: user_pseudo_id
+  table: table.ads_player_ltv
+  data_type: STRING
+  description: The pseudonymous player identifier for whom the LTV prediction is generated.
+  entity: entity.player
+
+- id: column.ads_player_ltv.prediction_date
+  type: column
+  name: prediction_date
+  table: table.ads_player_ltv
+  data_type: STRING
+  description: The date the LTV prediction was generated, in YYYYMMDD format. Partition key enabling comparison of predictions over time.
+
+- id: column.ads_player_ltv.predicted_ltv_usd
+  type: column
+  name: predicted_ltv_usd
+  table: table.ads_player_ltv
+  data_type: DOUBLE
+  description: The model's predicted total lifetime value for this player in USD, covering all future monetization from IAP, ads, and subscriptions.
+
+- id: column.ads_player_ltv.ltv_percentile
+  type: column
+  name: ltv_percentile
+  table: table.ads_player_ltv
+  data_type: INT
+  description: The player's percentile rank within the LTV distribution (0-100). Players at the 99th percentile are whale-tier high-value players.
+
+- id: column.ads_player_ltv.days_since_install
+  type: column
+  name: days_since_install
+  table: table.ads_player_ltv
+  data_type: INT
+  description: The number of days between the player's first_open event and the prediction_date. Provides context for the prediction's maturity.
+
+- id: column.ads_player_ltv.total_spend_usd
+  type: column
+  name: total_spend_usd
+  table: table.ads_player_ltv
+  data_type: DOUBLE
+  description: The player's cumulative in-app purchase spending in USD up to the prediction_date. A key input feature to the LTV model.
+
+- id: column.ads_player_ltv.total_sessions
+  type: column
+  name: total_sessions
+  table: table.ads_player_ltv
+  data_type: BIGINT
+  description: The player's cumulative session count up to the prediction_date. An engagement signal used as an input feature to the LTV model.
+
+- id: column.ads_player_ltv.predicted_30d_revenue
+  type: column
+  name: predicted_30d_revenue
+  table: table.ads_player_ltv
+  data_type: DOUBLE
+  description: The model's predicted revenue from this player over the next 30 days in USD. A shorter-horizon prediction useful for near-term planning.
+
+- id: column.ads_player_ltv.confidence_score
+  type: column
+  name: confidence_score
+  table: table.ads_player_ltv
+  data_type: DOUBLE
+  description: The model's confidence in the LTV prediction, expressed as a value between 0 and 1. Lower scores indicate higher uncertainty, often for new players.
+
+- id: column.ads_player_ltv.ltv_segment
+  type: column
+  name: ltv_segment
+  table: table.ads_player_ltv
+  data_type: STRING
+  description: The LTV-based player segment label (e.g., whale, dolphin, minnow, free_player). Derived from predicted_ltv_usd thresholds for use in targeting rules.
+
+# --- ads_churn_prediction columns ---
+
+- id: column.ads_churn_prediction.user_pseudo_id
+  type: column
+  name: user_pseudo_id
+  table: table.ads_churn_prediction
+  data_type: STRING
+  description: The pseudonymous player identifier for whom the churn prediction is generated.
+  entity: entity.player
+
+- id: column.ads_churn_prediction.prediction_date
+  type: column
+  name: prediction_date
+  table: table.ads_churn_prediction
+  data_type: STRING
+  description: The date the churn prediction was generated, in YYYYMMDD format. Partition key for tracking prediction freshness.
+
+- id: column.ads_churn_prediction.churn_probability
+  type: column
+  name: churn_probability
+  table: table.ads_churn_prediction
+  data_type: DOUBLE
+  description: The estimated probability (0.0 to 1.0) that this player will not return within the next 7 days. Higher values indicate greater churn risk.
+
+- id: column.ads_churn_prediction.risk_tier
+  type: column
+  name: risk_tier
+  table: table.ads_churn_prediction
+  data_type: STRING
+  description: The categorical churn risk tier (e.g., low, medium, high, critical). Derived from churn_probability thresholds for use in retention campaign targeting.
+
+- id: column.ads_churn_prediction.days_inactive
+  type: column
+  name: days_inactive
+  table: table.ads_churn_prediction
+  data_type: INT
+  description: The number of consecutive days the player has been inactive as of the prediction_date. A strong behavioral predictor of churn.
+
+- id: column.ads_churn_prediction.last_active_date
+  type: column
+  name: last_active_date
+  table: table.ads_churn_prediction
+  data_type: STRING
+  description: The most recent date the player was active, in YYYYMMDD format. Provides recency context for the churn prediction.
+
+- id: column.ads_churn_prediction.sessions_last_7d
+  type: column
+  name: sessions_last_7d
+  table: table.ads_churn_prediction
+  data_type: INT
+  description: The number of sessions the player had in the 7 days preceding the prediction_date. A key engagement feature for the churn model.
+
+- id: column.ads_churn_prediction.engagement_score
+  type: column
+  name: engagement_score
+  table: table.ads_churn_prediction
+  data_type: DOUBLE
+  description: A composite engagement score (0.0 to 1.0) combining session frequency, duration, and depth. Used as a feature in the churn model and for player health monitoring.
+
+- id: column.ads_churn_prediction.win_back_likelihood
+  type: column
+  name: win_back_likelihood
+  table: table.ads_churn_prediction
+  data_type: DOUBLE
+  description: The estimated probability (0.0 to 1.0) that a targeted retention intervention will successfully bring this player back. Used to prioritize intervention spend.
+
+- id: column.ads_churn_prediction.recommended_action
+  type: column
+  name: recommended_action
+  table: table.ads_churn_prediction
+  data_type: STRING
+  description: The model-recommended retention intervention (e.g., push_notification, bonus_reward, discount_offer, personal_message). Actionable output for the LiveOps team.
+
+# --- ads_ab_test_results columns ---
+
+- id: column.ads_ab_test_results.experiment_id
+  type: column
+  name: experiment_id
+  table: table.ads_ab_test_results
+  data_type: STRING
+  description: The unique identifier for the A/B test experiment. Part of the composite primary key and used for joining to experiment metadata.
+  entity: entity.experiment
+
+- id: column.ads_ab_test_results.experiment_name
+  type: column
+  name: experiment_name
+  table: table.ads_ab_test_results
+  data_type: STRING
+  description: The human-readable name of the experiment (e.g., "New Tutorial Flow v2", "Holiday Sale Banner"). Used for display in experiment dashboards.
+
+- id: column.ads_ab_test_results.variant
+  type: column
+  name: variant
+  table: table.ads_ab_test_results
+  data_type: STRING
+  description: The variant name within the experiment (e.g., control, variant_a, variant_b). Part of the composite primary key.
+
+- id: column.ads_ab_test_results.start_date
+  type: column
+  name: start_date
+  table: table.ads_ab_test_results
+  data_type: STRING
+  description: The date the experiment started collecting data, in YYYYMMDD format. Defines the observation window start.
+
+- id: column.ads_ab_test_results.end_date
+  type: column
+  name: end_date
+  table: table.ads_ab_test_results
+  data_type: STRING
+  description: The date the experiment stopped collecting data, in YYYYMMDD format. May be null for ongoing experiments.
+
+- id: column.ads_ab_test_results.sample_size
+  type: column
+  name: sample_size
+  table: table.ads_ab_test_results
+  data_type: BIGINT
+  description: The number of players assigned to this variant. Required for statistical power assessment and significance calculations.
+
+- id: column.ads_ab_test_results.conversion_rate
+  type: column
+  name: conversion_rate
+  table: table.ads_ab_test_results
+  data_type: DOUBLE
+  description: The primary conversion rate for this variant, expressed as a decimal. The definition of "conversion" is experiment-specific (e.g., purchase, level completion).
+
+- id: column.ads_ab_test_results.revenue_per_user
+  type: column
+  name: revenue_per_user
+  table: table.ads_ab_test_results
+  data_type: DOUBLE
+  description: The average revenue generated per player in this variant during the experiment window. A key metric for monetization experiments.
+
+- id: column.ads_ab_test_results.retention_d7
+  type: column
+  name: retention_d7
+  table: table.ads_ab_test_results
+  data_type: DOUBLE
+  description: The day-7 retention rate for players in this variant. Used to evaluate whether the experiment positively or negatively impacts player retention.
+
+- id: column.ads_ab_test_results.p_value
+  type: column
+  name: p_value
+  table: table.ads_ab_test_results
+  data_type: DOUBLE
+  description: The statistical p-value comparing this variant against the control group. Values below 0.05 are typically considered statistically significant.
+
+- id: column.ads_ab_test_results.is_significant
+  type: column
+  name: is_significant
+  table: table.ads_ab_test_results
+  data_type: BOOLEAN
+  description: Flag indicating whether the result reached statistical significance (p_value < 0.05 and sufficient sample size). Used for automated experiment graduation decisions.
+
+# --- ads_player_segmentation columns ---
+
+- id: column.ads_player_segmentation.user_pseudo_id
+  type: column
+  name: user_pseudo_id
+  table: table.ads_player_segmentation
+  data_type: STRING
+  description: The pseudonymous player identifier for this segmentation record.
+  entity: entity.player
+
+- id: column.ads_player_segmentation.segment_date
+  type: column
+  name: segment_date
+  table: table.ads_player_segmentation
+  data_type: STRING
+  description: The date this segmentation was computed, in YYYYMMDD format. Partition key enabling historical segment migration analysis.
+
+- id: column.ads_player_segmentation.player_segment
+  type: column
+  name: player_segment
+  table: table.ads_player_segmentation
+  data_type: STRING
+  description: The primary behavioral segment label (e.g., hardcore_grinder, casual_explorer, social_player, at_risk_churner). Drives personalization and targeting strategies.
+
+- id: column.ads_player_segmentation.monetization_tier
+  type: column
+  name: monetization_tier
+  table: table.ads_player_segmentation
+  data_type: STRING
+  description: The monetization-based tier (e.g., whale, dolphin, minnow, non_payer). Categorizes players by their spending behavior for targeted offers.
+
+- id: column.ads_player_segmentation.engagement_level
+  type: column
+  name: engagement_level
+  table: table.ads_player_segmentation
+  data_type: STRING
+  description: The engagement level label (e.g., highly_engaged, moderately_engaged, lightly_engaged, dormant). Based on session frequency and depth signals.
+
+- id: column.ads_player_segmentation.days_since_install
+  type: column
+  name: days_since_install
+  table: table.ads_player_segmentation
+  data_type: INT
+  description: The number of days since the player's first_open event. Provides lifecycle stage context for the segmentation.
+
+- id: column.ads_player_segmentation.lifetime_sessions
+  type: column
+  name: lifetime_sessions
+  table: table.ads_player_segmentation
+  data_type: BIGINT
+  description: The player's total session count since install. A cumulative engagement metric used as a segmentation input feature.
+
+- id: column.ads_player_segmentation.lifetime_revenue_usd
+  type: column
+  name: lifetime_revenue_usd
+  table: table.ads_player_segmentation
+  data_type: DOUBLE
+  description: The player's total revenue contribution in USD since install. A cumulative monetization metric used for tier assignment.
+
+- id: column.ads_player_segmentation.current_level
+  type: column
+  name: current_level
+  table: table.ads_player_segmentation
+  data_type: INT
+  description: The highest game level the player has reached. Indicates progression depth and content consumption stage.
+  entity: entity.level
+
+- id: column.ads_player_segmentation.preferred_play_time
+  type: column
+  name: preferred_play_time
+  table: table.ads_player_segmentation
+  data_type: STRING
+  description: The player's most common play time window (e.g., morning, afternoon, evening, night). Used for optimal push notification and LiveOps event timing.

@@ -8,3 +8,4 @@ __pycache__/
 .ca_debug.log
 .venv/
 .env
+ontology/catalog/

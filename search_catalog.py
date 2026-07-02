@@ -26,6 +26,7 @@ References:
 """
 
 import argparse
+import os
 import re
 import sys
 
@@ -206,13 +207,13 @@ def main():
     )
     parser.add_argument(
         "--project",
-        default="lufeng-demo",
-        help="GCP project ID for search attribution (default: lufeng-demo).",
+        default=os.environ.get("GCP_PROJECT", "lufeng-demo"),
+        help="GCP project ID (default: $GCP_PROJECT or lufeng-demo).",
     )
     parser.add_argument(
         "--location",
-        default="us-central1",
-        help="Location for context lookup (default: us-central1).",
+        default=os.environ.get("GCP_LOCATION", "us-central1"),
+        help="Location for context lookup (default: $GCP_LOCATION or us-central1).",
     )
     parser.add_argument(
         "--semantic",

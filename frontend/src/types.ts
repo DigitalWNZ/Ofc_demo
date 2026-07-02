@@ -27,6 +27,13 @@ export interface ContextParsed {
   fully_qualified_name?: string;
   parent?: string;
   columns?: ContextColumn[];
+  owner?: string;
+  grain?: string;
+  database?: string;
+  schema?: string;
+  primary_keys?: string | string[];
+  partitions?: string | string[];
+  timestamp_column?: string;
   [key: string]: unknown;
 }
 

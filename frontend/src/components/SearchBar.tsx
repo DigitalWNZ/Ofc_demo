@@ -36,7 +36,7 @@ export default function SearchBar({ onSearch, initialQuery = '' }: SearchBarProp
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search with natural language..."
+          placeholder="Search game data assets..."
           autoFocus
         />
       </div>

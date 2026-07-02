@@ -7,6 +7,7 @@ Run locally:
     uvicorn backend.main:app --reload --port 8000
 """
 
+import os
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -34,7 +35,7 @@ from search_catalog import (  # noqa: E402
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-DEFAULT_PROJECT = "lufeng-demo"
+DEFAULT_PROJECT = os.environ.get("GCP_PROJECT", "lufeng-demo")
 FRONTEND_DIST = _PROJECT_ROOT / "frontend" / "dist"
 
 # ---------------------------------------------------------------------------
