@@ -30,7 +30,7 @@ export default function ArchitectureDiagram() {
         {/* ===== TOP LEFT: ① 数据仓库 ===== */}
         <rect x={leftX} y={topY} width={boxW} height={boxH} rx="12" fill="#eff6ff" stroke="#93c5fd" strokeWidth="1.5" />
         <text x={leftX + boxW / 2} y={topY + 24} textAnchor="middle" fill="#1e40af" fontSize="13" fontWeight="600" fontFamily="Google Sans, sans-serif">① 游戏数据仓库</text>
-        <text x={leftX + boxW / 2} y={topY + 40} textAnchor="middle" fill="#3b82f6" fontSize="10" fontFamily="Roboto, sans-serif">Flood-It! 益智游戏 · 多数据源</text>
+        <text x={leftX + boxW / 2} y={topY + 40} textAnchor="middle" fill="#3b82f6" fontSize="10" fontFamily="Roboto, sans-serif">Flood-It! 益智游戏</text>
 
         {/* 4 data layers */}
         <rect x={leftX + 15} y={topY + 52} width="150" height="48" rx="6" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1" />
