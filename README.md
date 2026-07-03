@@ -1,6 +1,6 @@
 # Game Analytics Data Catalog Demo
 
-Showcase **Open Knowledge Format (OKF)** and **Google Cloud Dataplex Knowledge Catalog** using a gaming industry data catalog. Search and explore 17 game analytics tables with natural language — no SQL needed.
+Showcase **Open Knowledge Format (OKF)** and **Google Cloud Knowledge Catalog** using a gaming industry data catalog. Search and explore 17 game analytics tables with natural language — no SQL needed.
 
 Built on the [Firebase public dataset](https://developers.google.com/analytics/bigquery/app-gaming-demo-dataset) (Flood-It! puzzle game, `firebase-public-project.analytics_153293282`).
 
@@ -13,8 +13,8 @@ chmod +x setup.sh
 ```
 
 This will:
-1. Enable Dataplex and Cloud Run APIs
-2. Create a Dataplex entry group
+1. Enable Knowledge Catalog and Cloud Run APIs
+2. Create a Knowledge Catalog entry group
 3. Ingest the gaming ontology via `kcmd`
 4. Deploy the web app to Cloud Run
 5. Print the demo URL
@@ -25,10 +25,10 @@ This will:
 knowledge_cata/ontology.yaml          ← 17 gaming tables defined in OKF YAML
         │
         ▼
-ontology/init.sh (kcmd init + push)   ← Converts OKF → Dataplex entries
+ontology/init.sh (kcmd init + push)   ← Converts OKF → Knowledge Catalog entries
         │
         ▼
-Dataplex Knowledge Catalog             ← Semantic search + context APIs
+Knowledge Catalog             ← Semantic search + context APIs
         │
         ├── search_catalog.py          ← CLI: semantic / keyword search
         │
@@ -87,8 +87,8 @@ All settings are configurable via environment variables:
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `GCP_PROJECT` | `lufeng-demo` | GCP project ID |
-| `GCP_LOCATION` | `us-central1` | Dataplex region |
-| `ENTRY_GROUP` | `gaming-ontology` | Dataplex entry group name |
+| `GCP_LOCATION` | `us-central1` | Knowledge Catalog region |
+| `ENTRY_GROUP` | `gaming-ontology` | Knowledge Catalog entry group name |
 
 ## Demo Guide
 
@@ -99,7 +99,7 @@ See [DEMO_GUIDE.md](DEMO_GUIDE.md) for a scripted demo flow with talking points 
 | Layer | Technology |
 |-------|-----------|
 | Metadata | OKF (YAML) |
-| Catalog | Google Cloud Dataplex Knowledge Catalog |
+| Catalog | Google Cloud Knowledge Catalog |
 | Backend | FastAPI (Python 3.12) |
 | Frontend | React 19 + TypeScript + Vite |
 | Deploy | Docker + Cloud Run |

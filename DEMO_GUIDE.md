@@ -11,7 +11,7 @@
 
 ### Opening (30 seconds)
 
-> "Gaming companies generate massive amounts of player data — events, purchases, sessions, device info. But finding the right table and understanding what each column means is a constant challenge for analysts and data scientists. Let me show you how OKF and Dataplex Knowledge Catalog solve this."
+> "Gaming companies generate massive amounts of player data — events, purchases, sessions, device info. But finding the right table and understanding what each column means is a constant challenge for analysts and data scientists. Let me show you how OKF and Knowledge Catalog solve this."
 
 ### 1. Landing Page (30 seconds)
 
@@ -39,7 +39,7 @@ Walk through:
 - **Schema**: Show columns like `d1_rate`, `d7_rate`, `d30_rate` with clear descriptions
 - **Owner**: analytics_team — you know who to ask
 
-> "All this metadata was defined once in a simple YAML file using OKF — the Open Knowledge Format. It's version-controlled, human-readable, and automatically synced to Dataplex."
+> "All this metadata was defined once in a simple YAML file using OKF — the Open Knowledge Format. It's version-controlled, human-readable, and automatically synced to Knowledge Catalog."
 
 ### 4. Revenue Search (1 minute)
 
@@ -67,7 +67,7 @@ Search for **"level completion funnel"**
 
 > "What you've seen is:
 > 1. **OKF** — an open YAML format to define your data catalog
-> 2. **Dataplex Knowledge Catalog** — Google Cloud's platform that makes it searchable
+> 2. **Knowledge Catalog** — Google Cloud's platform that makes it searchable
 > 3. **Semantic search** — find data with natural language, no SQL needed
 >
 > This works with any data warehouse — BigQuery, Snowflake, Databricks — and scales to thousands of tables."
@@ -87,4 +87,4 @@ A: Three key advantages: (1) version-controlled in Git, (2) semantic search inst
 A: That's the point — natural language search means anyone can find data without knowing SQL or table names.
 
 **Q: What about data governance and access control?**
-A: Dataplex integrates with Google Cloud IAM. You can control who sees what at the project, dataset, or table level.
+A: Knowledge Catalog integrates with Google Cloud IAM. You can control who sees what at the project, dataset, or table level.

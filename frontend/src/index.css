@@ -771,6 +771,79 @@ input {
 }
 
 /* ==============================
+   Demo Info Section
+   ============================== */
+.demo-info {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.demo-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.demo-info-card {
+  background: var(--color-surface-dim);
+  border: 1px solid var(--color-border-light);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.demo-info-card:hover {
+  border-color: #c7d2fe;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+}
+
+.demo-info-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: #6366f1;
+}
+
+.demo-info-card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.demo-info-card-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+}
+
+.demo-info-card-text {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.demo-info-card-text strong {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .demo-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==============================
    Metadata Badges
    ============================== */
 .context-badges {
