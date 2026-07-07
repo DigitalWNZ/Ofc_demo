@@ -15,17 +15,17 @@ chmod +x setup.sh
 This will:
 1. Enable Knowledge Catalog and Cloud Run APIs
 2. Create a Knowledge Catalog entry group
-3. Ingest the gaming ontology via `kcmd`
+3. Ingest the gaming catalog via `kcmd`
 4. Deploy the web app to Cloud Run
 5. Print the demo URL
 
 ## Architecture
 
 ```
-bigquery_data/ontology.yaml          ← 17 gaming tables defined in OKF YAML
+bigquery_data/bigquery_data_meta.yaml ← 17 gaming tables defined in OKF YAML
         │
         ▼
-ontology/init.sh (kcmd init + push)   ← Converts OKF → Knowledge Catalog entries
+bigquery_data_meta/init.sh (kcmd init + push) ← Converts OKF → Knowledge Catalog entries
         │
         ▼
 Knowledge Catalog             ← Semantic search + context APIs
@@ -88,7 +88,7 @@ All settings are configurable via environment variables:
 |----------|---------|-------------|
 | `GCP_PROJECT` | `lufeng-demo` | GCP project ID |
 | `GCP_LOCATION` | `us-central1` | Knowledge Catalog region |
-| `ENTRY_GROUP` | `gaming-ontology` | Knowledge Catalog entry group name |
+| `ENTRY_GROUP` | `gaming-catalog` | Knowledge Catalog entry group name |
 
 ## Demo Guide
 

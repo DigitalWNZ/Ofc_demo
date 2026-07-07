@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Push ontology entries to Dataplex Knowledge Catalog using the Python SDK."""
+"""Push catalog entries to Dataplex Knowledge Catalog using the Python SDK."""
 
 import os
 import yaml
@@ -7,8 +7,8 @@ from google.cloud import dataplex_v1
 
 PROJECT_ID = os.environ.get("GCP_PROJECT", "leon-demo-486305")
 LOCATION = os.environ.get("GCP_LOCATION", "us-central1")
-ENTRY_GROUP = os.environ.get("ENTRY_GROUP", "gaming-ontology")
-ONTOLOGY_PATH = "bigquery_data/ontology.yaml"
+ENTRY_GROUP = os.environ.get("ENTRY_GROUP", "gaming-catalog")
+ONTOLOGY_PATH = "bigquery_data/bigquery_data_meta.yaml"
 
 ENTRY_TYPE = "projects/dataplex-types/locations/global/entryTypes/generic"
 OVERVIEW_ASPECT_TYPE = "dataplex-types.global.overview"
@@ -18,7 +18,7 @@ GENERIC_ASPECT_TYPE_FULL = "projects/dataplex-types/locations/global/aspectTypes
 
 
 def sanitize_id(entry_id: str) -> str:
-    """Convert ontology ID to valid Dataplex entry ID."""
+    """Convert entry ID to valid Dataplex entry ID."""
     return entry_id.replace(".", "_")
 
 
@@ -84,7 +84,7 @@ def main():
     client = dataplex_v1.CatalogServiceClient()
     parent = f"projects/{PROJECT_ID}/locations/{LOCATION}/entryGroups/{ENTRY_GROUP}"
 
-    print(f"Pushing ontology to {parent}")
+    print(f"Pushing catalog entries to {parent}")
     print(f"Tables: {len(tables)}, Columns: {len(columns)}")
     print()
 

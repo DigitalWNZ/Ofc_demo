@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Convert ontology.yaml into kcmd-compatible markdown catalog files."""
+"""Convert bigquery_data_meta.yaml into kcmd-compatible markdown catalog files."""
 
 import os
 import yaml
 
-ONTOLOGY_PATH = "bigquery_data/ontology.yaml"
-CATALOG_DIR = "ontology/catalog"
+ONTOLOGY_PATH = "bigquery_data/bigquery_data_meta.yaml"
+CATALOG_DIR = "bigquery_data_meta/catalog"
 
 
 def table_to_md(table: dict, columns: list[dict]) -> str:

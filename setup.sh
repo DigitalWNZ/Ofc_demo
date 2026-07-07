@@ -3,7 +3,7 @@ set -euo pipefail
 
 PROJECT_ID="${1:?Usage: ./setup.sh PROJECT_ID [REGION]}"
 REGION="${2:-us-central1}"
-ENTRY_GROUP="gaming-ontology"
+ENTRY_GROUP="gaming-catalog"
 SERVICE_NAME="okf-gaming-demo"
 
 echo "============================================"
@@ -34,8 +34,8 @@ else
   echo "  Already exists: $ENTRY_GROUP"
 fi
 
-# ─── Step 3: Build kcmd and ingest ontology ───
-echo "[3/5] Ingesting gaming ontology into Knowledge Catalog..."
+# ─── Step 3: Build kcmd and ingest catalog ───
+echo "[3/5] Ingesting gaming catalog into Knowledge Catalog..."
 KCMD_DIR="/tmp/knowledge-catalog"
 if [ ! -d "$KCMD_DIR" ]; then
   git clone --depth 1 https://github.com/GoogleCloudPlatform/knowledge-catalog "$KCMD_DIR"
@@ -46,9 +46,9 @@ fi
 KCMD="$KCMD_DIR/toolbox/mdcode/dist/kcmd"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-sed -i "s|^scope:.*|scope: kb.${PROJECT_ID}.${REGION}.${ENTRY_GROUP}|" "$SCRIPT_DIR/ontology/catalog.yaml"
+sed -i "s|^scope:.*|scope: kb.${PROJECT_ID}.${REGION}.${ENTRY_GROUP}|" "$SCRIPT_DIR/bigquery_data_meta/catalog.yaml"
 
-cd "$SCRIPT_DIR/ontology"
+cd "$SCRIPT_DIR/bigquery_data_meta"
 "$KCMD" init --kb "${PROJECT_ID}.${REGION}.${ENTRY_GROUP}"
 "$KCMD" push
 cd "$SCRIPT_DIR"

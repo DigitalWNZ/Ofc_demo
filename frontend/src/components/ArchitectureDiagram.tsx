@@ -55,7 +55,7 @@ export default function ArchitectureDiagram() {
         {/* ===== TOP RIGHT: ② OKF ===== */}
         <rect x={rightX} y={topY} width={boxW} height={boxH} rx="12" fill="#fefce8" stroke="#facc15" strokeWidth="1.5" />
         <text x={rightX + boxW / 2} y={topY + 24} textAnchor="middle" fill="#854d0e" fontSize="13" fontWeight="600" fontFamily="Google Sans, sans-serif">② OKF 上下文抽取</text>
-        <text x={rightX + boxW / 2} y={topY + 40} textAnchor="middle" fill="#a16207" fontSize="10" fontFamily="Roboto, sans-serif">Open Knowledge Format · ontology.yaml</text>
+        <text x={rightX + boxW / 2} y={topY + 40} textAnchor="middle" fill="#a16207" fontSize="10" fontFamily="Roboto, sans-serif">Open Knowledge Format · bigquery_data_meta.yaml</text>
 
         <g transform={`translate(${rightX + 15}, ${topY + 50})`}>
           <rect x="0" y="0" width="310" height="22" rx="4" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />

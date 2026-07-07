@@ -2,9 +2,9 @@
 
 PROJECT_ID="${GCP_PROJECT:-lufeng-demo}"
 REGION="${GCP_LOCATION:-us-central1}"
-ENTRY_GROUP="${ENTRY_GROUP:-gaming-ontology}"
+ENTRY_GROUP="${ENTRY_GROUP:-gaming-catalog}"
 
-echo "=== OKF Ontology Ingestion ==="
+echo "=== OKF Catalog Ingestion ==="
 echo "Project:     $PROJECT_ID"
 echo "Region:      $REGION"
 echo "Entry Group: $ENTRY_GROUP"
@@ -40,4 +40,4 @@ cd "$SCRIPT_DIR"
 "$KCMD" init --kb "${PROJECT_ID}.${REGION}.${ENTRY_GROUP}"
 "$KCMD" push
 
-echo "Ontology ingestion complete."
+echo "Catalog ingestion complete."
