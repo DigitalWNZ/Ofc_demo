@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The application version that produced the crash. Essential for identifying
   version-specific regressions and prioritizing hotfixes.
 title: app_version

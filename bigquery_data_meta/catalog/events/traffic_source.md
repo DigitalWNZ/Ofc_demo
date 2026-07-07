@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The traffic source that originally acquired the player (e.g., google,
   facebook, organic). Used for first-touch attribution and acquisition channel analysis.
 title: traffic_source

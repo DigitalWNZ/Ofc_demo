@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: column
 description: Type of activity — install, session, reattribution, or event.
 title: activity_kind
 type: dataplex-types.global.generic

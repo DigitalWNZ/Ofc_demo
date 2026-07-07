@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The variant name within the experiment (e.g., control, variant_a, variant_b).
   Part of the composite primary key.
 title: variant

@@ -28,7 +28,10 @@ public_sources:
 - https://www.pingwest.com/a/312151
 - https://www.tencentcloud.com/products/ace
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Unique identifier for the crash or error report. Primary key for deduplication
   and individual report lookup.
 title: report_id

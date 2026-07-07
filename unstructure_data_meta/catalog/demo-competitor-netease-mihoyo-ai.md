@@ -36,7 +36,10 @@ public_sources:
 - https://www.youxituoluo.com/533153.html
 - https://www.tencent.com/zh-cn/articles/2202340.html
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

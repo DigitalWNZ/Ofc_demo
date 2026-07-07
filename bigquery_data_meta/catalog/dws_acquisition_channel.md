@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: User acquisition channel performance metrics aggregated daily. Tracks
   installs, costs, revenue, and ROI by acquisition source, medium, and campaign. Used
   for marketing ROI analysis, budget allocation optimization, and identifying the

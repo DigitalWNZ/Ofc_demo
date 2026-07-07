@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The number of distinct players who attempted this level on this date.
   Provides reach context for the funnel metrics.
 title: unique_players

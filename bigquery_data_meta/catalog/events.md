@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: The core event-level table exported from Google Analytics for Firebase,
   containing all tracked player interactions in the Flood-It! puzzle game. Sourced
   from firebase-public-project.analytics_153293282.events_*. Each row represents one

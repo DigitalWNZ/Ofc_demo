@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: column
 description: Unique identifier for the callback event.
 title: callback_id
 type: dataplex-types.global.generic

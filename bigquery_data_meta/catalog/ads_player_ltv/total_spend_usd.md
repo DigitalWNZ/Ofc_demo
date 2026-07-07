@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The player's cumulative in-app purchase spending in USD up to the prediction_date.
   A key input feature to the LTV model.
 title: total_spend_usd

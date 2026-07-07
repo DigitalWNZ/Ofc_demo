@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The average number of sessions per unique player. Higher values indicate
   stronger daily re-engagement patterns.
 title: avg_sessions_per_user

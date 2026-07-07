@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Day-1 retention rate — d1_retained divided by cohort_size. The most commonly
   watched early retention metric in the gaming industry.
 title: d1_rate

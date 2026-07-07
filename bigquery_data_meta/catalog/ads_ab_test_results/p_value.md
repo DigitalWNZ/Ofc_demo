@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The statistical p-value comparing this variant against the control group.
   Values below 0.05 are typically considered statistically significant.
 title: p_value

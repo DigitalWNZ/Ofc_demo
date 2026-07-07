@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Aggregated outcomes of Firebase A/B Testing and Remote Config experiments.
   Contains statistical significance metrics including p-values, sample sizes, conversion
   rates, and revenue impact per variant. The authoritative source for data-driven

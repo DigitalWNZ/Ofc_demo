@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The average number of events triggered per session. A proxy for session
   depth and interaction richness.
 title: avg_events_per_session

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Level completion funnel metrics tracking player progression through game
   levels. Captures starts, completions, failures, time spent, and retry patterns for
   each level. Essential for game design optimization, difficulty curve balancing,

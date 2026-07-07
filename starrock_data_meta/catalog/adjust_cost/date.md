@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: column
 description: Date of the cost record.
 title: date
 type: dataplex-types.global.generic

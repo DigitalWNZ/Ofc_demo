@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The mean session duration in seconds. May be skewed by long-tail sessions;
   use median for a more robust central tendency.
 title: avg_session_duration_sec

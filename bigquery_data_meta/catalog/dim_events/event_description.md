@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: A human-readable description of what the event represents and when it
   fires. Provides business context for analysts.
 title: event_description

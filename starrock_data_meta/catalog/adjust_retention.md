@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: table
 description: Daily retention cohort data from Adjust. Tracks D1 through D30 retention
   rates per install cohort, broken down by network and campaign. Used to evaluate
   user quality across acquisition channels.

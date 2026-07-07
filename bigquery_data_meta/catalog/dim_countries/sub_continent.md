@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The sub-continental grouping (e.g., Northern America, Eastern Asia, Southern
   Europe). A mid-level geographic hierarchy.
 title: sub_continent

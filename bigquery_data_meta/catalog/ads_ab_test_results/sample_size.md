@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The number of players assigned to this variant. Required for statistical
   power assessment and significance calculations.
 title: sample_size

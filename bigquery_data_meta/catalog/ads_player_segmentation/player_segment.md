@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The primary behavioral segment label (e.g., hardcore_grinder, casual_explorer,
   social_player, at_risk_churner). Drives personalization and targeting strategies.
 title: player_segment

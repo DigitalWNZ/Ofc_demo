@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The date on which the event was logged, formatted as YYYYMMDD. Used as
   the partition key for efficient date-range queries.
 title: event_date

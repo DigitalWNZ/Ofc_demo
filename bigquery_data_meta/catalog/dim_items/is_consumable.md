@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Whether the item is consumed upon use (true) or permanently owned (false).
   Consumable items drive repeat purchases and recurring revenue.
 title: is_consumable

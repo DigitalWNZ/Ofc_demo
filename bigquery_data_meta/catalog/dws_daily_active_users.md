@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Daily active user metrics aggregation. Pre-computed DAU, WAU, and MAU
   broken down by platform, country, and user type. The primary source for player engagement
   KPIs and executive dashboards. Enables fast time-series analysis of player base

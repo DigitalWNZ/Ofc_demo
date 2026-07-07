@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The monetary value associated with the event, converted to US dollars.
   Populated for purchase and ad revenue events; null for non-monetization events.
 title: event_value_in_usd

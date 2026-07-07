@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The total number of level failures (player ran out of moves or time)
   on this date. High failure rates may indicate difficulty balancing issues.
 title: failures

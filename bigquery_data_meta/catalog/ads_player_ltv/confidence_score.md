@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The model's confidence in the LTV prediction, expressed as a value between
   0 and 1. Lower scores indicate higher uncertainty, often for new players.
 title: confidence_score

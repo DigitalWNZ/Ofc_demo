@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The form factor category of the device (e.g., mobile, tablet, desktop).
   Influences UI/UX optimization priorities.
 title: device_category

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Market tier classification (e.g., T1, T2, T3) based on purchasing power
   and ad market maturity. Drives regional monetization strategy and CPI benchmarks.
 title: tier

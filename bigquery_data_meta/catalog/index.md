@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Gaming analytics data catalog based on Firebase/GA4 for the Flood-It!
   puzzle game
 title: Game Analytics Data Catalog

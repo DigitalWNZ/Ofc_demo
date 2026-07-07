@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The acquisition source (e.g., google, facebook, apple_search_ads, organic).
   Identifies where the player was acquired from.
 title: source

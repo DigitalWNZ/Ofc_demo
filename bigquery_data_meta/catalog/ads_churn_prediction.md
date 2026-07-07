@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: ML model output scoring each player's likelihood of churning within the
   next 7 days. Includes risk tiers, engagement scores, win-back likelihood, and recommended
   retention actions. Enables proactive retention interventions such as push notifications,

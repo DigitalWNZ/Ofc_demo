@@ -37,7 +37,10 @@ public_sources:
 - https://m.jiemian.com/article/13848445.html
 - https://www.stcn.com/article/detail/3570799.html
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

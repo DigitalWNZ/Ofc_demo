@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The brand of the mobile device (e.g., Samsung, Google, Apple). Used for
   device-level performance analysis and hardware compatibility tracking.
 title: device_mobile_brand

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The number of days between the player's first_open event and the prediction_date.
   Provides context for the prediction's maturity.
 title: days_since_install

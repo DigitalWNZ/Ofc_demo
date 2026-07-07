@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Event name dimension table providing business context for raw event data.
   Maps event names to categories, human-readable descriptions, and metadata flags.
   Distinguishes auto-collected events from custom events, and identifies which events

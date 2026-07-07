@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The model of the device that experienced the crash. Used to detect device-specific
   hardware or driver issues.
 title: device_model

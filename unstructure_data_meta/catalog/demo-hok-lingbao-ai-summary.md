@@ -31,7 +31,10 @@ public_sources:
 - https://www.tencent.com/zh-cn/articles/2202340.html
 - https://www.csdn.net/article/2026-05-28/161479101
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Daily revenue aggregation across all monetization channels. Combines
   in-app purchase (IAP) revenue, advertising revenue, and subscription revenue into
   a unified daily view. Includes derived metrics such as ARPU (average revenue per

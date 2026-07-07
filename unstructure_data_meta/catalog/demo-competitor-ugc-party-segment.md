@@ -33,7 +33,10 @@ public_sources:
 - https://www.cnjjwb.com/news-show-182199.html
 - https://www.youxituoluo.com/533153.html
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

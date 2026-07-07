@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Player properties snapshot table extracted from the GA4 user_properties
   repeated field. Stores the latest set of player attributes such as first_open_time,
   engagement level, and custom user properties. Used for player segmentation, cohort

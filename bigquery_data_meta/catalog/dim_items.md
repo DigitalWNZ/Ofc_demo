@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Master data for all virtual goods, currency packs, and purchasable items
   in the game. Contains pricing, categorization, rarity, and consumability attributes.
   Links to revenue and purchase event analysis, enabling monetization teams to evaluate

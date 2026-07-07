@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The player's total revenue contribution in USD since install. A cumulative
   monetization metric used for tier assignment.
 title: lifetime_revenue_usd

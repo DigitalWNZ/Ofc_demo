@@ -37,7 +37,10 @@ public_sources:
 - https://www.news.cn/tech/20260529/ea67a3b2d56340e9a8fdddf9f38877df/c.html
 - https://finance.sina.com.cn/china/gncj/2026-05-28/doc-inhzmpqp1092261.shtml
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

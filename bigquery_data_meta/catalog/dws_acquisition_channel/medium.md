@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The acquisition medium (e.g., cpc, cpi, organic, referral). Combined
   with source for full channel attribution.
 title: medium

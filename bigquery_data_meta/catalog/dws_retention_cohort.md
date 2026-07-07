@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Player retention cohort analysis with pre-computed retention rates by
   install cohort. Tracks D1 through D30 retention broken down by platform and country.
   The key table for measuring long-term player engagement, game stickiness, and the

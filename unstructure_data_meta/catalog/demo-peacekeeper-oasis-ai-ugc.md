@@ -33,7 +33,10 @@ public_sources:
 - https://www.news.cn/tech/20260529/ea67a3b2d56340e9a8fdddf9f38877df/c.html
 - https://www.cnjjwb.com/news-show-182199.html
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

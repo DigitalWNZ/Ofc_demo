@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The date the LTV prediction was generated, in YYYYMMDD format. Partition
   key enabling comparison of predictions over time.
 title: prediction_date

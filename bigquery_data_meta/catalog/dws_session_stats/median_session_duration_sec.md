@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The median session duration in seconds. More robust than the mean for
   understanding typical player session length.
 title: median_session_duration_sec

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: column
 description: Ad network name.
 title: network
 type: dataplex-types.global.generic

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Country and region dimension table providing geographic reference data
   for player segmentation and regional analysis. Includes hierarchical geography (country,
   sub-continent, continent), local currency codes, and market tier classifications

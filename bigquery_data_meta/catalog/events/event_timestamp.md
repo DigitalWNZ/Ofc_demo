@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Unix timestamp in microseconds when the event was logged on the client
   device. Primary ordering key for event sequencing.
 title: event_timestamp

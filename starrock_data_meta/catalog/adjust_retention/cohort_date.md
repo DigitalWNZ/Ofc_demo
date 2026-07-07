@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: column
 description: Install date defining the cohort.
 title: cohort_date
 type: dataplex-types.global.generic

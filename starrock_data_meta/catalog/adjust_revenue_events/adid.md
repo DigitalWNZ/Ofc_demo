@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: column
 description: Adjust device ID linking this event to an attributed user.
 title: adid
 type: dataplex-types.global.generic

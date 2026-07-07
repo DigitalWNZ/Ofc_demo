@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Flag indicating whether the event is automatically collected by the Firebase
   SDK (true) or custom-instrumented by the development team (false).
 title: is_auto_collected

@@ -35,7 +35,10 @@ public_sources:
 - https://gp.qq.com/gicp/news/736/18793217.html
 - https://www.tencent.com/zh-hk/articles/2201793.html
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

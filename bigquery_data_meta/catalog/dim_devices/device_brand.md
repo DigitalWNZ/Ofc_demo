@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The manufacturer or brand of the device (e.g., Google, Samsung, Apple).
   Used for brand-level performance segmentation.
 title: device_brand

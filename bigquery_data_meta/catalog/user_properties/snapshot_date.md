@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The date of the snapshot in YYYYMMDD format. Partition key enabling point-in-time
   lookups of player properties.
 title: snapshot_date

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The total marketing spend in USD for this acquisition channel on this
   date. Sourced from ad network cost data integrations.
 title: cost_usd

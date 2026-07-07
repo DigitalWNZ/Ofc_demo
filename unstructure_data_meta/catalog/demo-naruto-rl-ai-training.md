@@ -30,7 +30,10 @@ public_sources:
 - https://m.jiemian.com/article/11012806.html
 - https://hub.baai.ac.cn/view/36175
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

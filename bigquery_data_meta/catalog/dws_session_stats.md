@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Player session statistics aggregated daily by platform and country. Includes
   session counts, duration distributions, depth metrics, and engagement patterns.
   Used for understanding play behavior, identifying engagement trends, and benchmarking

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The date the churn prediction was generated, in YYYYMMDD format. Partition
   key for tracking prediction freshness.
 title: prediction_date

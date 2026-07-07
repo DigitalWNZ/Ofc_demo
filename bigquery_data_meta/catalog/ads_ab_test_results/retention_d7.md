@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The day-7 retention rate for players in this variant. Used to evaluate
   whether the experiment positively or negatively impacts player retention.
 title: retention_d7

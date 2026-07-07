@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The percentage of DAU who made at least one purchase. A key monetization
   health metric, typically expressed as a decimal (e.g., 0.03 = 3%).
 title: conversion_rate

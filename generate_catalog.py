@@ -24,7 +24,9 @@ def table_to_md(table: dict, columns: list[dict]) -> str:
         "title": title,
         "description": desc,
         "catalogEntry": {
-            "resource": {},
+            "resource": {
+                "labels": {"system": "bigquery", "kind": "table"},
+            },
             "aspects": {
                 "dataplex-types.global.generic": {},
             },
@@ -62,7 +64,9 @@ def column_to_md(col: dict) -> str:
         "title": title,
         "description": desc,
         "catalogEntry": {
-            "resource": {},
+            "resource": {
+                "labels": {"system": "bigquery", "kind": "column"},
+            },
             "aspects": {
                 "dataplex-types.global.generic": {},
             },
@@ -84,7 +88,9 @@ def index_md(tables: list[dict]) -> str:
         "title": "Game Analytics Data Catalog",
         "description": "Gaming analytics data catalog based on Firebase/GA4 for the Flood-It! puzzle game",
         "catalogEntry": {
-            "resource": {},
+            "resource": {
+                "labels": {"system": "bigquery", "kind": "table"},
+            },
             "aspects": {
                 "dataplex-types.global.generic": {},
             },

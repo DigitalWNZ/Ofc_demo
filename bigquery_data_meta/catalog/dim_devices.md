@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Device dimension table containing reference data for device models, brands,
   and operating systems. Used for device-level performance analysis, compatibility
   testing prioritization, and understanding the hardware landscape of the player base

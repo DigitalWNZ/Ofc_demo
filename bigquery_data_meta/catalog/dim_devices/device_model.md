@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The specific device model identifier (e.g., Pixel 7, SM-G991B, iPhone
   14). Part of the composite primary key.
 title: device_model

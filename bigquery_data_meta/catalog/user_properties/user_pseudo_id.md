@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The pseudonymous player identifier linking properties back to the events
   table and all downstream analytics.
 title: user_pseudo_id

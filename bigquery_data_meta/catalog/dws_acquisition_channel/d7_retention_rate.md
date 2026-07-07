@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Day-7 retention rate for players acquired through this channel. A stronger
   signal of player quality than D1 retention.
 title: d7_retention_rate

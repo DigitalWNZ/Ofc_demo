@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: ML-driven player segmentation combining engagement patterns, monetization
   behavior, and progression signals into actionable player clusters. Assigns each
   player a behavioral segment, monetization tier, and engagement level. Used for targeted

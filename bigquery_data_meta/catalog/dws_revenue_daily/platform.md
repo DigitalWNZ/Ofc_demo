@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The platform dimension (ANDROID, IOS, WEB) for platform-level revenue
   breakdown.
 title: platform

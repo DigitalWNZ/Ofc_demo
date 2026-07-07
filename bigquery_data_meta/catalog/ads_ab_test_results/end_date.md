@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The date the experiment stopped collecting data, in YYYYMMDD format.
   May be null for ongoing experiments.
 title: end_date

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The player's percentile rank within the LTV distribution (0-100). Players
   at the 99th percentile are whale-tier high-value players.
 title: ltv_percentile

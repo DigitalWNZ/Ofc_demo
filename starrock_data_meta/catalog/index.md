@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: table
 description: Payment and attribution data catalog from Adjust SDK for gaming analytics
 title: Adjust Payment & Attribution Catalog
 type: dataplex-types.global.generic

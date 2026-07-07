@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: table
 description: Raw callback events from Adjust SDK covering installs, sessions, reattributions,
   and in-app revenue events. Each row is one server-to-server callback.
 title: Adjust Callbacks

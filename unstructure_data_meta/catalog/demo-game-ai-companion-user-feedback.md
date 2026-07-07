@@ -32,7 +32,10 @@ public_sources:
 - https://gp.qq.com/gicp/news/736/18793217.html
 - https://www.csdn.net/article/2026-05-28/161479101
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

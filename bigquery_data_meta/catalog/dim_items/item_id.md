@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The unique identifier for the in-game item or product SKU. Primary key
   linking to purchase events and revenue analysis.
 title: item_id

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The number of new players in this cohort (i.e., players who first opened
   the app on cohort_date for this platform and country).
 title: cohort_size

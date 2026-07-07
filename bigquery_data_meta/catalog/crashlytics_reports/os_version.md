@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The operating system version on the affected device. Helps identify OS-specific
   crashes and compatibility issues.
 title: os_version

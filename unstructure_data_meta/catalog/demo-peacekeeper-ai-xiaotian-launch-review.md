@@ -31,7 +31,10 @@ public_sources:
 - https://www.news.cn/tech/20260529/ea67a3b2d56340e9a8fdddf9f38877df/c.html
 - https://gp.qq.com/gicp/news/736/18578244.html
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

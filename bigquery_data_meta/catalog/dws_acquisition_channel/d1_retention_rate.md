@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Day-1 retention rate for players acquired through this channel. Indicates
   acquisition quality beyond volume.
 title: d1_retention_rate

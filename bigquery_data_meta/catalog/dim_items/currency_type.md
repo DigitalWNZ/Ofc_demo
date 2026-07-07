@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The currency used to purchase this item (e.g., real_money, gems, coins).
   Distinguishes between hard-currency and soft-currency items.
 title: currency_type

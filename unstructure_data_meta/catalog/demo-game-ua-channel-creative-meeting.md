@@ -32,7 +32,10 @@ public_sources:
 - https://pdf.dfcfw.com/pdf/H3_AP202604241821576014_1.pdf
 - https://file.tencentads.com/files/pdf/2023/9/ed1cbb71ead242eab464c639f06e7f52.pdf
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

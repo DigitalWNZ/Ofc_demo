@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: table
 description: In-app purchase and ad revenue events reported through Adjust. Used for
   ROAS calculation, LTV modeling, and campaign-level revenue attribution.
 title: Adjust Revenue Events

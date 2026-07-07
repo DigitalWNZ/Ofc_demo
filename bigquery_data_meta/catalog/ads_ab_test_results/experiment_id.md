@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The unique identifier for the A/B test experiment. Part of the composite
   primary key and used for joining to experiment metadata.
 title: experiment_id

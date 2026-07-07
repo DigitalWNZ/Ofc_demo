@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: ML-generated player lifetime value predictions combining historical spending
   behavior with engagement signals. Provides per-player LTV estimates, confidence
   scores, percentile rankings, and segment assignments. Used for player valuation,

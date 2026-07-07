@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The continent name (e.g., Americas, Asia, Europe, Africa, Oceania). The
   top-level geographic hierarchy for global rollups.
 title: continent

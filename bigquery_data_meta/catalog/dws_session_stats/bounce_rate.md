@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The percentage of sessions with only a single event (or shorter than
   a minimum threshold). High bounce rates may indicate onboarding or technical issues.
 title: bounce_rate

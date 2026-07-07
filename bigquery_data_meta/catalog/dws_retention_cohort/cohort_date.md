@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The install (first_open) date defining the cohort, formatted as YYYYMMDD.
   Partition key for cohort-based retention lookups.
 title: cohort_date

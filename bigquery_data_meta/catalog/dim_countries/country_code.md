@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: ISO 3166-1 alpha-2 country code (e.g., US, JP, BR). The primary key joining
   to event and aggregation tables.
 title: country_code

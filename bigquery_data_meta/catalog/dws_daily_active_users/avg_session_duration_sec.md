@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The average session duration in seconds across all sessions on this date.
   A proxy for engagement depth and content quality.
 title: avg_session_duration_sec

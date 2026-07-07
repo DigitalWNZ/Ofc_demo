@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: column
 description: Number of installs attributed to this campaign on this date.
 title: installs
 type: dataplex-types.global.generic

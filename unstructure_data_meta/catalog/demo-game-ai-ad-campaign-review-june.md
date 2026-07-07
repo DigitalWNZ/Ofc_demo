@@ -40,7 +40,10 @@ public_sources:
 - https://pdf.dfcfw.com/pdf/H3_AP202602021819403772_1.pdf
 - https://sensortower.com/blog/state-of-mobile-2026
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The Crashlytics issue group identifier. Groups individual crash reports
   by root cause for aggregate impact analysis.
 title: issue_id

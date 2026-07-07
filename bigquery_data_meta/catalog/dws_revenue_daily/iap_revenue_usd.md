@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Total in-app purchase revenue in USD for this date, platform, and country.
   Includes all completed purchase transactions.
 title: iap_revenue_usd

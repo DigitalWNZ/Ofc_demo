@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The category of the item (e.g., currency_pack, power_up, cosmetic, subscription).
   Used for category-level revenue analysis.
 title: item_category

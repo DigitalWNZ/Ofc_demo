@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The floating-point value of the user property, when the property is decimal-typed.
   Used for properties like lifetime revenue or engagement score.
 title: double_value

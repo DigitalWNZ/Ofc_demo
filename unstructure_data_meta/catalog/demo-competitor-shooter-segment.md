@@ -39,7 +39,10 @@ public_sources:
 - https://www.tencentcloud.com/dynamic/news-details/101021
 - https://www.stcn.com/article/detail/3570799.html
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

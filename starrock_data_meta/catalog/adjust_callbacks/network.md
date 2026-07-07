@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: column
 description: Ad network that drove the activity (e.g. Google Ads, Meta, TikTok).
 title: network
 type: dataplex-types.global.generic

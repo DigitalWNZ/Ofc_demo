@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: starrocks
+      kind: column
 description: Day-7 retention rate (0.0–1.0).
 title: d7_rate
 type: dataplex-types.global.generic

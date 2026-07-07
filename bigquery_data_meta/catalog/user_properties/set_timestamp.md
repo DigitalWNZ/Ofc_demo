@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Unix timestamp in microseconds when this property value was last set.
   Used to determine the recency of player attribute data.
 title: set_timestamp

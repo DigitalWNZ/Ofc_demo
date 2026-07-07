@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The display name of the item as shown to players in the in-game store
   (e.g., "Gem Pack 500", "Premium Pass").
 title: item_name

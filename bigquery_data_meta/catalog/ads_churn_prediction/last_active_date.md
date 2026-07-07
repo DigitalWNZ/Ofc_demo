@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The most recent date the player was active, in YYYYMMDD format. Provides
   recency context for the churn prediction.
 title: last_active_date

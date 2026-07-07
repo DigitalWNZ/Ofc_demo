@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The number of consecutive days the player has been inactive as of the
   prediction_date. A strong behavioral predictor of churn.
 title: days_inactive

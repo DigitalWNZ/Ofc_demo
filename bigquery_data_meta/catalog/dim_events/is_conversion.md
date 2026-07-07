@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Flag indicating whether the event has been marked as a conversion in
   the Firebase console. Conversion events drive attribution and funnel reporting.
 title: is_conversion

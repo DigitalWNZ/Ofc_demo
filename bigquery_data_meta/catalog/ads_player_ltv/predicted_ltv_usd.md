@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The model's predicted total lifetime value for this player in USD, covering
   all future monetization from IAP, ads, and subscriptions.
 title: predicted_ltv_usd

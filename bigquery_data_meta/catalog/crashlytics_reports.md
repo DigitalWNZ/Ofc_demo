@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: table
 description: Firebase Crashlytics crash and error reports. Records application crashes,
   non-fatal errors, and ANR (Application Not Responding) events with stack traces
   and device context. Used for stability monitoring, crash-free user rate tracking,

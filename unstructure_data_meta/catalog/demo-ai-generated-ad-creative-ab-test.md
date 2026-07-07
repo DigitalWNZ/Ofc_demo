@@ -38,7 +38,10 @@ public_sources:
 - https://www.appsflyer.com/company/newsroom/pr/gaming-marketing/
 - https://pdf.dfcfw.com/pdf/H3_AP202602021819403772_1.pdf
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

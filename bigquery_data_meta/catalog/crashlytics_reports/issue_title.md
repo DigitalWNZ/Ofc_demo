@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Human-readable title of the crash issue, typically the exception class
   and top-of-stack method. Used for quick triage and prioritization.
 title: issue_title

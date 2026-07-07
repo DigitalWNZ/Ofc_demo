@@ -1,9 +1,13 @@
 ---
 type: dataplex-types.global.generic
 title: Business Knowledge Catalog
-description: Gaming industry business knowledge — meeting notes, competitor analysis, AI capability reviews, and campaign summaries
+description: Gaming industry business knowledge — meeting notes, competitor analysis,
+  AI capability reviews, and campaign summaries
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

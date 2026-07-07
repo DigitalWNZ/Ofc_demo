@@ -41,7 +41,10 @@ public_sources:
 - https://tencentarena.com/aiarena/zh/
 - https://www.tencentcloud.com/dynamic/news-details/101021
 catalogEntry:
-  resource: {}
+  resource:
+    labels:
+      system: unstructured
+      kind: file
   aspects:
     dataplex-types.global.generic: {}
 ---

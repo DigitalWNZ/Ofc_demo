@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Cost per install (CPI) — cost_usd divided by installs. The primary efficiency
   metric for user acquisition budget management.
 title: cost_per_install

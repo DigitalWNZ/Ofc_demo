@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: The canonical event name, serving as the primary key. Joins to events.event_name
   for enrichment.
 title: event_name

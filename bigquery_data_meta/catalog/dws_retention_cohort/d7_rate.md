@@ -2,7 +2,10 @@
 catalogEntry:
   aspects:
     dataplex-types.global.generic: {}
-  resource: {}
+  resource:
+    labels:
+      system: bigquery
+      kind: column
 description: Day-7 retention rate — d7_retained divided by cohort_size. A key mid-term
   engagement indicator and industry benchmark.
 title: d7_rate
