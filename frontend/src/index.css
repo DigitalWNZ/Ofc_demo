@@ -568,6 +568,54 @@ input {
   overflow-y: auto;
 }
 
+/* Source Document Viewer */
+.context-section-icon {
+  vertical-align: text-bottom;
+  margin-right: 4px;
+  opacity: 0.7;
+}
+
+.context-panel-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.file-meta {
+  margin-bottom: 10px;
+}
+
+.file-loading {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  padding: 12px 0;
+}
+
+.file-error {
+  font-size: 13px;
+  color: var(--color-error);
+  padding: 12px 0;
+}
+
+.file-content {
+  margin-top: 8px;
+}
+
+.file-content-pre {
+  background: var(--color-surface-dim);
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+  padding: 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
 /* ==============================
    Initial / Empty State
    ============================== */

@@ -46,3 +46,10 @@ export interface ContextResponse {
   context_raw: string;
   context_parsed: ContextParsed | null;
 }
+
+export interface FileResponse {
+  slug: string;
+  title: string;
+  source_file_id: string;
+  content: string;
+}

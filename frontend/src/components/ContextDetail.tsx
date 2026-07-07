@@ -1,13 +1,20 @@
 import { useEffect, useState, useCallback } from 'react';
-import type { ContextResponse } from '../types';
+import type { ContextResponse, SearchResult, FileResponse } from '../types';
+import { getFileContent } from '../utils/api';
 
 interface ContextDetailProps {
   context: ContextResponse;
+  entry: SearchResult;
   onClose: () => void;
 }
 
-export default function ContextDetail({ context, onClose }: ContextDetailProps) {
+export default function ContextDetail({ context, entry, onClose }: ContextDetailProps) {
   const [rawExpanded, setRawExpanded] = useState(false);
+  const [fileData, setFileData] = useState<FileResponse | null>(null);
+  const [fileLoading, setFileLoading] = useState(false);
+  const [fileError, setFileError] = useState<string | null>(null);
+
+  const isFile = entry.kind === 'file';
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -25,6 +32,16 @@ export default function ContextDetail({ context, onClose }: ContextDetailProps) 
     };
   }, [handleKeyDown]);
 
+  useEffect(() => {
+    if (!isFile) return;
+    setFileLoading(true);
+    setFileError(null);
+    getFileContent(entry.entry_name)
+      .then(setFileData)
+      .catch(() => setFileError('Failed to load document content.'))
+      .finally(() => setFileLoading(false));
+  }, [isFile, entry.entry_name]);
+
   const parsed = context.context_parsed;
   const hasSchema = parsed?.columns && parsed.columns.length > 0;
 
@@ -34,9 +51,14 @@ export default function ContextDetail({ context, onClose }: ContextDetailProps) 
       <div className="context-panel-header">
         <div className="context-panel-title-group">
           <h2 className="context-panel-name">{context.display_name || context.entry_name}</h2>
-          {context.entry_type && (
-            <span className="entry-type-chip">{context.entry_type}</span>
-          )}
+          <div className="context-panel-chips">
+            {entry.system && (
+              <span className={`label-chip system-${entry.system}`}>{entry.system}</span>
+            )}
+            {entry.kind && (
+              <span className={`label-chip kind-${entry.kind}`}>{entry.kind}</span>
+            )}
+          </div>
         </div>
         <button
           className="context-close-btn"
@@ -170,6 +192,36 @@ export default function ContextDetail({ context, onClose }: ContextDetailProps) 
                 </tbody>
               </table>
             </div>
+          </div>
+        )}
+
+        {/* Source Document Section (file entries only) */}
+        {isFile && (
+          <div className="context-section">
+            <h3 className="context-section-title">
+              <svg className="context-section-icon" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM6 20V4h5v5h5v11H6z" />
+              </svg>
+              Source Document
+            </h3>
+            {fileData?.source_file_id && (
+              <div className="file-meta">
+                <span className="context-badge">
+                  <span className="context-badge-label">Source File ID:</span> {fileData.source_file_id}
+                </span>
+              </div>
+            )}
+            {fileLoading && (
+              <div className="file-loading">Loading document…</div>
+            )}
+            {fileError && (
+              <div className="file-error">{fileError}</div>
+            )}
+            {fileData && !fileLoading && (
+              <div className="file-content">
+                <pre className="file-content-pre">{fileData.content}</pre>
+              </div>
+            )}
           </div>
         )}
 

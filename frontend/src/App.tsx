@@ -234,7 +234,7 @@ export default function App() {
         {/* Context Detail Panel */}
         {selectedEntry && isLoadingContext && <ContextSkeleton />}
         {selectedEntry && context && !isLoadingContext && (
-          <ContextDetail context={context} onClose={handleCloseContext} />
+          <ContextDetail context={context} entry={selectedEntry} onClose={handleCloseContext} />
         )}
       </div>
 

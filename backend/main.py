@@ -8,6 +8,7 @@ Run locally:
 """
 
 import os
+import re
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -37,6 +38,8 @@ from search_catalog import (  # noqa: E402
 # ---------------------------------------------------------------------------
 DEFAULT_PROJECT = os.environ.get("GCP_PROJECT", "gpu-launchpad-playground")
 FRONTEND_DIST = _PROJECT_ROOT / "frontend" / "dist"
+CATALOG_DIR = _PROJECT_ROOT / "unstructure_data_meta" / "catalog"
+SOURCE_FILE_DIR = _PROJECT_ROOT / "unstructure_data"
 
 # ---------------------------------------------------------------------------
 # Application lifespan — singleton Dataplex client
@@ -122,6 +125,15 @@ class ContextResponse(BaseModel):
     entry_type: str = ""
     context_raw: str
     context_parsed: Optional[dict | list] = None
+
+
+class FileResponse(BaseModel):
+    """Response for ``GET /api/file``."""
+
+    slug: str
+    title: str = ""
+    source_file_id: str = ""
+    content: str
 
 
 # ---------------------------------------------------------------------------
@@ -236,6 +248,58 @@ async def api_context(
         entry_type=entry_type,
         context_raw=raw_yaml or "",
         context_parsed=parsed,
+    )
+
+
+def _parse_frontmatter(text: str) -> tuple[dict, str]:
+    """Split a markdown file into YAML frontmatter dict and body string."""
+    m = re.match(r"^---\s*\n(.*?\n)---\s*\n(.*)", text, re.DOTALL)
+    if not m:
+        return {}, text
+    try:
+        fm = yaml.safe_load(m.group(1)) or {}
+    except Exception:
+        fm = {}
+    return fm, m.group(2)
+
+
+@app.get("/api/file", response_model=FileResponse)
+async def api_file(
+    entry_name: str = Query(..., description="Full Dataplex entry name."),
+):
+    """Return the source document content for a file-type catalog entry.
+
+    Extracts the slug from the entry name, reads the catalog markdown,
+    and returns the document body.  If a matching source file exists in
+    ``unstructure_data/``, that content is returned instead.
+    """
+    slug = entry_name.rstrip("/").rsplit("/", 1)[-1]
+    safe = re.sub(r"[^a-zA-Z0-9_\-]", "", slug)
+    if not safe:
+        raise HTTPException(status_code=400, detail="Invalid entry name")
+
+    catalog_path = CATALOG_DIR / f"{safe}.md"
+    if not catalog_path.is_file():
+        raise HTTPException(status_code=404, detail=f"Catalog entry not found: {safe}")
+
+    raw = catalog_path.read_text(encoding="utf-8")
+    fm, body = _parse_frontmatter(raw)
+    title = fm.get("title", "")
+    source_file_id = fm.get("source_file_id", "")
+
+    content = body
+    if source_file_id:
+        source_path = SOURCE_FILE_DIR / f"{source_file_id}.md"
+        if source_path.is_file():
+            src_raw = source_path.read_text(encoding="utf-8")
+            _, src_body = _parse_frontmatter(src_raw)
+            content = src_body
+
+    return FileResponse(
+        slug=safe,
+        title=title,
+        source_file_id=source_file_id,
+        content=content.strip(),
     )
 
 

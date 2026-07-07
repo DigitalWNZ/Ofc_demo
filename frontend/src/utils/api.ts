@@ -1,4 +1,4 @@
-import type { SearchResponse, ContextResponse } from '../types';
+import type { SearchResponse, ContextResponse, FileResponse } from '../types';
 
 export async function searchCatalog(query: string, limit = 5): Promise<SearchResponse> {
   const res = await fetch('/api/search', {
@@ -13,5 +13,11 @@ export async function searchCatalog(query: string, limit = 5): Promise<SearchRes
 export async function getContext(entryName: string): Promise<ContextResponse> {
   const res = await fetch(`/api/context?entry_name=${encodeURIComponent(entryName)}`);
   if (!res.ok) throw new Error('Context lookup failed');
+  return res.json();
+}
+
+export async function getFileContent(entryName: string): Promise<FileResponse> {
+  const res = await fetch(`/api/file?entry_name=${encodeURIComponent(entryName)}`);
+  if (!res.ok) throw new Error('File not found');
   return res.json();
 }
