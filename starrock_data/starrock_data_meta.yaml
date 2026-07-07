@@ -1,0 +1,249 @@
+# Adjust Payment & Attribution — Data Catalog (table, column nodes)
+
+# ============================================================
+# TABLES
+# ============================================================
+
+- id: table.adjust_callbacks
+  type: table
+  name: Adjust Callbacks
+  table_name: adjust_callbacks
+  description: Raw callback events from Adjust SDK covering installs, sessions, reattributions, and in-app revenue events. Each row is one server-to-server callback.
+  grain: event
+  timestamp_column: created_at
+  primary_keys:
+  - callback_id
+  partitions:
+  - created_at
+  database: starrocks
+  owner: ua_team
+  schema: adjust
+
+- id: table.adjust_revenue_events
+  type: table
+  name: Adjust Revenue Events
+  table_name: adjust_revenue_events
+  description: In-app purchase and ad revenue events reported through Adjust. Used for ROAS calculation, LTV modeling, and campaign-level revenue attribution.
+  grain: event
+  timestamp_column: event_time
+  primary_keys:
+  - event_id
+  partitions:
+  - event_time
+  database: starrocks
+  owner: ua_team
+  schema: adjust
+
+- id: table.adjust_cost
+  type: table
+  name: Adjust Cost Data
+  table_name: adjust_cost
+  description: Daily campaign cost data synced from Adjust cost aggregation API. Joined with revenue events to compute CPI, CPA, and ROAS per network and campaign.
+  grain: daily
+  timestamp_column: date
+  primary_keys:
+  - date
+  - network
+  - campaign
+  partitions:
+  - date
+  database: starrocks
+  owner: ua_team
+  schema: adjust
+
+- id: table.adjust_retention
+  type: table
+  name: Adjust Retention Cohort
+  table_name: adjust_retention
+  description: Daily retention cohort data from Adjust. Tracks D1 through D30 retention rates per install cohort, broken down by network and campaign. Used to evaluate user quality across acquisition channels.
+  grain: daily
+  timestamp_column: cohort_date
+  primary_keys:
+  - cohort_date
+  - network
+  - campaign
+  partitions:
+  - cohort_date
+  database: starrocks
+  owner: ua_team
+  schema: adjust
+
+# ============================================================
+# COLUMNS
+# ============================================================
+
+# --- adjust_callbacks ---
+
+- id: col.adjust_callbacks.callback_id
+  type: column
+  name: callback_id
+  table: table.adjust_callbacks
+  data_type: STRING
+  description: Unique identifier for the callback event.
+
+- id: col.adjust_callbacks.adid
+  type: column
+  name: adid
+  table: table.adjust_callbacks
+  data_type: STRING
+  description: Adjust device ID used for attribution.
+
+- id: col.adjust_callbacks.activity_kind
+  type: column
+  name: activity_kind
+  table: table.adjust_callbacks
+  data_type: STRING
+  description: Type of activity — install, session, reattribution, or event.
+
+- id: col.adjust_callbacks.network
+  type: column
+  name: network
+  table: table.adjust_callbacks
+  data_type: STRING
+  description: Ad network that drove the activity (e.g. Google Ads, Meta, TikTok).
+
+- id: col.adjust_callbacks.campaign
+  type: column
+  name: campaign
+  table: table.adjust_callbacks
+  data_type: STRING
+  description: Campaign name within the ad network.
+
+- id: col.adjust_callbacks.created_at
+  type: column
+  name: created_at
+  table: table.adjust_callbacks
+  data_type: TIMESTAMP
+  description: Timestamp when the callback was received.
+
+# --- adjust_revenue_events ---
+
+- id: col.adjust_revenue_events.event_id
+  type: column
+  name: event_id
+  table: table.adjust_revenue_events
+  data_type: STRING
+  description: Unique identifier for the revenue event.
+
+- id: col.adjust_revenue_events.adid
+  type: column
+  name: adid
+  table: table.adjust_revenue_events
+  data_type: STRING
+  description: Adjust device ID linking this event to an attributed user.
+
+- id: col.adjust_revenue_events.revenue
+  type: column
+  name: revenue
+  table: table.adjust_revenue_events
+  data_type: DECIMAL
+  description: Revenue amount in the reported currency.
+
+- id: col.adjust_revenue_events.currency
+  type: column
+  name: currency
+  table: table.adjust_revenue_events
+  data_type: STRING
+  description: ISO 4217 currency code for the revenue event.
+
+- id: col.adjust_revenue_events.network
+  type: column
+  name: network
+  table: table.adjust_revenue_events
+  data_type: STRING
+  description: Attributed ad network for this revenue event.
+
+- id: col.adjust_revenue_events.event_time
+  type: column
+  name: event_time
+  table: table.adjust_revenue_events
+  data_type: TIMESTAMP
+  description: Timestamp when the revenue event occurred.
+
+# --- adjust_cost ---
+
+- id: col.adjust_cost.date
+  type: column
+  name: date
+  table: table.adjust_cost
+  data_type: DATE
+  description: Date of the cost record.
+
+- id: col.adjust_cost.network
+  type: column
+  name: network
+  table: table.adjust_cost
+  data_type: STRING
+  description: Ad network name.
+
+- id: col.adjust_cost.campaign
+  type: column
+  name: campaign
+  table: table.adjust_cost
+  data_type: STRING
+  description: Campaign name within the network.
+
+- id: col.adjust_cost.spend
+  type: column
+  name: spend
+  table: table.adjust_cost
+  data_type: DECIMAL
+  description: Total ad spend in USD for this campaign on this date.
+
+- id: col.adjust_cost.installs
+  type: column
+  name: installs
+  table: table.adjust_cost
+  data_type: INTEGER
+  description: Number of installs attributed to this campaign on this date.
+
+# --- adjust_retention ---
+
+- id: col.adjust_retention.cohort_date
+  type: column
+  name: cohort_date
+  table: table.adjust_retention
+  data_type: DATE
+  description: Install date defining the cohort.
+
+- id: col.adjust_retention.network
+  type: column
+  name: network
+  table: table.adjust_retention
+  data_type: STRING
+  description: Ad network the cohort was acquired from.
+
+- id: col.adjust_retention.campaign
+  type: column
+  name: campaign
+  table: table.adjust_retention
+  data_type: STRING
+  description: Campaign name within the network.
+
+- id: col.adjust_retention.cohort_size
+  type: column
+  name: cohort_size
+  table: table.adjust_retention
+  data_type: INTEGER
+  description: Number of installs in this cohort.
+
+- id: col.adjust_retention.d1_rate
+  type: column
+  name: d1_rate
+  table: table.adjust_retention
+  data_type: FLOAT
+  description: Day-1 retention rate (0.0–1.0).
+
+- id: col.adjust_retention.d7_rate
+  type: column
+  name: d7_rate
+  table: table.adjust_retention
+  data_type: FLOAT
+  description: Day-7 retention rate (0.0–1.0).
+
+- id: col.adjust_retention.d30_rate
+  type: column
+  name: d30_rate
+  table: table.adjust_retention
+  data_type: FLOAT
+  description: Day-30 retention rate (0.0–1.0).
