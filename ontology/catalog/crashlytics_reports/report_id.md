@@ -1,0 +1,16 @@
+---
+catalogEntry:
+  aspects:
+    dataplex-types.global.generic:
+      data_type: STRING
+  resource: {}
+description: Unique identifier for the crash or error report. Primary key for deduplication
+  and individual report lookup.
+title: report_id
+type: dataplex-types.global.generic
+---
+# report_id
+
+Unique identifier for the crash or error report. Primary key for deduplication and individual report lookup.
+
+Data type: `STRING`
