@@ -1,5 +1,5 @@
 ---
-type: marketing_review
+type: dataplex-types.global.generic
 title: Demo-游戏AI广告投放6月复盘
 description: 游戏买量进入成熟竞争阶段，获客增长不再只依赖预算扩张，而是更依赖素材效率、定向能力、创意迭代和长线留存质量。公开资料显示，2025 年 AI-enabled
   production 推动游戏广告素材产能提升，头部游戏广告主每季度可生产 2400 至 2600 个素材变体，同比提升 25% 至 30%，但也带来了投放竞争和获客成本压力。
@@ -39,6 +39,10 @@ public_sources:
 - https://www.appsflyer.com/company/newsroom/pr/gaming-marketing/
 - https://pdf.dfcfw.com/pdf/H3_AP202602021819403772_1.pdf
 - https://sensortower.com/blog/state-of-mobile-2026
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-游戏AI广告投放6月复盘

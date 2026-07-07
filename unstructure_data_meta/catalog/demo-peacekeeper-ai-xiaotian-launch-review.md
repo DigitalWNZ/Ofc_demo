@@ -1,5 +1,5 @@
 ---
-type: launch_review
+type: dataplex-types.global.generic
 title: Demo-和平精英AI明星队友小田上线前业务复盘
 description: 《和平精英》近两年持续探索 AI NPC、AI 队友和大模型交互能力。公开资料显示，《和平精英》曾接入 DeepSeek，为数字代言人“吉莉”注入人工智能，并计划推出由策略大模型驱动的
   AI 明星队友“小田”。
@@ -30,6 +30,10 @@ public_sources:
 - https://gp.qq.com/gicp/news/736/18793217.html
 - https://www.news.cn/tech/20260529/ea67a3b2d56340e9a8fdddf9f38877df/c.html
 - https://gp.qq.com/gicp/news/736/18578244.html
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-和平精英AI明星队友小田上线前业务复盘

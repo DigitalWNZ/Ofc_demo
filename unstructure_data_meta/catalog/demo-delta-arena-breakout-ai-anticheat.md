@@ -1,5 +1,5 @@
 ---
-type: incident_review
+type: dataplex-types.global.generic
 title: Demo-三角洲行动与暗区突围AI反作弊专项复盘
 description: 搜打撤和硬核射击玩法具备高风险、高收益的局内经济系统。作弊行为不仅影响胜负，还会直接破坏玩家资产安全感和长期信任。
 resource: https://docs.qq.com/doc/DWU9wT2RxSVRoemZS
@@ -27,6 +27,10 @@ public_sources:
 - https://www.tencentcloud.com/dynamic/news-details/101021
 - https://www.pingwest.com/a/312151
 - https://www.tencentcloud.com/products/ace
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-三角洲行动与暗区突围AI反作弊专项复盘

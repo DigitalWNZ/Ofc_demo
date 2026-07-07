@@ -1,5 +1,5 @@
 ---
-type: ab_test_summary
+type: dataplex-types.global.generic
 title: Demo-AI生成广告素材A-B实验总结
 description: AI 生成素材正在改变游戏广告投放方式。公开资料显示，AI-enabled production 推动游戏广告素材规模快速增长，但素材规模增长也带来同质化、审核压力和投放成本上升问题。
 resource: https://docs.qq.com/doc/DWURVem52eXpwY0xy
@@ -37,6 +37,10 @@ relations:
 public_sources:
 - https://www.appsflyer.com/company/newsroom/pr/gaming-marketing/
 - https://pdf.dfcfw.com/pdf/H3_AP202602021819403772_1.pdf
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-AI生成广告素材A-B实验总结

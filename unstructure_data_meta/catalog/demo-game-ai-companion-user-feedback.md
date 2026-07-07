@@ -1,5 +1,5 @@
 ---
-type: user_research
+type: dataplex-types.global.generic
 title: Demo-游戏AI陪伴用户反馈专题分析
 description: 随着《和平精英》AI NPC、《王者荣耀》灵宝 AI 陪伴等能力持续推进，游戏 AI 的定位正在从“功能助手”延伸到“情感陪伴”和“长期关系”。这类能力不只影响玩法效率，也会改变玩家对游戏角色、活动和社区内容的感知。
 resource: https://docs.qq.com/doc/DWUtyVnJRcUFZbnFp
@@ -31,6 +31,10 @@ public_sources:
 - https://www.news.cn/tech/20260529/ea67a3b2d56340e9a8fdddf9f38877df/c.html
 - https://gp.qq.com/gicp/news/736/18793217.html
 - https://www.csdn.net/article/2026-05-28/161479101
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-游戏AI陪伴用户反馈专题分析

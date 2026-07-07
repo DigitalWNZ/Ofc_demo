@@ -1,5 +1,5 @@
 ---
-type: meeting_notes
+type: dataplex-types.global.generic
 title: Demo-腾讯游戏买量渠道与素材策略周会纪要
 description: 手游市场从高速增量阶段进入成熟竞争阶段。公开资料显示，2025 年中国手游市场规模继续增长，但增长逻辑从用户规模扩张转向品质、体验和精细化运营。Sensor
   Tower 也指出，2025 年游戏收入继续增长，但下载量下降，市场从规模转向效率。
@@ -31,6 +31,10 @@ public_sources:
 - https://sensortower.com/blog/state-of-mobile-2026
 - https://pdf.dfcfw.com/pdf/H3_AP202604241821576014_1.pdf
 - https://file.tencentads.com/files/pdf/2023/9/ed1cbb71ead242eab464c639f06e7f52.pdf
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-腾讯游戏买量渠道与素材策略周会纪要

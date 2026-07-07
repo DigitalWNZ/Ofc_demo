@@ -1,5 +1,5 @@
 ---
-type: weekly_report
+type: dataplex-types.global.generic
 title: Demo-腾讯游戏AI能力6月运营周报
 description: 本周围绕游戏 AI 能力的产品化落地，重点关注四类方向：
 resource: https://docs.qq.com/doc/DWU5SU01SVENjaHVu
@@ -40,6 +40,10 @@ public_sources:
 - https://www.news.cn/tech/20260529/ea67a3b2d56340e9a8fdddf9f38877df/c.html
 - https://tencentarena.com/aiarena/zh/
 - https://www.tencentcloud.com/dynamic/news-details/101021
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-腾讯游戏AI能力6月运营周报

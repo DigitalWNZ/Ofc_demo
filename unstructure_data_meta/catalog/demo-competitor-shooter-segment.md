@@ -1,5 +1,5 @@
 ---
-type: competitor_analysis
+type: dataplex-types.global.generic
 title: Demo-竞品分析-射击赛道三角洲行动和平精英无畏契约对比
 description: 射击赛道正在从单一玩法竞争转向多模式、多端互通、长线运营和公平安全能力竞争。公开研报指出，《三角洲行动》在一定程度上满足长青游戏前提，具备经典
   IP、玩法改良和运营迭代优势。
@@ -38,6 +38,10 @@ public_sources:
 - https://pdf.dfcfw.com/pdf/H301_AP202509191746686844_1.pdf
 - https://www.tencentcloud.com/dynamic/news-details/101021
 - https://www.stcn.com/article/detail/3570799.html
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-竞品分析-射击赛道三角洲行动和平精英无畏契约对比

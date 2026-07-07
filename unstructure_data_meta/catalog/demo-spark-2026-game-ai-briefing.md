@@ -1,5 +1,5 @@
 ---
-type: executive_briefing
+type: dataplex-types.global.generic
 title: Demo-SPARK2026游戏AI发布会复盘与知识沉淀
 description: 2026 年 5 月，腾讯游戏 SPARK 2026 发布会公布多款游戏和 AI 能力进展。公开资料显示，本次发布会共发布 40 多款游戏动态，并重点呈现
   AI 与传统文化数字化两类方向。
@@ -36,6 +36,10 @@ public_sources:
 - https://www.tencent.com/zh-cn/articles/2202340.html
 - https://www.news.cn/tech/20260529/ea67a3b2d56340e9a8fdddf9f38877df/c.html
 - https://finance.sina.com.cn/china/gncj/2026-05-28/doc-inhzmpqp1092261.shtml
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-SPARK2026游戏AI发布会复盘与知识沉淀

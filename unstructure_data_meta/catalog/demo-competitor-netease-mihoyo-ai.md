@@ -1,5 +1,5 @@
 ---
-type: competitor_analysis
+type: dataplex-types.global.generic
 title: Demo-竞品分析-网易与米哈游AI能力对比
 description: 游戏行业 AI 应用已经从研发提效走向产品体验、内容生产、NPC 互动和运营工具。腾讯、网易、米哈游等厂商都在探索 AI 如何服务游戏体验和生产效率。
 resource: https://docs.qq.com/doc/DWUtGVWVGV1JpS1J0
@@ -35,6 +35,10 @@ public_sources:
 - https://www.wsj.com/business/earnings/netease-net-profit-falls-despite-higher-revenue-c4dd82fa
 - https://www.youxituoluo.com/533153.html
 - https://www.tencent.com/zh-cn/articles/2202340.html
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-竞品分析-网易与米哈游AI能力对比

@@ -1,5 +1,5 @@
 ---
-type: strategy_analysis
+type: dataplex-types.global.generic
 title: Demo-竞品分析-长青游戏与新品突围策略
 description: 中国手游市场进入成熟竞争阶段，增长逻辑从高速扩张转向品质、体验和精细化运营。公开资料显示，2025 年中国手游市场规模达 2693.4 亿元，同比增长
   6.7%，用户规模长期稳定在 7.2 至 7.3 亿区间。Sensor Tower 也指出，游戏市场从规模转向效率，收入增长但下载量下降。
@@ -36,6 +36,10 @@ public_sources:
 - https://sensortower.com/blog/state-of-mobile-2026
 - https://m.jiemian.com/article/13848445.html
 - https://www.stcn.com/article/detail/3570799.html
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-竞品分析-长青游戏与新品突围策略

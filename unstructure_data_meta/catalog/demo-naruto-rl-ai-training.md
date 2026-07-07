@@ -1,5 +1,5 @@
 ---
-type: technical_review
+type: dataplex-types.global.generic
 title: Demo-火影忍者手游强化学习AI陪练技术复盘
 description: 格斗游戏对 AI 的要求高于普通 NPC：AI 需要理解连招、替身、走位、技能前后摇、博弈节奏和角色差异。公开资料显示，腾讯游戏曾在 GDC
   介绍《火影忍者手游》大规模强化学习相关优化，并将强化学习能力用于格斗游戏 AI 训练。
@@ -29,6 +29,10 @@ public_sources:
 - https://www.tencent.com/zh-hk/articles/2201793.html
 - https://m.jiemian.com/article/11012806.html
 - https://hub.baai.ac.cn/view/36175
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-火影忍者手游强化学习AI陪练技术复盘

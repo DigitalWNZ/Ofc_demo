@@ -1,5 +1,5 @@
 ---
-type: competitor_analysis
+type: dataplex-types.global.generic
 title: Demo-竞品分析-UGC与派对赛道蛋仔派对和平精英绿洲启元对比
 description: UGC 和派对玩法的核心竞争不只在单局玩法，而在内容供给、创作者生态、分发效率和社区传播。《蛋仔派对》通过 UGC 工坊和社交传播建立了强内容生态；《和平精英》绿洲启元则尝试把战术竞技产品的用户规模与
   AI 创作助手结合，降低玩家创作门槛。
@@ -32,6 +32,10 @@ public_sources:
 - https://www.tencent.com/zh-cn/articles/2202340.html
 - https://www.cnjjwb.com/news-show-182199.html
 - https://www.youxituoluo.com/533153.html
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-竞品分析-UGC与派对赛道蛋仔派对和平精英绿洲启元对比

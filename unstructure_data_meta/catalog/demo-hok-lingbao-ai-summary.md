@@ -1,5 +1,5 @@
 ---
-type: project_summary
+type: dataplex-types.global.generic
 title: Demo-王者荣耀灵宝AI陪伴与赛事AI解说专项总结
 description: 《王者荣耀》长期在多智能体强化学习、竞技陪练和赛事内容方面探索 AI 应用。腾讯开悟平台依托《王者荣耀》测试环境，为研究者开放多智能体强化学习相关资源。公开资料显示，SPARK
   2026 发布会中，《王者荣耀》未来灵宝将实现局内外全天候沉浸式陪伴，支持对局互动聊天；AI 技术也已融入赛事，AI 解说已经上线。
@@ -30,6 +30,10 @@ public_sources:
 - https://tencentarena.com/aiarena/zh/
 - https://www.tencent.com/zh-cn/articles/2202340.html
 - https://www.csdn.net/article/2026-05-28/161479101
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-王者荣耀灵宝AI陪伴与赛事AI解说专项总结

@@ -1,5 +1,5 @@
 ---
-type: retention_review
+type: dataplex-types.global.generic
 title: Demo-新手留存与AI陪练策略复盘
 description: 新手阶段是竞技类游戏流失风险最高的阶段之一。玩家需要同时理解操作、地图、角色、装备、匹配和对局目标。AI 陪练、AI Bot、AI 队友和
   AI 解说都可以作为新手体验的辅助能力。
@@ -34,6 +34,10 @@ public_sources:
 - https://tencentarena.com/aiarena/zh/
 - https://gp.qq.com/gicp/news/736/18793217.html
 - https://www.tencent.com/zh-hk/articles/2201793.html
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-新手留存与AI陪练策略复盘

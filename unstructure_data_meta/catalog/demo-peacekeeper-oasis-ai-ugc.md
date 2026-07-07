@@ -1,5 +1,5 @@
 ---
-type: effect_analysis
+type: dataplex-types.global.generic
 title: Demo-和平精英绿洲启元AI创作助手效果分析
 description: 绿洲启元是《和平精英》的 UGC 创作生态。公开资料显示，绿洲启元版块已实装 UGC 全链路 AI 创作助手，从场景生成到玩法配置，可通过自然语言降低创作门槛，公开报道中提到“仅需
   15 分钟便能交付玩家创意”。
@@ -32,6 +32,10 @@ public_sources:
 - https://www.tencent.com/zh-cn/articles/2202340.html
 - https://www.news.cn/tech/20260529/ea67a3b2d56340e9a8fdddf9f38877df/c.html
 - https://www.cnjjwb.com/news-show-182199.html
+catalogEntry:
+  resource: {}
+  aspects:
+    dataplex-types.global.generic: {}
 ---
 
 # Demo-和平精英绿洲启元AI创作助手效果分析
