@@ -69,14 +69,14 @@ public_sources:
 ## Related Concepts
 
 - [Source Tencent Doc](https://docs.qq.com/doc/DWVF2d3p5YndjZHJw) — `source`
-- [ai-companion](/references/concepts/ai-companion.md) — `discusses`
-- [ai-anti-cheat](/references/concepts/ai-anti-cheat.md) — `discusses`
-- [ai-ugc-creation](/references/concepts/ai-ugc-creation.md) — `discusses`
-- [new-user-retention](/references/concepts/new-user-retention.md) — `discusses`
-- [ad-creative](/references/concepts/ad-creative.md) — `discusses`
-- [competitor-analysis](/references/concepts/competitor-analysis.md) — `discusses`
-- [peacekeeper-elite](/references/products/peacekeeper-elite.md) — `references`
-- [delta-force](/references/products/delta-force.md) — `references`
+- [ai-companion](/unstructure_data/concepts/ai-companion.md) — `discusses`
+- [ai-anti-cheat](/unstructure_data/concepts/ai-anti-cheat.md) — `discusses`
+- [ai-ugc-creation](/unstructure_data/concepts/ai-ugc-creation.md) — `discusses`
+- [new-user-retention](/unstructure_data/concepts/new-user-retention.md) — `discusses`
+- [ad-creative](/unstructure_data/concepts/ad-creative.md) — `discusses`
+- [competitor-analysis](/unstructure_data/concepts/competitor-analysis.md) — `discusses`
+- [peacekeeper-elite](/unstructure_data/products/peacekeeper-elite.md) — `references`
+- [delta-force](/unstructure_data/products/delta-force.md) — `references`
 
 ## Citations
 

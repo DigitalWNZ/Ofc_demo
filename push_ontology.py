@@ -8,7 +8,7 @@ from google.cloud import dataplex_v1
 PROJECT_ID = os.environ.get("GCP_PROJECT", "leon-demo-486305")
 LOCATION = os.environ.get("GCP_LOCATION", "us-central1")
 ENTRY_GROUP = os.environ.get("ENTRY_GROUP", "gaming-ontology")
-ONTOLOGY_PATH = "knowledge_cata/ontology.yaml"
+ONTOLOGY_PATH = "bigquery_data/ontology.yaml"
 
 ENTRY_TYPE = "projects/dataplex-types/locations/global/entryTypes/generic"
 OVERVIEW_ASPECT_TYPE = "dataplex-types.global.overview"

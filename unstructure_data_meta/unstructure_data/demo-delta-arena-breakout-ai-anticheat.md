@@ -58,9 +58,9 @@ public_sources:
 ## Related Concepts
 
 - [Source Tencent Doc](https://docs.qq.com/doc/DWU9wT2RxSVRoemZS) — `source`
-- [ai-anti-cheat](/references/concepts/ai-anti-cheat.md) — `discusses`
-- [delta-force](/references/products/delta-force.md) — `references`
-- [arena-breakout](/references/products/arena-breakout.md) — `references`
+- [ai-anti-cheat](/unstructure_data/concepts/ai-anti-cheat.md) — `discusses`
+- [delta-force](/unstructure_data/products/delta-force.md) — `references`
+- [arena-breakout](/unstructure_data/products/arena-breakout.md) — `references`
 
 ## Citations
 

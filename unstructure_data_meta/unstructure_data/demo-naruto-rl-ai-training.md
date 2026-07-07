@@ -60,10 +60,10 @@ public_sources:
 ## Related Concepts
 
 - [Source Tencent Doc](https://docs.qq.com/doc/DWWJwZ0NEZVFPQ1Z4) — `source`
-- [new-user-retention](/references/concepts/new-user-retention.md) — `discusses`
-- [reinforcement-learning](/references/concepts/reinforcement-learning.md) — `discusses`
-- [honor-of-kings](/references/products/honor-of-kings.md) — `references`
-- [naruto-mobile](/references/products/naruto-mobile.md) — `references`
+- [new-user-retention](/unstructure_data/concepts/new-user-retention.md) — `discusses`
+- [reinforcement-learning](/unstructure_data/concepts/reinforcement-learning.md) — `discusses`
+- [honor-of-kings](/unstructure_data/products/honor-of-kings.md) — `references`
+- [naruto-mobile](/unstructure_data/products/naruto-mobile.md) — `references`
 
 ## Citations
 

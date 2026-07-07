@@ -4,7 +4,7 @@
 import os
 import yaml
 
-ONTOLOGY_PATH = "knowledge_cata/ontology.yaml"
+ONTOLOGY_PATH = "bigquery_data/ontology.yaml"
 CATALOG_DIR = "ontology/catalog"
 
 

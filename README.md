@@ -22,7 +22,7 @@ This will:
 ## Architecture
 
 ```
-knowledge_cata/ontology.yaml          ← 17 gaming tables defined in OKF YAML
+bigquery_data/ontology.yaml          ← 17 gaming tables defined in OKF YAML
         │
         ▼
 ontology/init.sh (kcmd init + push)   ← Converts OKF → Knowledge Catalog entries

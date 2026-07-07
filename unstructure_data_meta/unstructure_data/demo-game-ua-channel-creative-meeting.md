@@ -61,11 +61,11 @@ public_sources:
 ## Related Concepts
 
 - [Source Tencent Doc](https://docs.qq.com/doc/DWWxUVXJEbmxtUVdk) — `source`
-- [ai-companion](/references/concepts/ai-companion.md) — `discusses`
-- [ai-anti-cheat](/references/concepts/ai-anti-cheat.md) — `discusses`
-- [ai-ugc-creation](/references/concepts/ai-ugc-creation.md) — `discusses`
-- [new-user-retention](/references/concepts/new-user-retention.md) — `discusses`
-- [ad-creative](/references/concepts/ad-creative.md) — `discusses`
+- [ai-companion](/unstructure_data/concepts/ai-companion.md) — `discusses`
+- [ai-anti-cheat](/unstructure_data/concepts/ai-anti-cheat.md) — `discusses`
+- [ai-ugc-creation](/unstructure_data/concepts/ai-ugc-creation.md) — `discusses`
+- [new-user-retention](/unstructure_data/concepts/new-user-retention.md) — `discusses`
+- [ad-creative](/unstructure_data/concepts/ad-creative.md) — `discusses`
 
 ## Citations
 

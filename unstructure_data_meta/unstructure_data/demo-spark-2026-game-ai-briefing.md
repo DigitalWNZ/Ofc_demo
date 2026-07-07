@@ -63,13 +63,13 @@ public_sources:
 ## Related Concepts
 
 - [Source Tencent Doc](https://docs.qq.com/doc/DWWxKRnZxa2FrWVBH) — `source`
-- [ai-companion](/references/concepts/ai-companion.md) — `discusses`
-- [ai-anti-cheat](/references/concepts/ai-anti-cheat.md) — `discusses`
-- [ai-ugc-creation](/references/concepts/ai-ugc-creation.md) — `discusses`
-- [new-user-retention](/references/concepts/new-user-retention.md) — `discusses`
-- [reinforcement-learning](/references/concepts/reinforcement-learning.md) — `discusses`
-- [peacekeeper-elite](/references/products/peacekeeper-elite.md) — `references`
-- [honor-of-kings](/references/products/honor-of-kings.md) — `references`
+- [ai-companion](/unstructure_data/concepts/ai-companion.md) — `discusses`
+- [ai-anti-cheat](/unstructure_data/concepts/ai-anti-cheat.md) — `discusses`
+- [ai-ugc-creation](/unstructure_data/concepts/ai-ugc-creation.md) — `discusses`
+- [new-user-retention](/unstructure_data/concepts/new-user-retention.md) — `discusses`
+- [reinforcement-learning](/unstructure_data/concepts/reinforcement-learning.md) — `discusses`
+- [peacekeeper-elite](/unstructure_data/products/peacekeeper-elite.md) — `references`
+- [honor-of-kings](/unstructure_data/products/honor-of-kings.md) — `references`
 
 ## Citations
 

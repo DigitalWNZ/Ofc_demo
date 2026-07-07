@@ -69,15 +69,15 @@ AI 生成素材正在改变游戏广告投放方式。公开资料显示，AI-en
 ## Related Concepts
 
 - [Source Tencent Doc](https://docs.qq.com/doc/DWURVem52eXpwY0xy) — `source`
-- [ai-companion](/references/concepts/ai-companion.md) — `discusses`
-- [ai-anti-cheat](/references/concepts/ai-anti-cheat.md) — `discusses`
-- [ai-ugc-creation](/references/concepts/ai-ugc-creation.md) — `discusses`
-- [new-user-retention](/references/concepts/new-user-retention.md) — `discusses`
-- [ad-creative](/references/concepts/ad-creative.md) — `discusses`
-- [peacekeeper-elite](/references/products/peacekeeper-elite.md) — `references`
-- [honor-of-kings](/references/products/honor-of-kings.md) — `references`
-- [delta-force](/references/products/delta-force.md) — `references`
-- [arena-breakout](/references/products/arena-breakout.md) — `references`
+- [ai-companion](/unstructure_data/concepts/ai-companion.md) — `discusses`
+- [ai-anti-cheat](/unstructure_data/concepts/ai-anti-cheat.md) — `discusses`
+- [ai-ugc-creation](/unstructure_data/concepts/ai-ugc-creation.md) — `discusses`
+- [new-user-retention](/unstructure_data/concepts/new-user-retention.md) — `discusses`
+- [ad-creative](/unstructure_data/concepts/ad-creative.md) — `discusses`
+- [peacekeeper-elite](/unstructure_data/products/peacekeeper-elite.md) — `references`
+- [honor-of-kings](/unstructure_data/products/honor-of-kings.md) — `references`
+- [delta-force](/unstructure_data/products/delta-force.md) — `references`
+- [arena-breakout](/unstructure_data/products/arena-breakout.md) — `references`
 
 ## Citations
 

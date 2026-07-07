@@ -61,10 +61,10 @@ public_sources:
 ## Related Concepts
 
 - [Source Tencent Doc](https://docs.qq.com/doc/DWWJqRWFtanNCTEVm) — `source`
-- [ai-companion](/references/concepts/ai-companion.md) — `discusses`
-- [new-user-retention](/references/concepts/new-user-retention.md) — `discusses`
-- [reinforcement-learning](/references/concepts/reinforcement-learning.md) — `discusses`
-- [honor-of-kings](/references/products/honor-of-kings.md) — `references`
+- [ai-companion](/unstructure_data/concepts/ai-companion.md) — `discusses`
+- [new-user-retention](/unstructure_data/concepts/new-user-retention.md) — `discusses`
+- [reinforcement-learning](/unstructure_data/concepts/reinforcement-learning.md) — `discusses`
+- [honor-of-kings](/unstructure_data/products/honor-of-kings.md) — `references`
 
 ## Citations
 
