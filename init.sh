@@ -36,7 +36,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 sed -i "s|^scope:.*|scope: kb.${PROJECT_ID}.${REGION}.${ENTRY_GROUP}|" "$SCRIPT_DIR/catalog.yaml"
 
 # Initialize and push
-cd "$SCRIPT_DIR"
+cd "$SCRIPT_DIR/bigquery_data_meta"
 "$KCMD" init --kb "${PROJECT_ID}.${REGION}.${ENTRY_GROUP}"
 "$KCMD" push
 

@@ -46,7 +46,7 @@ fi
 KCMD="$KCMD_DIR/toolbox/mdcode/dist/kcmd"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-sed -i "s|^scope:.*|scope: kb.${PROJECT_ID}.${REGION}.${ENTRY_GROUP}|" "$SCRIPT_DIR/bigquery_data_meta/catalog.yaml"
+sed -i "s|^scope:.*|scope: kb.${PROJECT_ID}.${REGION}.${ENTRY_GROUP}|" "$SCRIPT_DIR/catalog.yaml"
 
 cd "$SCRIPT_DIR/bigquery_data_meta"
 "$KCMD" init --kb "${PROJECT_ID}.${REGION}.${ENTRY_GROUP}"
