@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BOOLEAN
+    dataplex-types.global.generic: {}
   resource: {}
 description: Flag indicating whether the result reached statistical significance (p_value
   < 0.05 and sufficient sample size). Used for automated experiment graduation decisions.

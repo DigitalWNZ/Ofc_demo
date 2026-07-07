@@ -1,0 +1,4 @@
+scope: kb.gpu-launchpad-playground.us-central1.okf_demo
+snapshot:
+  entries:
+    - dataplex-types.global.generic

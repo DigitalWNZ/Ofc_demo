@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The country dimension for geographic revenue segmentation and regional
   performance tracking.

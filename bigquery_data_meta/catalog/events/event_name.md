@@ -1,9 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
-      entity: entity.event
+    dataplex-types.global.generic: {}
   resource: {}
 description: The name of the event (e.g., level_start, level_end, ad_impression, in_app_purchase).
   Joins to dim_events for category and description lookups.

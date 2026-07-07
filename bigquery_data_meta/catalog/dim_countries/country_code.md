@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: ISO 3166-1 alpha-2 country code (e.g., US, JP, BR). The primary key joining
   to event and aggregation tables.

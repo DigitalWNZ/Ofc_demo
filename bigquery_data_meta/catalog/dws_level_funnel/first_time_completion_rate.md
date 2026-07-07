@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The percentage of players who completed this level on their first attempt.
   A more stringent measure of level accessibility than overall completion rate.

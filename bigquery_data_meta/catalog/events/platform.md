@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The platform on which the event was recorded (e.g., ANDROID, IOS, WEB).
   Used for platform-level segmentation and performance comparison.

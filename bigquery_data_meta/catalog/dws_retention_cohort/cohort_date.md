@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The install (first_open) date defining the cohort, formatted as YYYYMMDD.
   Partition key for cohort-based retention lookups.

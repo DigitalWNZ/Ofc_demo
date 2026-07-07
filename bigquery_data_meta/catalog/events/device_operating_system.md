@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The operating system of the device (e.g., Android, iOS). Combined with
   os_version for detailed platform compatibility analysis.

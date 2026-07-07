@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The average revenue generated per player in this variant during the experiment
   window. A key metric for monetization experiments.

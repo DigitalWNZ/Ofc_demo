@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DECIMAL
+    dataplex-types.global.generic: {}
   resource: {}
 description: Revenue amount in the reported currency.
 title: revenue

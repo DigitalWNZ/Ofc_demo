@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The developer-assigned user ID, set via the setUserId API. May be null
   if the player has not signed in or the app does not set this property.

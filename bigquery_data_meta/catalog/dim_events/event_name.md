@@ -1,9 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
-      entity: entity.event
+    dataplex-types.global.generic: {}
   resource: {}
 description: The canonical event name, serving as the primary key. Joins to events.event_name
   for enrichment.

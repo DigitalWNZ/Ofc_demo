@@ -1,9 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: INT
-      entity: entity.level
+    dataplex-types.global.generic: {}
   resource: {}
 description: The highest game level the player has reached. Indicates progression
   depth and content consumption stage.

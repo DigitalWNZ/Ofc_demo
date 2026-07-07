@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The percentage of DAU who made at least one purchase. A key monetization
   health metric, typically expressed as a decimal (e.g., 0.03 = 3%).

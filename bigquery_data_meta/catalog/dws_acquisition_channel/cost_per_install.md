@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: Cost per install (CPI) — cost_usd divided by installs. The primary efficiency
   metric for user acquisition budget management.

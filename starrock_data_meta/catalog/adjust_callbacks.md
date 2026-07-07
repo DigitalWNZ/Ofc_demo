@@ -1,17 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: starrocks
-      grain: event
-      owner: ua_team
-      partitions:
-      - created_at
-      primary_keys:
-      - callback_id
-      schema: adjust
-      table_name: adjust_callbacks
-      timestamp_column: created_at
+    dataplex-types.global.generic: {}
   resource: {}
 description: Raw callback events from Adjust SDK covering installs, sessions, reattributions,
   and in-app revenue events. Each row is one server-to-server callback.

@@ -1,16 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: experiment_variant
-      owner: analytics_team
-      primary_keys:
-      - experiment_id
-      - variant
-      schema: floodit_analytics
-      table_name: ads_ab_test_results
-      timestamp_column: start_date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Aggregated outcomes of Firebase A/B Testing and Remote Config experiments.
   Contains statistical significance metrics including p-values, sample sizes, conversion

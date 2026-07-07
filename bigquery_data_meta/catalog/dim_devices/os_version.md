@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The OS version string (e.g., 14.0, 13). Used for minimum OS version support
   decisions and version-specific bug tracking.

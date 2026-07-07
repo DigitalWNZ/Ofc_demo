@@ -5,9 +5,9 @@ import os
 import yaml
 from google.cloud import dataplex_v1
 
-PROJECT_ID = os.environ.get("GCP_PROJECT", "leon-demo-486305")
+PROJECT_ID = os.environ.get("GCP_PROJECT", "gpu-launchpad-playground")
 LOCATION = os.environ.get("GCP_LOCATION", "us-central1")
-ENTRY_GROUP = os.environ.get("ENTRY_GROUP", "gaming-catalog")
+ENTRY_GROUP = os.environ.get("ENTRY_GROUP", "okf_demo")
 ONTOLOGY_PATH = "bigquery_data/bigquery_data_meta.yaml"
 
 ENTRY_TYPE = "projects/dataplex-types/locations/global/entryTypes/generic"
@@ -113,7 +113,7 @@ def main():
             ),
             GENERIC_ASPECT_TYPE: dataplex_v1.Aspect(
                 aspect_type=GENERIC_ASPECT_TYPE_FULL,
-                data={"type": "table", "system": "bigquery"},
+                data={},
             ),
         }
 
@@ -165,7 +165,7 @@ def main():
             ),
             GENERIC_ASPECT_TYPE: dataplex_v1.Aspect(
                 aspect_type=GENERIC_ASPECT_TYPE_FULL,
-                data={"type": "column", "system": "bigquery"},
+                data={},
             ),
         }
 

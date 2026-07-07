@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The engagement level label (e.g., highly_engaged, moderately_engaged,
   lightly_engaged, dormant). Based on session frequency and depth signals.

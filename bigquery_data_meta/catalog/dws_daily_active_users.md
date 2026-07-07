@@ -1,19 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: daily_dimension
-      owner: analytics_team
-      partitions:
-      - date
-      primary_keys:
-      - date
-      - platform
-      - country
-      schema: floodit_analytics
-      table_name: dws_daily_active_users
-      timestamp_column: date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Daily active user metrics aggregation. Pre-computed DAU, WAU, and MAU
   broken down by platform, country, and user type. The primary source for player engagement

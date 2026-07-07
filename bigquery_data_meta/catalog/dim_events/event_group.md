@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: A higher-level grouping for events (e.g., core_loop, ftue, store, social).
   Enables aggregate analysis across related event types.

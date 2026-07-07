@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BIGINT
+    dataplex-types.global.generic: {}
   resource: {}
 description: The total number of times this level was started (including retries)
   on this date. The top of the level completion funnel.

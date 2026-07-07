@@ -1,19 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: starrocks
-      grain: daily
-      owner: ua_team
-      partitions:
-      - date
-      primary_keys:
-      - date
-      - network
-      - campaign
-      schema: adjust
-      table_name: adjust_cost
-      timestamp_column: date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Daily campaign cost data synced from Adjust cost aggregation API. Joined
   with revenue events to compute CPI, CPA, and ROAS per network and campaign.

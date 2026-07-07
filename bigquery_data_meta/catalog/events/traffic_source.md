@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The traffic source that originally acquired the player (e.g., google,
   facebook, organic). Used for first-touch attribution and acquisition channel analysis.

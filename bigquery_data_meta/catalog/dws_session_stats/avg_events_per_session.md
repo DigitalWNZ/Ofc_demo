@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The average number of events triggered per session. A proxy for session
   depth and interaction richness.

@@ -1,15 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: snapshot
-      owner: analytics_team
-      primary_keys:
-      - item_id
-      schema: floodit_analytics
-      table_name: dim_items
-      timestamp_column: null
+    dataplex-types.global.generic: {}
   resource: {}
 description: Master data for all virtual goods, currency packs, and purchasable items
   in the game. Contains pricing, categorization, rarity, and consumability attributes.

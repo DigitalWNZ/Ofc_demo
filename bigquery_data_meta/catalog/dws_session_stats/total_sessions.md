@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BIGINT
+    dataplex-types.global.generic: {}
   resource: {}
 description: The total number of sessions recorded on this date for this platform
   and country combination.

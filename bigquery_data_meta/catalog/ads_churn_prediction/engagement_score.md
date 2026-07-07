@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: A composite engagement score (0.0 to 1.0) combining session frequency,
   duration, and depth. Used as a feature in the churn model and for player health

@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The player's cumulative in-app purchase spending in USD up to the prediction_date.
   A key input feature to the LTV model.

@@ -1,18 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: player_snapshot
-      owner: analytics_team
-      partitions:
-      - prediction_date
-      primary_keys:
-      - user_pseudo_id
-      - prediction_date
-      schema: floodit_analytics
-      table_name: ads_player_ltv
-      timestamp_column: prediction_date
+    dataplex-types.global.generic: {}
   resource: {}
 description: ML-generated player lifetime value predictions combining historical spending
   behavior with engagement signals. Provides per-player LTV estimates, confidence

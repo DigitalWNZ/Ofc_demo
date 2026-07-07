@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: Human-readable title of the crash issue, typically the exception class
   and top-of-stack method. Used for quick triage and prioritization.

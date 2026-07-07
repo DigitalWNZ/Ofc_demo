@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The date of the snapshot in YYYYMMDD format. Partition key enabling point-in-time
   lookups of player properties.

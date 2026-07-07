@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: INT
+    dataplex-types.global.generic: {}
   resource: {}
 description: The number of days since the player's first_open event. Provides lifecycle
   stage context for the segmentation.

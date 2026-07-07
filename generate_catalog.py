@@ -26,7 +26,7 @@ def table_to_md(table: dict, columns: list[dict]) -> str:
         "catalogEntry": {
             "resource": {},
             "aspects": {
-                "dataplex-types.global.generic": meta,
+                "dataplex-types.global.generic": {},
             },
         },
     }
@@ -64,7 +64,7 @@ def column_to_md(col: dict) -> str:
         "catalogEntry": {
             "resource": {},
             "aspects": {
-                "dataplex-types.global.generic": meta,
+                "dataplex-types.global.generic": {},
             },
         },
     }

@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The display name of the item as shown to players in the in-game store
   (e.g., "Gem Pack 500", "Premium Pass").

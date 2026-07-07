@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: Sum of all revenue streams (IAP + ads + subscriptions) in USD. The headline
   revenue metric for executive reporting.

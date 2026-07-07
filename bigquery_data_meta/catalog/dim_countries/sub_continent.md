@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The sub-continental grouping (e.g., Northern America, Eastern Asia, Southern
   Europe). A mid-level geographic hierarchy.

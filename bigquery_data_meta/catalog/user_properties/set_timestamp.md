@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BIGINT
+    dataplex-types.global.generic: {}
   resource: {}
 description: Unix timestamp in microseconds when this property value was last set.
   Used to determine the recency of player attribute data.

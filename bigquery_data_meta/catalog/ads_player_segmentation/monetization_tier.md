@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The monetization-based tier (e.g., whale, dolphin, minnow, non_payer).
   Categorizes players by their spending behavior for targeted offers.

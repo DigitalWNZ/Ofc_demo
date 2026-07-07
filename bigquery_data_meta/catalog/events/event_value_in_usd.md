@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The monetary value associated with the event, converted to US dollars.
   Populated for purchase and ad revenue events; null for non-monetization events.

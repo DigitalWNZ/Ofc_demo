@@ -1,18 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: snapshot
-      owner: analytics_team
-      partitions:
-      - snapshot_date
-      primary_keys:
-      - user_pseudo_id
-      - property_name
-      schema: floodit_analytics
-      table_name: user_properties
-      timestamp_column: snapshot_date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Player properties snapshot table extracted from the GA4 user_properties
   repeated field. Stores the latest set of player attributes such as first_open_time,

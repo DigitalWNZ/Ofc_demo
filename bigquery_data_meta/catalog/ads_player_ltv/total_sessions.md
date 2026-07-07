@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BIGINT
+    dataplex-types.global.generic: {}
   resource: {}
 description: The player's cumulative session count up to the prediction_date. An engagement
   signal used as an input feature to the LTV model.

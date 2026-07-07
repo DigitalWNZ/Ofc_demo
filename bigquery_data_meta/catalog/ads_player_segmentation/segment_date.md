@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The date this segmentation was computed, in YYYYMMDD format. Partition
   key enabling historical segment migration analysis.

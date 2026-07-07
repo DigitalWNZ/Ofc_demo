@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BIGINT
+    dataplex-types.global.generic: {}
   resource: {}
 description: The number of first-time players whose first_open event occurred on this
   date. A key growth and acquisition metric.

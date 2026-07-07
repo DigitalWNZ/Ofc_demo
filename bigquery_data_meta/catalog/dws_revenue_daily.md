@@ -1,19 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: daily_dimension
-      owner: analytics_team
-      partitions:
-      - date
-      primary_keys:
-      - date
-      - platform
-      - country
-      schema: floodit_analytics
-      table_name: dws_revenue_daily
-      timestamp_column: date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Daily revenue aggregation across all monetization channels. Combines
   in-app purchase (IAP) revenue, advertising revenue, and subscription revenue into

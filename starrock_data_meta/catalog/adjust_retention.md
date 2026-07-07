@@ -1,19 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: starrocks
-      grain: daily
-      owner: ua_team
-      partitions:
-      - cohort_date
-      primary_keys:
-      - cohort_date
-      - network
-      - campaign
-      schema: adjust
-      table_name: adjust_retention
-      timestamp_column: cohort_date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Daily retention cohort data from Adjust. Tracks D1 through D30 retention
   rates per install cohort, broken down by network and campaign. Used to evaluate

@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: INTEGER
+    dataplex-types.global.generic: {}
   resource: {}
 description: Number of installs in this cohort.
 title: cohort_size

@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BOOLEAN
+    dataplex-types.global.generic: {}
   resource: {}
 description: Flag indicating whether the device is officially supported by the current
   game version. Unsupported devices may experience degraded performance.

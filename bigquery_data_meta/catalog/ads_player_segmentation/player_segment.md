@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The primary behavioral segment label (e.g., hardcore_grinder, casual_explorer,
   social_player, at_risk_churner). Drives personalization and targeting strategies.

@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The type classification of the item (e.g., virtual_currency, booster,
   skin, bundle). A finer-grained classification than item_category.

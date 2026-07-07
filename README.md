@@ -86,9 +86,9 @@ All settings are configurable via environment variables:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `GCP_PROJECT` | `lufeng-demo` | GCP project ID |
+| `GCP_PROJECT` | `gpu-launchpad-playground` | GCP project ID |
 | `GCP_LOCATION` | `us-central1` | Knowledge Catalog region |
-| `ENTRY_GROUP` | `gaming-catalog` | Knowledge Catalog entry group name |
+| `ENTRY_GROUP` | `okf_demo` | Knowledge Catalog entry group name |
 
 ## Demo Guide
 

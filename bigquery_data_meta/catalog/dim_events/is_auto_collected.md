@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BOOLEAN
+    dataplex-types.global.generic: {}
   resource: {}
 description: Flag indicating whether the event is automatically collected by the Firebase
   SDK (true) or custom-instrumented by the development team (false).

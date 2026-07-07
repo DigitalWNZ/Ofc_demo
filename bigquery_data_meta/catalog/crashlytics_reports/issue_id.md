@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The Crashlytics issue group identifier. Groups individual crash reports
   by root cause for aggregate impact analysis.

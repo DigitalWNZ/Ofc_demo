@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The full English name of the country (e.g., United States, Japan, Brazil).
   Used for display in dashboards and reports.

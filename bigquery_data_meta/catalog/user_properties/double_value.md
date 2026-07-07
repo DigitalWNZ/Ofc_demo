@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The floating-point value of the user property, when the property is decimal-typed.
   Used for properties like lifetime revenue or engagement score.

@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The city where the event was recorded, derived from the player's IP address.
   Provides sub-country geographic granularity for localized analysis.

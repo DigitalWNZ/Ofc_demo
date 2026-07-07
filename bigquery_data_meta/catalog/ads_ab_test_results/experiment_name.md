@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The human-readable name of the experiment (e.g., "New Tutorial Flow v2",
   "Holiday Sale Banner"). Used for display in experiment dashboards.

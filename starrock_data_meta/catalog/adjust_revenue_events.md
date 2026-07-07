@@ -1,17 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: starrocks
-      grain: event
-      owner: ua_team
-      partitions:
-      - event_time
-      primary_keys:
-      - event_id
-      schema: adjust
-      table_name: adjust_revenue_events
-      timestamp_column: event_time
+    dataplex-types.global.generic: {}
   resource: {}
 description: In-app purchase and ad revenue events reported through Adjust. Used for
   ROAS calculation, LTV modeling, and campaign-level revenue attribution.

@@ -1,18 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: player_snapshot
-      owner: analytics_team
-      partitions:
-      - prediction_date
-      primary_keys:
-      - user_pseudo_id
-      - prediction_date
-      schema: floodit_analytics
-      table_name: ads_churn_prediction
-      timestamp_column: prediction_date
+    dataplex-types.global.generic: {}
   resource: {}
 description: ML model output scoring each player's likelihood of churning within the
   next 7 days. Includes risk tiers, engagement scores, win-back likelihood, and recommended

@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The estimated probability (0.0 to 1.0) that a targeted retention intervention
   will successfully bring this player back. Used to prioritize intervention spend.

@@ -1,19 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: daily_channel
-      owner: analytics_team
-      partitions:
-      - date
-      primary_keys:
-      - date
-      - source
-      - medium
-      schema: floodit_analytics
-      table_name: dws_acquisition_channel
-      timestamp_column: date
+    dataplex-types.global.generic: {}
   resource: {}
 description: User acquisition channel performance metrics aggregated daily. Tracks
   installs, costs, revenue, and ROI by acquisition source, medium, and campaign. Used

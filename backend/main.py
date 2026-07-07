@@ -35,7 +35,7 @@ from search_catalog import (  # noqa: E402
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-DEFAULT_PROJECT = os.environ.get("GCP_PROJECT", "lufeng-demo")
+DEFAULT_PROJECT = os.environ.get("GCP_PROJECT", "gpu-launchpad-playground")
 FRONTEND_DIST = _PROJECT_ROOT / "frontend" / "dist"
 
 # ---------------------------------------------------------------------------

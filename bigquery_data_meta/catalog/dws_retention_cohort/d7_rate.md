@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: Day-7 retention rate — d7_retained divided by cohort_size. A key mid-term
   engagement indicator and industry benchmark.

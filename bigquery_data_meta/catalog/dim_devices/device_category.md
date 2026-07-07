@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The form factor category of the device (e.g., mobile, tablet, desktop).
   Influences UI/UX optimization priorities.

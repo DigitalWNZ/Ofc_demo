@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The primary conversion rate for this variant, expressed as a decimal.
   The definition of "conversion" is experiment-specific (e.g., purchase, level completion).

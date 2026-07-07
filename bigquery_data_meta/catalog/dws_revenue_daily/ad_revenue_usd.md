@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: Total advertising revenue in USD, aggregated from rewarded video, interstitial,
   and banner ad impressions.

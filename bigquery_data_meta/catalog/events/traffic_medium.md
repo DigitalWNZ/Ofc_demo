@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The medium of the traffic source (e.g., cpc, organic, referral). Combined
   with traffic_source for complete acquisition channel attribution.

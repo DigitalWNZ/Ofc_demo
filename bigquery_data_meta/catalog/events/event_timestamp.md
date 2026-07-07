@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BIGINT
+    dataplex-types.global.generic: {}
   resource: {}
 description: Unix timestamp in microseconds when the event was logged on the client
   device. Primary ordering key for event sequencing.

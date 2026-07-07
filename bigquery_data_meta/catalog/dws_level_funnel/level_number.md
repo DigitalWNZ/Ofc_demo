@@ -1,9 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: INT
-      entity: entity.level
+    dataplex-types.global.generic: {}
   resource: {}
 description: The numeric identifier of the game level. Links to game design data for
   difficulty and content analysis.

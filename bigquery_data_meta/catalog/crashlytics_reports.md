@@ -1,17 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: event
-      owner: analytics_team
-      partitions:
-      - event_date
-      primary_keys:
-      - report_id
-      schema: floodit_analytics
-      table_name: crashlytics_reports
-      timestamp_column: event_date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Firebase Crashlytics crash and error reports. Records application crashes,
   non-fatal errors, and ANR (Application Not Responding) events with stack traces

@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DATE
+    dataplex-types.global.generic: {}
   resource: {}
 description: Install date defining the cohort.
 title: cohort_date

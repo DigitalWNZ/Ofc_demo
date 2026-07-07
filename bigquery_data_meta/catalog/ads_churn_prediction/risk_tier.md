@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The categorical churn risk tier (e.g., low, medium, high, critical).
   Derived from churn_probability thresholds for use in retention campaign targeting.

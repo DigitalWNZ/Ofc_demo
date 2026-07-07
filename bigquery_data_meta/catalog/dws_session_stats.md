@@ -1,19 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: daily_dimension
-      owner: analytics_team
-      partitions:
-      - date
-      primary_keys:
-      - date
-      - platform
-      - country
-      schema: floodit_analytics
-      table_name: dws_session_stats
-      timestamp_column: date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Player session statistics aggregated daily by platform and country. Includes
   session counts, duration distributions, depth metrics, and engagement patterns.

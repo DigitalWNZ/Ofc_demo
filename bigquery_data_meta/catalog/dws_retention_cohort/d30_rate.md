@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: Day-30 retention rate — d30_retained divided by cohort_size. Measures
   long-term stickiness and is correlated with sustainable revenue.

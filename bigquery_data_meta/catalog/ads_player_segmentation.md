@@ -1,18 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: player_snapshot
-      owner: analytics_team
-      partitions:
-      - segment_date
-      primary_keys:
-      - user_pseudo_id
-      - segment_date
-      schema: floodit_analytics
-      table_name: ads_player_segmentation
-      timestamp_column: segment_date
+    dataplex-types.global.generic: {}
   resource: {}
 description: ML-driven player segmentation combining engagement patterns, monetization
   behavior, and progression signals into actionable player clusters. Assigns each

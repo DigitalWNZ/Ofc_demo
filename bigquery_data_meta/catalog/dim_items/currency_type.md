@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The currency used to purchase this item (e.g., real_money, gems, coins).
   Distinguishes between hard-currency and soft-currency items.

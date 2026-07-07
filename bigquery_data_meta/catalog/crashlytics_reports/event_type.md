@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The type of stability event — crash (fatal application termination),
   non_fatal (handled exception), or anr (Application Not Responding timeout).

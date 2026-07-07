@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The ratio of completions to starts, expressed as a decimal. The primary
   metric for evaluating level difficulty and player success.

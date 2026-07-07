@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The percentage of sessions with only a single event (or shorter than
   a minimum threshold). High bounce rates may indicate onboarding or technical issues.

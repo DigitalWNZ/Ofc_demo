@@ -1,18 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: daily_level
-      owner: analytics_team
-      partitions:
-      - date
-      primary_keys:
-      - date
-      - level_number
-      schema: floodit_analytics
-      table_name: dws_level_funnel
-      timestamp_column: date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Level completion funnel metrics tracking player progression through game
   levels. Captures starts, completions, failures, time spent, and retry patterns for

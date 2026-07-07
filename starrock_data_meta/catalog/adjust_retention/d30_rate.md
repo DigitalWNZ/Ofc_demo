@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: FLOAT
+    dataplex-types.global.generic: {}
   resource: {}
 description: Day-30 retention rate (0.0–1.0).
 title: d30_rate

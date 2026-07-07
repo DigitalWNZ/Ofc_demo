@@ -1,15 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: snapshot
-      owner: analytics_team
-      primary_keys:
-      - event_name
-      schema: floodit_analytics
-      table_name: dim_events
-      timestamp_column: null
+    dataplex-types.global.generic: {}
   resource: {}
 description: Event name dimension table providing business context for raw event data.
   Maps event names to categories, human-readable descriptions, and metadata flags.

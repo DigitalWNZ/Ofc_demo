@@ -1,19 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: event
-      owner: analytics_team
-      partitions:
-      - event_date
-      primary_keys:
-      - event_timestamp
-      - user_pseudo_id
-      - event_name
-      schema: floodit_analytics
-      table_name: events
-      timestamp_column: event_timestamp
+    dataplex-types.global.generic: {}
   resource: {}
 description: The core event-level table exported from Google Analytics for Firebase,
   containing all tracked player interactions in the Flood-It! puzzle game. Sourced

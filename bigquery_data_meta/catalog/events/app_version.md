@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The version of the application at the time the event was logged. Critical
   for tracking feature adoption, crash rates, and performance regressions across releases.

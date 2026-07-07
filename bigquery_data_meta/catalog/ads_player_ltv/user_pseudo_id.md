@@ -1,9 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
-      entity: entity.player
+    dataplex-types.global.generic: {}
   resource: {}
 description: The pseudonymous player identifier for whom the LTV prediction is generated.
 title: user_pseudo_id

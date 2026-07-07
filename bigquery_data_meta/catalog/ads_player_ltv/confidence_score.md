@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The model's confidence in the LTV prediction, expressed as a value between
   0 and 1. Lower scores indicate higher uncertainty, often for new players.

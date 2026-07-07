@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
-PROJECT_ID="${GCP_PROJECT:-lufeng-demo}"
+PROJECT_ID="${GCP_PROJECT:-gpu-launchpad-playground}"
 REGION="${GCP_LOCATION:-us-central1}"
-ENTRY_GROUP="${ENTRY_GROUP:-gaming-catalog}"
+ENTRY_GROUP="${ENTRY_GROUP:-okf_demo}"
 
 echo "=== OKF Catalog Ingestion ==="
 echo "Project:     $PROJECT_ID"
@@ -35,9 +35,21 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 sed -i "s|^scope:.*|scope: kb.${PROJECT_ID}.${REGION}.${ENTRY_GROUP}|" "$SCRIPT_DIR/catalog.yaml"
 
-# Initialize and push
-cd "$SCRIPT_DIR/bigquery_data_meta"
-"$KCMD" init --kb "${PROJECT_ID}.${REGION}.${ENTRY_GROUP}"
-"$KCMD" push
+# Initialize and push each catalog directory
+for catalog_dir in bigquery_data_meta starrock_data_meta unstructure_data_meta; do
+  echo ""
+  echo "--- Pushing $catalog_dir ---"
+  cd "$SCRIPT_DIR/$catalog_dir"
 
+  # Create catalog.yaml if missing, otherwise update scope
+  if [ ! -f catalog.yaml ]; then
+    "$KCMD" init --kb "${PROJECT_ID}.${REGION}.${ENTRY_GROUP}"
+  else
+    sed -i "s|^scope:.*|scope: kb.${PROJECT_ID}.${REGION}.${ENTRY_GROUP}|" catalog.yaml
+  fi
+
+  "$KCMD" push
+done
+
+echo ""
 echo "Catalog ingestion complete."

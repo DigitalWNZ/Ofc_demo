@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The manufacturer or brand of the device (e.g., Google, Samsung, Apple).
   Used for brand-level performance segmentation.

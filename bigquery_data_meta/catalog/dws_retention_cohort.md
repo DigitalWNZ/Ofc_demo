@@ -1,19 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: cohort_day
-      owner: analytics_team
-      partitions:
-      - cohort_date
-      primary_keys:
-      - cohort_date
-      - platform
-      - country
-      schema: floodit_analytics
-      table_name: dws_retention_cohort
-      timestamp_column: cohort_date
+    dataplex-types.global.generic: {}
   resource: {}
 description: Player retention cohort analysis with pre-computed retention rates by
   install cohort. Tracks D1 through D30 retention broken down by platform and country.

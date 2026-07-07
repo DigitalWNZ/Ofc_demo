@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The brand of the mobile device (e.g., Samsung, Google, Apple). Used for
   device-level performance analysis and hardware compatibility tracking.

@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The model's predicted total lifetime value for this player in USD, covering
   all future monetization from IAP, ads, and subscriptions.

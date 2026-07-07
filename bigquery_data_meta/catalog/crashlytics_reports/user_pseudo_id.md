@@ -1,9 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
-      entity: entity.player
+    dataplex-types.global.generic: {}
   resource: {}
 description: The pseudonymous player identifier, linking crash reports to player profiles
   and engagement data for impact assessment.

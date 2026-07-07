@@ -1,15 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: snapshot
-      owner: analytics_team
-      primary_keys:
-      - country_code
-      schema: floodit_analytics
-      table_name: dim_countries
-      timestamp_column: null
+    dataplex-types.global.generic: {}
   resource: {}
 description: Country and region dimension table providing geographic reference data
   for player segmentation and regional analysis. Includes hierarchical geography (country,

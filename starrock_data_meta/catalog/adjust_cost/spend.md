@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DECIMAL
+    dataplex-types.global.generic: {}
   resource: {}
 description: Total ad spend in USD for this campaign on this date.
 title: spend

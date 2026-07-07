@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: BOOLEAN
+    dataplex-types.global.generic: {}
   resource: {}
 description: Whether the item is consumed upon use (true) or permanently owned (false).
   Consumable items drive repeat purchases and recurring revenue.

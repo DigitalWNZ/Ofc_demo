@@ -3,7 +3,7 @@ set -euo pipefail
 
 PROJECT_ID="${1:?Usage: ./setup.sh PROJECT_ID [REGION]}"
 REGION="${2:-us-central1}"
-ENTRY_GROUP="gaming-catalog"
+ENTRY_GROUP="okf_demo"
 SERVICE_NAME="okf-gaming-demo"
 
 echo "============================================"
@@ -34,24 +34,13 @@ else
   echo "  Already exists: $ENTRY_GROUP"
 fi
 
-# ─── Step 3: Build kcmd and ingest catalog ───
-echo "[3/5] Ingesting gaming catalog into Knowledge Catalog..."
-KCMD_DIR="/tmp/knowledge-catalog"
-if [ ! -d "$KCMD_DIR" ]; then
-  git clone --depth 1 https://github.com/GoogleCloudPlatform/knowledge-catalog "$KCMD_DIR"
-  cd "$KCMD_DIR/toolbox/mdcode"
-  npm install && npm run build
-  cd -
-fi
-KCMD="$KCMD_DIR/toolbox/mdcode/dist/kcmd"
-
+# ─── Step 3: Ingest catalogs ───
+echo "[3/5] Ingesting catalogs into Knowledge Catalog..."
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-sed -i "s|^scope:.*|scope: kb.${PROJECT_ID}.${REGION}.${ENTRY_GROUP}|" "$SCRIPT_DIR/catalog.yaml"
-
-cd "$SCRIPT_DIR/bigquery_data_meta"
-"$KCMD" init --kb "${PROJECT_ID}.${REGION}.${ENTRY_GROUP}"
-"$KCMD" push
-cd "$SCRIPT_DIR"
+export GCP_PROJECT="$PROJECT_ID"
+export GCP_LOCATION="$REGION"
+export ENTRY_GROUP="$ENTRY_GROUP"
+"$SCRIPT_DIR/init.sh"
 
 # ─── Step 4: Deploy to Cloud Run ───
 echo "[4/5] Building and deploying to Cloud Run..."

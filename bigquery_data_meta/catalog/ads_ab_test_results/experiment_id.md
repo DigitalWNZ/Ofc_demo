@@ -1,9 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
-      entity: entity.experiment
+    dataplex-types.global.generic: {}
   resource: {}
 description: The unique identifier for the A/B test experiment. Part of the composite
   primary key and used for joining to experiment metadata.

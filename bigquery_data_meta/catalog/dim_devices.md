@@ -1,16 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      database: bigquery
-      grain: snapshot
-      owner: analytics_team
-      primary_keys:
-      - device_model
-      - operating_system
-      schema: floodit_analytics
-      table_name: dim_devices
-      timestamp_column: null
+    dataplex-types.global.generic: {}
   resource: {}
 description: Device dimension table containing reference data for device models, brands,
   and operating systems. Used for device-level performance analysis, compatibility

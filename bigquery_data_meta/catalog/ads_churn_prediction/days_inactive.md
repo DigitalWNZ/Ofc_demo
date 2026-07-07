@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: INT
+    dataplex-types.global.generic: {}
   resource: {}
 description: The number of consecutive days the player has been inactive as of the
   prediction_date. A strong behavioral predictor of churn.

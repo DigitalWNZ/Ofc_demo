@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: The country where the event was recorded, derived from the player's IP
   address. Joins to dim_countries for regional hierarchy and tier classification.

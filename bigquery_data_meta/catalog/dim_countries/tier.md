@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: STRING
+    dataplex-types.global.generic: {}
   resource: {}
 description: Market tier classification (e.g., T1, T2, T3) based on purchasing power
   and ad market maturity. Drives regional monetization strategy and CPI benchmarks.

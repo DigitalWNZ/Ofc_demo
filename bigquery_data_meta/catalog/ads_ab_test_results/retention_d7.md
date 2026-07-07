@@ -1,8 +1,7 @@
 ---
 catalogEntry:
   aspects:
-    dataplex-types.global.generic:
-      data_type: DOUBLE
+    dataplex-types.global.generic: {}
   resource: {}
 description: The day-7 retention rate for players in this variant. Used to evaluate
   whether the experiment positively or negatively impacts player retention.
