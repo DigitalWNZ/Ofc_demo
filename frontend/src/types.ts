@@ -4,6 +4,8 @@ export interface SearchResult {
   entry_type: string;
   description: string;
   system: string;
+  kind: string;
+  labels: Record<string, string>;
   resource_path: string;
   fully_qualified_name: string;
   parent: string;

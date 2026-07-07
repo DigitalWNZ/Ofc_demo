@@ -279,6 +279,49 @@ input {
   white-space: nowrap;
 }
 
+.label-chip {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 2px 8px;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+/* System chips */
+.system-bigquery {
+  color: #1a73e8;
+  background: #e8f0fe;
+}
+
+.system-starrocks {
+  color: #e37400;
+  background: #fef3e0;
+}
+
+.system-unstructured {
+  color: #7b1fa2;
+  background: #f3e5f5;
+}
+
+/* Kind chips */
+.kind-table {
+  color: #0d652d;
+  background: #e6f4ea;
+}
+
+.kind-column {
+  color: #555;
+  background: #f1f1f1;
+}
+
+.kind-file {
+  color: #b06000;
+  background: #fff3e0;
+}
+
 /* Row 2: description */
 .result-item-description {
   font-size: 13px;

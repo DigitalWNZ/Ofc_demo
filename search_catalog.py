@@ -89,6 +89,7 @@ def search_entries(
             info["description"] = entry.entry_source.description or ""
             info["system"] = entry.entry_source.system or ""
             info["resource"] = entry.entry_source.resource or ""
+            info["labels"] = dict(entry.entry_source.labels) if entry.entry_source.labels else {}
         entries.append(info)
         if len(entries) >= limit:
             break
@@ -171,6 +172,8 @@ def print_search_results(entries: list[dict], mode: str) -> None:
             print(f"      System:      {e['system']}")
         if e["resource"]:
             print(f"      Resource:    {e['resource']}")
+        if e.get("labels"):
+            print(f"      Labels:      {e['labels']}")
         if e["fqn"]:
             print(f"      FQN:         {e['fqn']}")
         if e["parent"]:

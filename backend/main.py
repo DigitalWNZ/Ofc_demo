@@ -96,6 +96,14 @@ class SearchRequest(BaseModel):
         le=1000,
         description="Max results to return (1–1000).",
     )
+    project: Optional[str] = Field(
+        default=None,
+        description="GCP project ID to scope the search to. Defaults to server-configured project.",
+    )
+    location: Optional[str] = Field(
+        default=None,
+        description="GCP location to scope the search to (e.g. 'us-central1').",
+    )
 
 
 class SearchResponse(BaseModel):
@@ -144,22 +152,32 @@ async def api_search(body: SearchRequest):
     """
     client = _require_client()
     try:
+        project = body.project or DEFAULT_PROJECT
+        scope = None
+        if body.location:
+            scope = f"projects/{project}/locations/{body.location}"
+        elif body.project:
+            scope = f"projects/{project}"
         raw_results = search_entries(
             client=client,
-            project=DEFAULT_PROJECT,
+            project=project,
             query=body.query,
             semantic=True,
             limit=body.limit,
+            scope=scope,
         )
         # Map field names from search_catalog.py → frontend expected shape.
         results = []
         for r in raw_results:
+            labels = r.get("labels", {})
             results.append({
                 "entry_name": r.get("name", ""),
                 "display_name": r.get("display_name", ""),
                 "entry_type": r.get("entry_type", ""),
                 "description": r.get("description", ""),
-                "system": r.get("system", ""),
+                "system": labels.get("system", r.get("system", "")),
+                "kind": labels.get("kind", ""),
+                "labels": labels,
                 "resource_path": r.get("resource", ""),
                 "fully_qualified_name": r.get("fqn", ""),
                 "parent": r.get("parent", ""),

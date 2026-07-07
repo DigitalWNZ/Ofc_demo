@@ -148,7 +148,7 @@ export default function App() {
                 Discover and understand your game data assets with natural language search
               </p>
               <p className="hero-stats">
-                17 tables &middot; 4 data layers &middot; Powered by Knowledge Catalog
+                3 data sources &middot; 298 entries &middot; Powered by Knowledge Catalog
               </p>
               <div className="suggestion-chips">
                 {suggestedQueries.map((sq) => (

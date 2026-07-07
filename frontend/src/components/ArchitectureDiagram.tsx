@@ -1,16 +1,28 @@
 export default function ArchitectureDiagram() {
-  const boxW = 340;
-  const boxH = 170;
-  const gap = 40;
   const leftX = 30;
+  const boxW = 340;
+  const gap = 40;
   const rightX = leftX + boxW + gap;
-  const topY = 40;
-  const bottomY = topY + boxH + 60;
+
+  // Three source boxes
+  const srcH = 72;
+  const srcGap = 14;
+  const src1Y = 52;
+  const src2Y = src1Y + srcH + srcGap;
+  const src3Y = src2Y + srcH + srcGap;
+  const sourcesEndY = src3Y + srcH;
+
+  // OKF box spans all three sources
+  const okfH = sourcesEndY - src1Y;
+
+  // Bottom section
+  const bottomY = sourcesEndY + 70;
+  const bottomBoxH = 170;
 
   return (
     <div className="arch-diagram-wrapper">
       <h3 className="arch-diagram-title">整体架构</h3>
-      <svg viewBox="0 0 780 520" className="arch-diagram-svg" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 780 580" className="arch-diagram-svg" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
             <path d="M0,0 L8,3 L0,6" fill="#94a3b8" />
@@ -27,66 +39,70 @@ export default function ArchitectureDiagram() {
           </linearGradient>
         </defs>
 
-        {/* ===== TOP LEFT: ① 数据仓库 ===== */}
-        <rect x={leftX} y={topY} width={boxW} height={boxH} rx="12" fill="#eff6ff" stroke="#93c5fd" strokeWidth="1.5" />
-        <text x={leftX + boxW / 2} y={topY + 24} textAnchor="middle" fill="#1e40af" fontSize="13" fontWeight="600" fontFamily="Google Sans, sans-serif">① 游戏数据仓库</text>
-        <text x={leftX + boxW / 2} y={topY + 40} textAnchor="middle" fill="#3b82f6" fontSize="10" fontFamily="Roboto, sans-serif">Flood-It! 益智游戏</text>
+        {/* ===== Section header: ① 数据源 ===== */}
+        <text x={leftX + boxW / 2} y={38} textAnchor="middle" fill="#374151" fontSize="13" fontWeight="600" fontFamily="Google Sans, sans-serif">① 数据源</text>
 
-        {/* 4 data layers */}
-        <rect x={leftX + 15} y={topY + 52} width="150" height="48" rx="6" fill="#fef3c7" stroke="#f59e0b" strokeWidth="1" />
-        <text x={leftX + 90} y={topY + 70} textAnchor="middle" fill="#92400e" fontSize="10" fontWeight="500" fontFamily="Google Sans, sans-serif">原始事件层</text>
-        <text x={leftX + 90} y={topY + 84} textAnchor="middle" fill="#b45309" fontSize="9" fontFamily="Roboto, sans-serif">events, user_properties</text>
+        {/* ===== Source 1: BigQuery (blue) ===== */}
+        <rect x={leftX} y={src1Y} width={boxW} height={srcH} rx="10" fill="#eff6ff" stroke="#93c5fd" strokeWidth="1.5" />
+        <circle cx={leftX + 18} cy={src1Y + srcH / 2} r="6" fill="#3b82f6" />
+        <text x={leftX + 32} y={src1Y + 22} fill="#1e40af" fontSize="12" fontWeight="600" fontFamily="Google Sans, sans-serif">BigQuery · GA4 游戏分析</text>
+        <text x={leftX + 32} y={src1Y + 40} fill="#3b82f6" fontSize="10" fontFamily="Roboto, sans-serif">17 张表 · 168 个字段</text>
+        <text x={leftX + 32} y={src1Y + 56} fill="#60a5fa" fontSize="9" fontFamily="Roboto, sans-serif">事件、留存、收入、LTV、A/B 测试</text>
 
-        <rect x={leftX + 175} y={topY + 52} width="150" height="48" rx="6" fill="#dbeafe" stroke="#3b82f6" strokeWidth="1" />
-        <text x={leftX + 250} y={topY + 70} textAnchor="middle" fill="#1e40af" fontSize="10" fontWeight="500" fontFamily="Google Sans, sans-serif">聚合指标层</text>
-        <text x={leftX + 250} y={topY + 84} textAnchor="middle" fill="#2563eb" fontSize="9" fontFamily="Roboto, sans-serif">DAU, 收入, 留存, 漏斗</text>
+        {/* ===== Source 2: StarRocks (orange) ===== */}
+        <rect x={leftX} y={src2Y} width={boxW} height={srcH} rx="10" fill="#fff7ed" stroke="#fdba74" strokeWidth="1.5" />
+        <circle cx={leftX + 18} cy={src2Y + srcH / 2} r="6" fill="#f59e0b" />
+        <text x={leftX + 32} y={src2Y + 22} fill="#92400e" fontSize="12" fontWeight="600" fontFamily="Google Sans, sans-serif">StarRocks · 支付归因</text>
+        <text x={leftX + 32} y={src2Y + 40} fill="#d97706" fontSize="10" fontFamily="Roboto, sans-serif">4 张表 · 24 个字段</text>
+        <text x={leftX + 32} y={src2Y + 56} fill="#fbbf24" fontSize="9" fontFamily="Roboto, sans-serif">Adjust 回调、收入、成本、留存队列</text>
 
-        <rect x={leftX + 15} y={topY + 108} width="150" height="48" rx="6" fill="#f3e8ff" stroke="#a855f7" strokeWidth="1" />
-        <text x={leftX + 90} y={topY + 126} textAnchor="middle" fill="#6b21a8" fontSize="10" fontWeight="500" fontFamily="Google Sans, sans-serif">维度表</text>
-        <text x={leftX + 90} y={topY + 140} textAnchor="middle" fill="#7c3aed" fontSize="9" fontFamily="Roboto, sans-serif">事件, 国家, 设备, 道具</text>
+        {/* ===== Source 3: Unstructured (purple) ===== */}
+        <rect x={leftX} y={src3Y} width={boxW} height={srcH} rx="10" fill="#faf5ff" stroke="#d8b4fe" strokeWidth="1.5" />
+        <circle cx={leftX + 18} cy={src3Y + srcH / 2} r="6" fill="#a855f7" />
+        <text x={leftX + 32} y={src3Y + 22} fill="#6b21a8" fontSize="12" fontWeight="600" fontFamily="Google Sans, sans-serif">非结构化文档</text>
+        <text x={leftX + 32} y={src3Y + 40} fill="#7c3aed" fontSize="10" fontFamily="Roboto, sans-serif">16 篇业务文档</text>
+        <text x={leftX + 32} y={src3Y + 56} fill="#a78bfa" fontSize="9" fontFamily="Roboto, sans-serif">竞品分析、AI 能力评估、投放复盘</text>
 
-        <rect x={leftX + 175} y={topY + 108} width="150" height="48" rx="6" fill="#fce7f3" stroke="#ec4899" strokeWidth="1" />
-        <text x={leftX + 250} y={topY + 126} textAnchor="middle" fill="#9d174d" fontSize="10" fontWeight="500" fontFamily="Google Sans, sans-serif">ML 应用层</text>
-        <text x={leftX + 250} y={topY + 140} textAnchor="middle" fill="#be185d" fontSize="9" fontFamily="Roboto, sans-serif">LTV, 流失预测, A/B 测试</text>
+        {/* Arrows: each source → OKF */}
+        <line x1={leftX + boxW} y1={src1Y + srcH / 2} x2={rightX} y2={src1Y + srcH / 2} stroke="#f59e0b" strokeWidth="2" markerEnd="url(#arrow-amber)" />
+        <line x1={leftX + boxW} y1={src2Y + srcH / 2} x2={rightX} y2={src2Y + srcH / 2} stroke="#f59e0b" strokeWidth="2" markerEnd="url(#arrow-amber)" />
+        <line x1={leftX + boxW} y1={src3Y + srcH / 2} x2={rightX} y2={src3Y + srcH / 2} stroke="#f59e0b" strokeWidth="2" markerEnd="url(#arrow-amber)" />
 
-        {/* Arrow: ① → ② */}
-        <line x1={leftX + boxW} y1={topY + boxH / 2} x2={rightX} y2={topY + boxH / 2} stroke="#f59e0b" strokeWidth="2" markerEnd="url(#arrow-amber)" />
+        {/* ===== ② OKF 上下文抽取 ===== */}
+        <rect x={rightX} y={src1Y} width={boxW} height={okfH} rx="12" fill="#fefce8" stroke="#facc15" strokeWidth="1.5" />
+        <text x={rightX + boxW / 2} y={src1Y + 22} textAnchor="middle" fill="#854d0e" fontSize="13" fontWeight="600" fontFamily="Google Sans, sans-serif">② OKF 上下文抽取</text>
+        <text x={rightX + boxW / 2} y={src1Y + 38} textAnchor="middle" fill="#a16207" fontSize="10" fontFamily="Roboto, sans-serif">Open Knowledge Format · Markdown + YAML</text>
 
-        {/* ===== TOP RIGHT: ② OKF ===== */}
-        <rect x={rightX} y={topY} width={boxW} height={boxH} rx="12" fill="#fefce8" stroke="#facc15" strokeWidth="1.5" />
-        <text x={rightX + boxW / 2} y={topY + 24} textAnchor="middle" fill="#854d0e" fontSize="13" fontWeight="600" fontFamily="Google Sans, sans-serif">② OKF 上下文抽取</text>
-        <text x={rightX + boxW / 2} y={topY + 40} textAnchor="middle" fill="#a16207" fontSize="10" fontFamily="Roboto, sans-serif">Open Knowledge Format · bigquery_data_meta.yaml</text>
+        {/* Three catalog entries inside OKF box */}
+        <g transform={`translate(${rightX + 15}, ${src1Y + 50})`}>
+          <rect x="0" y="0" width="310" height="40" rx="6" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />
+          <circle cx="14" cy="20" r="5" fill="#3b82f6" />
+          <text x="28" y="15" fill="#1e40af" fontSize="10" fontWeight="500" fontFamily="Google Sans, sans-serif">bigquery_data_meta</text>
+          <text x="28" y="31" fill="#78350f" fontSize="9" fontFamily="Roboto, sans-serif">表/字段语义、数据分层、技术元数据</text>
 
-        <g transform={`translate(${rightX + 15}, ${topY + 50})`}>
-          <rect x="0" y="0" width="310" height="22" rx="4" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />
-          <circle cx="12" cy="11" r="4" fill="#f59e0b" />
-          <text x="24" y="15" fill="#78350f" fontSize="10" fontFamily="Roboto, sans-serif">表描述 — 业务含义、用途、数据来源说明</text>
+          <rect x="0" y="48" width="310" height="40" rx="6" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />
+          <circle cx="14" cy="68" r="5" fill="#f59e0b" />
+          <text x="28" y="63" fill="#92400e" fontSize="10" fontWeight="500" fontFamily="Google Sans, sans-serif">starrock_data_meta</text>
+          <text x="28" y="79" fill="#78350f" fontSize="9" fontFamily="Roboto, sans-serif">支付/归因表结构与字段定义</text>
 
-          <rect x="0" y="26" width="310" height="22" rx="4" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />
-          <circle cx="12" cy="37" r="4" fill="#8b5cf6" />
-          <text x="24" y="41" fill="#78350f" fontSize="10" fontFamily="Roboto, sans-serif">字段语义 — 168 个字段的业务定义与数据类型</text>
-
-          <rect x="0" y="52" width="310" height="22" rx="4" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />
-          <circle cx="12" cy="63" r="4" fill="#3b82f6" />
-          <text x="24" y="67" fill="#78350f" fontSize="10" fontFamily="Roboto, sans-serif">数据分层 — 原始 → 聚合 → 维度 → ML 应用</text>
-
-          <rect x="0" y="78" width="310" height="22" rx="4" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />
-          <circle cx="12" cy="89" r="4" fill="#10b981" />
-          <text x="24" y="93" fill="#78350f" fontSize="10" fontFamily="Roboto, sans-serif">技术元数据 — 主键、分区、粒度、Owner</text>
+          <rect x="0" y="96" width="310" height="40" rx="6" fill="#fff" stroke="#e5e7eb" strokeWidth="1" />
+          <circle cx="14" cy="116" r="5" fill="#a855f7" />
+          <text x="28" y="111" fill="#6b21a8" fontSize="10" fontWeight="500" fontFamily="Google Sans, sans-serif">unstructure_data_meta</text>
+          <text x="28" y="127" fill="#78350f" fontSize="9" fontFamily="Roboto, sans-serif">业务知识文档摘要与关系标注</text>
         </g>
 
-        <text x={rightX + boxW / 2} y={topY + boxH - 8} textAnchor="middle" fill="#a16207" fontSize="9" fontFamily="Roboto Mono, monospace">YAML 格式 · Git 版本管理</text>
+        <text x={rightX + boxW / 2} y={src1Y + okfH - 10} textAnchor="middle" fill="#a16207" fontSize="9" fontFamily="Roboto Mono, monospace">Git 版本管理 · 标签: system / kind</text>
 
         {/* Arrow: ② straight down to ③ */}
-        <line x1={rightX + boxW / 2} y1={topY + boxH} x2={rightX + boxW / 2} y2={bottomY} stroke="#818cf8" strokeWidth="2" markerEnd="url(#arrow-indigo)" />
-        <text x={rightX + boxW / 2 + 20} y={topY + boxH + 35} fill="#818cf8" fontSize="10" fontWeight="500" fontFamily="Roboto, sans-serif">推送元数据</text>
+        <line x1={rightX + boxW / 2} y1={sourcesEndY} x2={rightX + boxW / 2} y2={bottomY} stroke="#818cf8" strokeWidth="2" markerEnd="url(#arrow-indigo)" />
+        <text x={rightX + boxW / 2 + 20} y={sourcesEndY + 40} fill="#818cf8" fontSize="10" fontWeight="500" fontFamily="Roboto, sans-serif">推送元数据</text>
 
         {/* ===== Google Cloud background ===== */}
-        <rect x={leftX} y={bottomY - 15} width={boxW * 2 + gap} height={boxH + 30} rx="14" fill="url(#gcp-grad)" stroke="#c7d2fe" strokeWidth="1.5" strokeDasharray="6 3" />
+        <rect x={leftX} y={bottomY - 15} width={boxW * 2 + gap} height={bottomBoxH + 30} rx="14" fill="url(#gcp-grad)" stroke="#c7d2fe" strokeWidth="1.5" strokeDasharray="6 3" />
         <text x={leftX + (boxW * 2 + gap) / 2} y={bottomY + 4} textAnchor="middle" fill="#6366f1" fontSize="11" fontWeight="600" fontFamily="Google Sans, sans-serif">Google Cloud Platform</text>
 
         {/* ===== BOTTOM LEFT: ④ Web App ===== */}
-        <rect x={leftX + 10} y={bottomY + 15} width={boxW - 20} height={boxH - 20} rx="10" fill="#f0fdf4" stroke="#86efac" strokeWidth="1.5" />
+        <rect x={leftX + 10} y={bottomY + 15} width={boxW - 20} height={bottomBoxH - 20} rx="10" fill="#f0fdf4" stroke="#86efac" strokeWidth="1.5" />
         <text x={leftX + boxW / 2} y={bottomY + 38} textAnchor="middle" fill="#166534" fontSize="13" fontWeight="600" fontFamily="Google Sans, sans-serif">④ Web 应用展示</text>
         <text x={leftX + boxW / 2} y={bottomY + 54} textAnchor="middle" fill="#15803d" fontSize="10" fontFamily="Roboto, sans-serif">Cloud Run 部署 · 无需登录即可访问</text>
         <line x1={leftX + 28} y1={bottomY + 63} x2={leftX + boxW - 28} y2={bottomY + 63} stroke="#bbf7d0" strokeWidth="1" />
@@ -96,11 +112,11 @@ export default function ArchitectureDiagram() {
         <text x={leftX + 30} y={bottomY + 128} fill="#15803d" fontSize="10" fontFamily="Roboto, sans-serif">• 面向非技术用户的可视化界面</text>
 
         {/* Arrow: ③ → ④ */}
-        <line x1={rightX + 10} y1={bottomY + 15 + (boxH - 20) / 2} x2={leftX + boxW - 10} y2={bottomY + 15 + (boxH - 20) / 2} stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#arrow)" />
-        <text x={leftX + boxW + gap / 2} y={bottomY + 15 + (boxH - 20) / 2 - 8} textAnchor="middle" fill="#94a3b8" fontSize="9" fontFamily="Roboto, sans-serif">Search API</text>
+        <line x1={rightX + 10} y1={bottomY + 15 + (bottomBoxH - 20) / 2} x2={leftX + boxW - 10} y2={bottomY + 15 + (bottomBoxH - 20) / 2} stroke="#94a3b8" strokeWidth="1.5" markerEnd="url(#arrow)" />
+        <text x={leftX + boxW + gap / 2} y={bottomY + 15 + (bottomBoxH - 20) / 2 - 8} textAnchor="middle" fill="#94a3b8" fontSize="9" fontFamily="Roboto, sans-serif">Search API</text>
 
         {/* ===== BOTTOM RIGHT: ③ Knowledge Catalog ===== */}
-        <rect x={rightX + 10} y={bottomY + 15} width={boxW - 20} height={boxH - 20} rx="10" fill="#eef2ff" stroke="#818cf8" strokeWidth="1.5" />
+        <rect x={rightX + 10} y={bottomY + 15} width={boxW - 20} height={bottomBoxH - 20} rx="10" fill="#eef2ff" stroke="#818cf8" strokeWidth="1.5" />
         <text x={rightX + boxW / 2} y={bottomY + 38} textAnchor="middle" fill="#312e81" fontSize="13" fontWeight="600" fontFamily="Google Sans, sans-serif">③ Knowledge Catalog</text>
         <text x={rightX + boxW / 2} y={bottomY + 54} textAnchor="middle" fill="#4338ca" fontSize="10" fontFamily="Roboto, sans-serif">语义搜索引擎</text>
         <line x1={rightX + 28} y1={bottomY + 63} x2={rightX + boxW - 28} y2={bottomY + 63} stroke="#c7d2fe" strokeWidth="1" />

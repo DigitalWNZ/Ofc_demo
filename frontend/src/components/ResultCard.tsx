@@ -26,7 +26,7 @@ export default function ResultItem({ result, onClick }: ResultItemProps) {
         }
       }}
     >
-      {/* Row 1: icon + name + type chip */}
+      {/* Row 1: icon + name + chips */}
       <div className="result-item-header">
         <svg
           className="result-item-icon"
@@ -36,8 +36,11 @@ export default function ResultItem({ result, onClick }: ResultItemProps) {
           <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2zm0 4h18v2H3v-2z" />
         </svg>
         <span className="result-item-name">{getDisplayName(result)}</span>
-        {result.entry_type && (
-          <span className="entry-type-chip">{result.entry_type}</span>
+        {result.system && (
+          <span className={`label-chip system-${result.system}`}>{result.system}</span>
+        )}
+        {result.kind && (
+          <span className={`label-chip kind-${result.kind}`}>{result.kind}</span>
         )}
       </div>
 
@@ -48,14 +51,6 @@ export default function ResultItem({ result, onClick }: ResultItemProps) {
 
       {/* Row 3: metadata */}
       <div className="result-item-meta">
-        {result.system && (
-          <>
-            <span>{result.system}</span>
-            {(result.resource_path || result.fully_qualified_name) && (
-              <span className="result-meta-separator">•</span>
-            )}
-          </>
-        )}
         {result.resource_path && (
           <>
             <span>{result.resource_path}</span>
