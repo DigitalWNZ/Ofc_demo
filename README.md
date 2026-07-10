@@ -7,17 +7,22 @@ Built on the [Firebase public dataset](https://developers.google.com/analytics/b
 ## Quick Start
 
 ```bash
-# One-click deploy (requires gcloud CLI, Node.js 18+, Python 3.10+)
+# Full setup (requires gcloud CLI, Node.js 18+, Python 3.10+)
 chmod +x setup.sh
 ./setup.sh YOUR_PROJECT_ID us-central1
+
+# Deploy to Cloud Run only (skip API setup and catalog ingestion)
+./setup.sh --deploy_only YOUR_PROJECT_ID us-central1
 ```
 
-This will:
+Full setup will:
 1. Enable Knowledge Catalog and Cloud Run APIs
 2. Create a Knowledge Catalog entry group
 3. Ingest all three catalog sources via `kcmd`
 4. Deploy the web app to Cloud Run
 5. Print the demo URL
+
+With `--deploy_only`, only steps 4–5 run.
 
 ## Architecture
 
