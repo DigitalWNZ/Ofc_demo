@@ -1,10 +1,10 @@
 import type { SearchResponse, ContextResponse, FileResponse } from '../types';
 
-export async function searchCatalog(query: string, limit = 5): Promise<SearchResponse> {
+export async function searchCatalog(query: string, limit = 50, semantic = true): Promise<SearchResponse> {
   const res = await fetch('/api/search', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query, limit }),
+    body: JSON.stringify({ query, limit, semantic }),
   });
   if (!res.ok) throw new Error('Search failed');
   return res.json();

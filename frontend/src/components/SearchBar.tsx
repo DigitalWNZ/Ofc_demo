@@ -1,18 +1,19 @@
 import { useState, type FormEvent } from 'react';
 
 interface SearchBarProps {
-  onSearch: (query: string) => void;
+  onSearch: (query: string, semantic: boolean) => void;
   initialQuery?: string;
 }
 
 export default function SearchBar({ onSearch, initialQuery = '' }: SearchBarProps) {
   const [query, setQuery] = useState(initialQuery);
+  const [semantic, setSemantic] = useState(true);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const trimmed = query.trim();
     if (trimmed) {
-      onSearch(trimmed);
+      onSearch(trimmed, semantic);
     }
   };
 
@@ -36,9 +37,25 @@ export default function SearchBar({ onSearch, initialQuery = '' }: SearchBarProp
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search game data assets..."
+          placeholder={semantic ? 'Search game data assets...' : 'e.g. entrygroup="projects/.../entryGroups/okf_demo"'}
           autoFocus
         />
+      </div>
+      <div className="search-mode-toggle">
+        <button
+          type="button"
+          className={`search-mode-btn ${semantic ? 'active' : ''}`}
+          onClick={() => setSemantic(true)}
+        >
+          Semantic
+        </button>
+        <button
+          type="button"
+          className={`search-mode-btn ${!semantic ? 'active' : ''}`}
+          onClick={() => setSemantic(false)}
+        >
+          Syntax
+        </button>
       </div>
     </form>
   );

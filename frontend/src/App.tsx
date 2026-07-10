@@ -36,7 +36,7 @@ export default function App() {
     setError(null);
   }, []);
 
-  const performSearch = useCallback(async (searchQuery: string) => {
+  const performSearch = useCallback(async (searchQuery: string, semantic = true) => {
     setQuery(searchQuery);
     setIsSearching(true);
     setError(null);
@@ -45,7 +45,7 @@ export default function App() {
     setContext(null);
 
     try {
-      const data = await searchCatalog(searchQuery);
+      const data = await searchCatalog(searchQuery, 50, semantic);
       setResults(data.results);
     } catch {
       setError('Search failed. Please try again.');
@@ -55,9 +55,9 @@ export default function App() {
     }
   }, []);
 
-  const handleSearch = useCallback(async (searchQuery: string) => {
+  const handleSearch = useCallback(async (searchQuery: string, semantic = true) => {
     window.history.pushState({ view: 'results', query: searchQuery }, '');
-    performSearch(searchQuery);
+    performSearch(searchQuery, semantic);
   }, [performSearch]);
 
   const handleSelectResult = useCallback(async (result: SearchResult) => {
@@ -148,7 +148,7 @@ export default function App() {
                 Discover and understand your game data assets with natural language search
               </p>
               <p className="hero-stats">
-                3 data sources &middot; 298 entries &middot; Powered by Knowledge Catalog
+                3 data sources &middot; 232 entries &middot; Powered by Knowledge Catalog
               </p>
               <div className="suggestion-chips">
                 {suggestedQueries.map((sq) => (
@@ -185,7 +185,7 @@ export default function App() {
                     </div>
                     <h3 className="demo-info-card-title">数据资产</h3>
                     <p className="demo-info-card-text">
-                      涵盖 <strong>17 张数据表</strong>、<strong>168 个字段</strong>，分为 4 个数据层：原始事件层（GA4/Firebase 打点）、聚合指标层（DAU、收入、留存、漏斗）、维度表、以及 ML 应用层（LTV 预测、流失风险、A/B 实验结果）。
+                      涵盖 <strong>3 个数据源</strong>（BigQuery、StarRocks、非结构化文档），共 <strong>23 张数据表</strong>、<strong>192 个字段</strong>、<strong>17 份文档</strong>。数据层包括：原始事件层、聚合指标层（DAU、收入、留存、漏斗）、维度表、ML 应用层（LTV 预测、流失预测、A/B 实验）、归因与变现分析（Adjust）以及行业研究报告。
                     </p>
                   </div>
 

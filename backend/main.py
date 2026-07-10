@@ -107,6 +107,10 @@ class SearchRequest(BaseModel):
         default=None,
         description="GCP location to scope the search to (e.g. 'us-central1').",
     )
+    semantic: bool = Field(
+        default=True,
+        description="Use semantic (natural language) search. Syntax predicates (e.g. entry_group=X) also work in semantic mode.",
+    )
 
 
 class SearchResponse(BaseModel):
@@ -127,7 +131,7 @@ class ContextResponse(BaseModel):
     context_parsed: Optional[dict | list] = None
 
 
-class FileResponse(BaseModel):
+class FileContentResponse(BaseModel):
     """Response for ``GET /api/file``."""
 
     slug: str
@@ -174,7 +178,7 @@ async def api_search(body: SearchRequest):
             client=client,
             project=project,
             query=body.query,
-            semantic=True,
+            semantic=body.semantic,
             limit=body.limit,
             scope=scope,
         )
@@ -194,7 +198,7 @@ async def api_search(body: SearchRequest):
                 "fully_qualified_name": r.get("fqn", ""),
                 "parent": r.get("parent", ""),
             })
-        return SearchResponse(results=results, total=len(results), mode="semantic")
+        return SearchResponse(results=results, total=len(results), mode="semantic" if body.semantic else "syntax")
     except Exception as exc:
         raise HTTPException(
             status_code=500,
@@ -263,7 +267,7 @@ def _parse_frontmatter(text: str) -> tuple[dict, str]:
     return fm, m.group(2)
 
 
-@app.get("/api/file", response_model=FileResponse)
+@app.get("/api/file", response_model=FileContentResponse)
 async def api_file(
     entry_name: str = Query(..., description="Full Dataplex entry name."),
 ):
@@ -295,7 +299,7 @@ async def api_file(
             _, src_body = _parse_frontmatter(src_raw)
             content = src_body
 
-    return FileResponse(
+    return FileContentResponse(
         slug=safe,
         title=title,
         source_file_id=source_file_id,
